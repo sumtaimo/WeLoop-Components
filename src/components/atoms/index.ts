@@ -8,4 +8,6 @@ export * from "./Divider";
 export * from "./Heading";
 export * from "./Input";
 export * from "./Link";
+export * from "./NotifBadge";
+export * from "./PaymentBadge";
 export * from "./Text";
