@@ -11,6 +11,7 @@ import { DBottomBarDemo } from "./demos/DBottomBarDemo";
 import { AppBarDemo } from "./demos/AppBarDemo";
 import { TitleNavBarDemo } from "./demos/TitleNavBarDemo";
 import { DialogSettingBarDemo } from "./demos/DialogSettingBarDemo";
+import { DashboardCardDemo } from "./demos/DashboardCardDemo";
 
 const NAV: NavItem[] = [
   {
@@ -22,6 +23,12 @@ const NAV: NavItem[] = [
       { id: "link",            label: "Link" },
       { id: "payment-badge",   label: "PaymentBadge" },
       { id: "notif-badge",     label: "NotifBadge" },
+    ],
+  },
+  {
+    section: "Molecules",
+    items: [
+      { id: "dashboard-card", label: "DashboardCard" },
     ],
   },
   {
@@ -43,6 +50,7 @@ const DEMOS: Record<string, React.ReactNode> = {
   "link":            <LinkDemo />,
   "payment-badge":   <PaymentBadgeDemo />,
   "notif-badge":     <NotifBadgeDemo />,
+  "dashboard-card":  <DashboardCardDemo />,
   "dtopbar":         <DTopBarDemo />,
   "dbottombar":      <DBottomBarDemo />,
   "appbar":          <AppBarDemo />,

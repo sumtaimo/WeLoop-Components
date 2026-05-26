@@ -151,7 +151,7 @@ export function Sidebar({ nav, active, onChange }: SidebarProps) {
           color: "#a3a3a3",
         }}
       >
-        11 / more coming
+        12 / more coming
       </div>
     </aside>
   );
