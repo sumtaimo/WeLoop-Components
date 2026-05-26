@@ -3,16 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WeLoop Components</title>
+    <title>WeLoop 2.1 — Component Library</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      body { font-family: Inter, sans-serif; background: #f9fafb; color: #171717; }
+      @keyframes weloop-spin {
+        from { transform: rotate(0deg); }
+        to   { transform: rotate(360deg); }
+      }
+      .wl-spin { animation: weloop-spin 1s linear infinite; }
+    </style>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/demo/main.tsx"></script>
+    <script type="module" src="/showcase/main.tsx"></script>
   </body>
 </html>
