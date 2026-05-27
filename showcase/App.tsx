@@ -31,6 +31,9 @@ import { PaginationDemo } from "./demos/PaginationDemo";
 import { FileUploadDemo } from "./demos/FileUploadDemo";
 import { PopoverDemo }    from "./demos/PopoverDemo";
 import { EmptyStateDemo } from "./demos/EmptyStateDemo";
+import { RadioDemo }        from "./demos/RadioDemo";
+import { ProgressBarDemo }  from "./demos/ProgressBarDemo";
+import { DatePickerDemo }   from "./demos/DatePickerDemo";
 import type { ThemeName, ColorMode } from "../src/tokens";
 
 const NAV: NavItem[] = [
@@ -54,6 +57,8 @@ const NAV: NavItem[] = [
       { id: "snackbar",        label: "Snackbar" },
       { id: "list-item",       label: "ListItem" },
       { id: "inline-tip",      label: "InlineTip" },
+      { id: "radio",           label: "Radio" },
+      { id: "progress-bar",    label: "ProgressBar" },
     ],
   },
   {
@@ -64,6 +69,7 @@ const NAV: NavItem[] = [
       { id: "pagination",    label: "Pagination" },
       { id: "file-upload",   label: "FileUpload" },
       { id: "popover",       label: "Popover" },
+      { id: "date-picker",   label: "DatePicker" },
     ],
   },
   {
@@ -104,6 +110,9 @@ function DemoContent({ id }: { id: string }) {
     "file-upload":     <FileUploadDemo />,
     "popover":         <PopoverDemo />,
     "empty-state":     <EmptyStateDemo />,
+    "radio":           <RadioDemo />,
+    "progress-bar":    <ProgressBarDemo />,
+    "date-picker":     <DatePickerDemo />,
     "banner":          <BannerDemo />,
     "dashboard-card":  <DashboardCardDemo />,
     "datarow":         <DataRowDemo />,
