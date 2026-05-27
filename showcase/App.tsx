@@ -29,6 +29,8 @@ import { ListItemDemo } from "./demos/ListItemDemo";
 import { InlineTipDemo } from "./demos/InlineTipDemo";
 import { PaginationDemo } from "./demos/PaginationDemo";
 import { FileUploadDemo } from "./demos/FileUploadDemo";
+import { PopoverDemo }    from "./demos/PopoverDemo";
+import { EmptyStateDemo } from "./demos/EmptyStateDemo";
 import type { ThemeName, ColorMode } from "../src/tokens";
 
 const NAV: NavItem[] = [
@@ -61,6 +63,7 @@ const NAV: NavItem[] = [
       { id: "dashboard-card", label: "DashboardCard" },
       { id: "pagination",    label: "Pagination" },
       { id: "file-upload",   label: "FileUpload" },
+      { id: "popover",       label: "Popover" },
     ],
   },
   {
@@ -73,6 +76,7 @@ const NAV: NavItem[] = [
       { id: "appbar",            label: "AppBar" },
       { id: "titlenavbar",       label: "TitleNavBar" },
       { id: "dialogsettingbar",  label: "DialogSettingBar" },
+      { id: "empty-state",       label: "EmptyState" },
     ],
   },
 ];
@@ -98,6 +102,8 @@ function DemoContent({ id }: { id: string }) {
     "inline-tip":      <InlineTipDemo />,
     "pagination":      <PaginationDemo />,
     "file-upload":     <FileUploadDemo />,
+    "popover":         <PopoverDemo />,
+    "empty-state":     <EmptyStateDemo />,
     "banner":          <BannerDemo />,
     "dashboard-card":  <DashboardCardDemo />,
     "datarow":         <DataRowDemo />,

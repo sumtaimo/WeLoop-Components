@@ -84,6 +84,12 @@
       .wl-snackbar[data-state="closed"][data-pos^="bottom"] { animation: wl-snackbar-out-down 0.20s ease; }
       .wl-snackbar[data-state="open"][data-pos^="top"]      { animation: wl-snackbar-in-down  0.30s cubic-bezier(0.34,1.26,0.64,1); }
       .wl-snackbar[data-state="closed"][data-pos^="top"]    { animation: wl-snackbar-out-up   0.20s ease; }
+
+      /* ── Popover ─────────────────────────────────────────── */
+      @keyframes wl-popover-show { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+      @keyframes wl-popover-hide { from { opacity: 1; transform: scale(1); }   to { opacity: 0; transform: scale(0.95); } }
+      .wl-popover[data-state="open"]   { animation: wl-popover-show 0.15s cubic-bezier(0.34,1.26,0.64,1); }
+      .wl-popover[data-state="closed"] { animation: wl-popover-hide 0.10s ease; }
     </style>
   </head>
   <body>
