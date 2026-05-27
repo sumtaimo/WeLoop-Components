@@ -13,12 +13,14 @@ import { AppBarDemo } from "./demos/AppBarDemo";
 import { TitleNavBarDemo } from "./demos/TitleNavBarDemo";
 import { DialogSettingBarDemo } from "./demos/DialogSettingBarDemo";
 import { DashboardCardDemo } from "./demos/DashboardCardDemo";
+import { AvatarDemo } from "./demos/AvatarDemo";
 import type { ThemeName, ColorMode } from "../src/tokens";
 
 const NAV: NavItem[] = [
   {
     section: "Atoms",
     items: [
+      { id: "avatar",          label: "Avatar" },
       { id: "button-single",   label: "ButtonSingle" },
       { id: "button-dropdown", label: "ButtonDropdown" },
       { id: "button-segment",  label: "ButtonSegment" },
@@ -47,6 +49,7 @@ const NAV: NavItem[] = [
 
 function DemoContent({ id }: { id: string }) {
   const DEMOS: Record<string, React.ReactNode> = {
+    "avatar":          <AvatarDemo />,
     "button-single":   <ButtonSingleDemo />,
     "button-dropdown": <ButtonDropdownDemo />,
     "button-segment":  <ButtonSegmentDemo />,

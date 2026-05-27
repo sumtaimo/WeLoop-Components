@@ -14,6 +14,16 @@ export interface TokenEntry {
 }
 
 export const COMPONENT_TOKENS: Record<string, TokenEntry[]> = {
+  'avatar': [
+    { category: 'Background', name: 'surface.default (ring types)', value: _ => '#F9FAFB' },
+    { category: 'Background', name: 'surface.disabled (fill types)', value: _ => '#E5E5E5' },
+    { category: 'Border',     name: 'border-selected-onselected',   value: _ => '#9CA3AF' },
+    { category: 'Text',       name: 'text-default-secondary',       value: _ => '#A3A3A3' },
+    { category: 'Radius',     name: 'full (circular)',              value: _ => '9999px', isNumeric: true },
+    { category: 'Size',       name: 'sm',   description: '20×20px', value: _ => '20px', isNumeric: true },
+    { category: 'Size',       name: 'md',   description: '24×24px', value: _ => '24px', isNumeric: true },
+    { category: 'Size',       name: 'lg',   description: '32×32px', value: _ => '32px', isNumeric: true },
+  ],
   'button-single': [
     { category: 'Background', name: 'brand.primary',      cssVar: '--color-bg-brand-primary',    value: t => t.color.bg.brand.primary },
     { category: 'Background', name: 'brand.subtle',       cssVar: '--color-bg-brand-subtle',     value: t => t.color.bg.brand.subtle },

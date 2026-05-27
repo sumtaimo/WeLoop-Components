@@ -1,4 +1,5 @@
 // ─── Atoms ────────────────────────────────────────────────────────────────────
+export * from "./Avatar";
 export * from "./ButtonDropdown";
 export * from "./ButtonSegment";
 export * from "./ButtonSingle";
