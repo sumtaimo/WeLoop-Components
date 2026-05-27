@@ -1,17 +1,27 @@
 {
   "name": "weloop-components",
-  "version": "1.0.0",
-  "description": "WeLoop Design System – React component library",
-  "main": "dist/index.js",
-  "types": "dist/types/index.d.ts",
+  "version": "2.1.0",
+  "description": "WeLoop 2.1 — Figma-verified React component library with multi-brand design token system",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "weloop",
+    "design-system",
+    "react",
+    "typescript",
+    "ui-components",
+    "tokens",
+    "wabooks",
+    "webill365",
+    "wecafe"
+  ],
+  "author": "Products Operations Dept.",
   "license": "ISC",
   "dependencies": {
     "react": "^18.3.1",
