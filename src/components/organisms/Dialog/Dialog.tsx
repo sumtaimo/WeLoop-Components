@@ -136,14 +136,40 @@ function DialogFooter({
   actionLabel = "Confirm",
   onCancel,
   onAction,
+  /** Set true only when rendered inside a RadixDialog.Root (full modal) */
+  radix = false,
 }: {
   cancelLabel?: string;
   actionLabel?: string;
   onCancel?: () => void;
   onAction?: () => void;
+  radix?: boolean;
 }) {
   const [actionHov, setActionHov] = useState(false);
   const [cancelHov, setCancelHov] = useState(false);
+
+  const cancelBtn = (
+    <button
+      onClick={onCancel}
+      onMouseEnter={() => setCancelHov(true)}
+      onMouseLeave={() => setCancelHov(false)}
+      style={{
+        height:       36,
+        padding:      "0 20px",
+        borderRadius: 8,
+        border:       "none",
+        background:   cancelHov ? "#F3F4F6" : "transparent",
+        color:        "#1D32FF",
+        fontFamily:   "Inter, sans-serif",
+        fontSize:     14,
+        fontWeight:   500,
+        cursor:       "pointer",
+        transition:   "background 0.12s",
+      }}
+    >
+      {cancelLabel}
+    </button>
+  );
 
   return (
     <div style={{
@@ -155,29 +181,11 @@ function DialogFooter({
       gap:            12,
       flexShrink:     0,
     }}>
-      {/* Cancel — wraps with Radix Close so it also fires onOpenChange(false) */}
-      <RadixDialog.Close asChild>
-        <button
-          onClick={onCancel}
-          onMouseEnter={() => setCancelHov(true)}
-          onMouseLeave={() => setCancelHov(false)}
-          style={{
-            height:       36,
-            padding:      "0 20px",
-            borderRadius: 8,
-            border:       "none",
-            background:   cancelHov ? "#F3F4F6" : "transparent",
-            color:        "#1D32FF",
-            fontFamily:   "Inter, sans-serif",
-            fontSize:     14,
-            fontWeight:   500,
-            cursor:       "pointer",
-            transition:   "background 0.12s",
-          }}
-        >
-          {cancelLabel}
-        </button>
-      </RadixDialog.Close>
+      {/* Cancel — wraps with Radix Close only when inside a Radix root */}
+      {radix
+        ? <RadixDialog.Close asChild>{cancelBtn}</RadixDialog.Close>
+        : cancelBtn
+      }
 
       {/* Primary action */}
       <button
@@ -209,7 +217,7 @@ function DialogFooter({
 function SimpleBody({ title = "Confirm Action", description = "Are you sure you want to proceed? This action cannot be undone." }: Pick<DialogProps, "title" | "description">) {
   return (
     <div style={{ padding: "28px 24px 24px" }}>
-      <RadixDialog.Title style={{
+      <h2 style={{
         margin:       0,
         fontFamily:   "Inter, sans-serif",
         fontSize:     20,
@@ -219,9 +227,9 @@ function SimpleBody({ title = "Confirm Action", description = "Are you sure you 
         paddingRight: 36,
       }}>
         {title}
-      </RadixDialog.Title>
+      </h2>
       {description && (
-        <RadixDialog.Description style={{
+        <p style={{
           margin:     "10px 0 0",
           fontFamily: "Inter, sans-serif",
           fontSize:   14,
@@ -229,7 +237,7 @@ function SimpleBody({ title = "Confirm Action", description = "Are you sure you 
           lineHeight: "22px",
         }}>
           {description}
-        </RadixDialog.Description>
+        </p>
       )}
     </div>
   );
@@ -244,7 +252,7 @@ function ListBody({
 }: Pick<DialogProps, "title" | "description" | "progressValue" | "progressLabel" | "listItems">) {
   return (
     <div style={{ padding: "28px 24px 24px" }}>
-      <RadixDialog.Title style={{
+      <h2 style={{
         margin:       0,
         fontFamily:   "Inter, sans-serif",
         fontSize:     20,
@@ -254,9 +262,9 @@ function ListBody({
         paddingRight: 36,
       }}>
         {title}
-      </RadixDialog.Title>
+      </h2>
       {description && (
-        <RadixDialog.Description style={{
+        <p style={{
           margin:     "8px 0 0",
           fontFamily: "Inter, sans-serif",
           fontSize:   14,
@@ -264,7 +272,7 @@ function ListBody({
           lineHeight: "22px",
         }}>
           {description}
-        </RadixDialog.Description>
+        </p>
       )}
 
       {/* Progress bar */}
@@ -391,7 +399,7 @@ function FormBody({
         </div>
       </div>
 
-      <RadixDialog.Title style={{
+      <h2 style={{
         margin:       "0 0 8px",
         fontFamily:   "Inter, sans-serif",
         fontSize:     20,
@@ -402,10 +410,10 @@ function FormBody({
         paddingRight: 32,
       }}>
         {title}
-      </RadixDialog.Title>
+      </h2>
 
       {description && (
-        <RadixDialog.Description style={{
+        <p style={{
           margin:     "0 0 24px",
           fontFamily: "Inter, sans-serif",
           fontSize:   14,
@@ -414,7 +422,7 @@ function FormBody({
           textAlign:  "center",
         }}>
           {description}
-        </RadixDialog.Description>
+        </p>
       )}
 
       {/* 2-col inline fields */}
@@ -545,14 +553,6 @@ function ExportBody({
 
   return (
     <div style={{ padding: "24px 24px 20px" }}>
-      {/* Hidden Radix title/description for a11y */}
-      <RadixDialog.Title style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>
-        Export Data
-      </RadixDialog.Title>
-      <RadixDialog.Description style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>
-        Choose a format to export your data.
-      </RadixDialog.Description>
-
       <div style={{ display: "flex", gap: 24 }}>
         {/* Left: format picker */}
         <div style={{ width: 184, flexShrink: 0 }}>
@@ -812,6 +812,7 @@ export function Dialog({
         }}>
           <RadixDialog.Content
             className="wl-dialog-content"
+            aria-label={rest.title ?? "Dialog"}
             onEscapeKeyDown={() => onClose?.()}
             onPointerDownOutside={() => onClose?.()}
             style={{
@@ -829,6 +830,11 @@ export function Dialog({
               pointerEvents:  "all",
             }}
           >
+            {/* Visually-hidden Radix Title satisfies a11y requirement */}
+            <RadixDialog.Title style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap", padding: 0, margin: 0 }}>
+              {rest.title ?? "Dialog"}
+            </RadixDialog.Title>
+
             {/* Radix Close × */}
             <CloseButton />
 
@@ -867,6 +873,7 @@ export function Dialog({
               actionLabel={rest.actionLabel}
               onCancel={onCancel ?? onClose}
               onAction={handleAction}
+              radix={true}
             />
           </RadixDialog.Content>
         </div>
