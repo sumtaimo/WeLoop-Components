@@ -14,6 +14,26 @@ export interface TokenEntry {
 }
 
 export const COMPONENT_TOKENS: Record<string, TokenEntry[]> = {
+  'form-field': [
+    { category: 'Background', name: 'default bg',            value: _ => '#FFFFFF' },
+    { category: 'Background', name: 'disabled bg',           value: _ => '#F5F5F5' },
+    { category: 'Border',     name: 'default',               value: _ => '#D1D5DB' },
+    { category: 'Border',     name: 'focus',                 cssVar: '--color-border-brand', value: t => t.color.border.brand },
+    { category: 'Border',     name: 'error',                 cssVar: '--color-border-danger', value: t => t.color.border.danger },
+    { category: 'Border',     name: 'success',               value: _ => '#22C55E' },
+    { category: 'Border',     name: 'disabled',              value: _ => '#E5E7EB' },
+    { category: 'Shadow',     name: 'focus ring',            value: _ => '0 0 0 3px rgba(29,50,255,0.10)' },
+    { category: 'Shadow',     name: 'error ring',            value: _ => '0 0 0 3px rgba(225,35,46,0.10)' },
+    { category: 'Shadow',     name: 'success ring',          value: _ => '0 0 0 3px rgba(34,197,94,0.10)' },
+    { category: 'Text',       name: 'value',                 value: _ => '#171717' },
+    { category: 'Text',       name: 'placeholder',           value: _ => '#9CA3AF' },
+    { category: 'Text',       name: 'disabled',              value: _ => '#A3A3A3' },
+    { category: 'Text',       name: 'label',                 value: _ => '#171717' },
+    { category: 'Text',       name: 'required asterisk',     cssVar: '--color-text-danger', value: t => t.color.text.danger },
+    { category: 'Radius',     name: 'field',                 description: '8px', value: _ => '8px', isNumeric: true },
+    { category: 'Size',       name: 'height single-line',    description: '36px', value: _ => '36px', isNumeric: true },
+    { category: 'Size',       name: 'height textarea',       description: '72px', value: _ => '72px', isNumeric: true },
+  ],
   'checkbox': [
     { category: 'Background', name: 'checked / indeterminate', cssVar: '--color-bg-brand-primary', value: t => t.color.bg.brand.primary },
     { category: 'Background', name: 'unchecked default',       value: _ => '#FFFFFF' },

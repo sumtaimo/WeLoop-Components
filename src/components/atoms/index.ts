@@ -1,6 +1,7 @@
 // ─── Atoms ────────────────────────────────────────────────────────────────────
 export * from "./Avatar";
 export * from "./Checkbox";
+export * from "./FormField";
 export * from "./ButtonDropdown";
 export * from "./ButtonSegment";
 export * from "./ButtonSingle";
