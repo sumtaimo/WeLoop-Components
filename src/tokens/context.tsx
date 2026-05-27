@@ -4,11 +4,13 @@ import { wabooksLight } from './themes/wabooks-light';
 import { wabooksDark } from './themes/wabooks-dark';
 import { webill365Light } from './themes/webill365-light';
 import { webill365Dark } from './themes/webill365-dark';
+import { wecafeLight } from './themes/wecafe-light';
+import { wecafeDark } from './themes/wecafe-dark';
 
 const themeMap: Record<ThemeName, Record<ColorMode, ThemeTokens>> = {
   wabooks: { light: wabooksLight, dark: wabooksDark },
   webill365: { light: webill365Light, dark: webill365Dark },
-  wecafe: { light: wabooksLight, dark: wabooksDark }, // placeholder until wecafe tokens added
+  wecafe: { light: wecafeLight, dark: wecafeDark },
 };
 
 export function getTheme(name: ThemeName, mode: ColorMode): ThemeTokens {

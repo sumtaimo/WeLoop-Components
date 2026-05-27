@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Sidebar, type NavItem } from "./Sidebar";
 import { TokenPanel } from "./TokenPanel";
 import { ButtonSingleDemo } from "./demos/ButtonSingleDemo";
@@ -63,12 +63,40 @@ function DemoContent({ id }: { id: string }) {
   return <>{DEMOS[id] ?? <p style={{ color: "#a3a3a3" }}>Select a component.</p>}</>;
 }
 
+// Showcase CSS variables keyed by color mode
+const SHOWCASE_VARS: Record<ColorMode, Record<string, string>> = {
+  light: {
+    '--showcase-canvas-bg':    '#F9FAFB',
+    '--showcase-shell-bg':     '#FFFFFF',
+    '--showcase-shell-border': '#E5E5E5',
+    '--showcase-title':        '#171717',
+    '--showcase-text-subtle':  '#737373',
+    '--showcase-label':        '#A3A3A3',
+  },
+  dark: {
+    '--showcase-canvas-bg':    '#111827',
+    '--showcase-shell-bg':     '#1E293B',
+    '--showcase-shell-border': 'rgba(255, 255, 255, 0.08)',
+    '--showcase-title':        '#F1F5F9',
+    '--showcase-text-subtle':  'rgba(255, 255, 255, 0.56)',
+    '--showcase-label':        '#64748B',
+  },
+};
+
 export function App() {
   const [active, setActive] = useState("button-single");
   const [theme,  setTheme]  = useState<ThemeName>("webill365");
   const [mode,   setMode]   = useState<ColorMode>("light");
 
-  const bgMain = mode === "dark" ? "#111827" : "#f9fafb";
+  // Inject CSS variables for demo shell whenever mode changes
+  useEffect(() => {
+    const vars = SHOWCASE_VARS[mode];
+    Object.entries(vars).forEach(([key, value]) => {
+      document.documentElement.style.setProperty(key, value);
+    });
+  }, [mode]);
+
+  const bgMain = `var(--showcase-canvas-bg, ${mode === 'dark' ? '#111827' : '#F9FAFB'})`;
 
   return (
     <div style={{ display: "flex", height: "100vh", overflow: "hidden" }}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { wabooksLight, wabooksDark, webill365Light, webill365Dark } from '../src/tokens';
+import { wabooksLight, wabooksDark, webill365Light, webill365Dark, wecafeLight, wecafeDark } from '../src/tokens';
 import type { ThemeName, ColorMode, ThemeTokens } from '../src/tokens';
 import { radius as radiusScale, spacingScale } from '../src/tokens';
 
@@ -161,7 +161,7 @@ function isLightColor(hex: string): boolean {
 const themeMap: Record<ThemeName, Record<ColorMode, ThemeTokens>> = {
   wabooks:   { light: wabooksLight,   dark: wabooksDark   },
   webill365: { light: webill365Light, dark: webill365Dark },
-  wecafe:    { light: wabooksLight,   dark: wabooksDark   },
+  wecafe:    { light: wecafeLight,    dark: wecafeDark    },
 };
 
 // ─── TokenPanel ──────────────────────────────────────────────────────────────
@@ -210,25 +210,30 @@ export function TokenPanel({ componentId, themeName, colorMode, onThemeChange, o
           <div style={{ fontSize: 10, fontWeight: 500, color: PANEL_CAT, marginBottom: 6, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
             Theme
           </div>
-          <div style={{ display: 'flex', gap: 6 }}>
-            {(['webill365', 'wabooks'] as ThemeName[]).map(t => (
+          <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
+            {([
+              { id: 'webill365', label: 'WeBill365' },
+              { id: 'wabooks',   label: 'WABOOKS'   },
+              { id: 'wecafe',    label: 'WeCafe'    },
+            ] as { id: ThemeName; label: string }[]).map(({ id, label }) => (
               <button
-                key={t}
-                onClick={() => onThemeChange(t)}
+                key={id}
+                onClick={() => onThemeChange(id)}
                 style={{
-                  flex: 1,
-                  padding: '5px 0',
-                  fontSize: 11,
+                  flex: '1 1 60px',
+                  padding: '5px 4px',
+                  fontSize: 10,
                   fontWeight: 500,
                   border: 'none',
                   borderRadius: 6,
                   cursor: 'pointer',
-                  background: themeName === t ? tokens.color.bg.brand.primary : PANEL_CARD,
-                  color: themeName === t ? tokens.color.text.onBgPrimary : PANEL_MUTED,
+                  background: themeName === id ? tokens.color.bg.brand.primary : PANEL_CARD,
+                  color: themeName === id ? tokens.color.text.onBgPrimary : PANEL_MUTED,
                   transition: 'all 0.15s',
+                  whiteSpace: 'nowrap',
                 }}
               >
-                {t === 'webill365' ? 'WeBill365' : 'WABOOKS'}
+                {label}
               </button>
             ))}
           </div>
@@ -388,7 +393,7 @@ export function TokenPanel({ componentId, themeName, colorMode, onThemeChange, o
         }} />
         <div>
           <div style={{ fontSize: 11, color: PANEL_TXT, fontWeight: 500 }}>
-            {themeName === 'webill365' ? 'WeBill365' : 'WABOOKS TA'}
+            {themeName === 'webill365' ? 'WeBill365' : themeName === 'wabooks' ? 'WABOOKS TA' : 'WeCafe'}
           </div>
           <div style={{ fontSize: 10, color: PANEL_MUTED, fontFamily: 'monospace' }}>
             {tokens.color.bg.brand.primary} · {colorMode}

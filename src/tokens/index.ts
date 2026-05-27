@@ -18,6 +18,8 @@ export { wabooksLight } from './themes/wabooks-light';
 export { wabooksDark } from './themes/wabooks-dark';
 export { webill365Light } from './themes/webill365-light';
 export { webill365Dark } from './themes/webill365-dark';
+export { wecafeLight } from './themes/wecafe-light';
+export { wecafeDark } from './themes/wecafe-dark';
 
 // ─── React ThemeContext ───────────────────────────────────────────────────────
 export { getTheme, applyThemeToCSSVars, ThemeProvider, useTheme } from './context';

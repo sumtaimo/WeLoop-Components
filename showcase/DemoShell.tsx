@@ -1,5 +1,8 @@
 import React from "react";
 
+// DemoShell reads CSS variables set by App.tsx based on the active color mode.
+// This keeps DemoShell zero-prop while ensuring dark/light consistency.
+
 interface DemoShellProps {
   title: string;
   description?: string;
@@ -16,7 +19,7 @@ export function DemoShell({ title, description, children }: DemoShellProps) {
           fontSize: 22,
           lineHeight: "28px",
           letterSpacing: "-0.4px",
-          color: "#171717",
+          color: "var(--showcase-title, #171717)",
           marginBottom: description ? 6 : 28,
         }}
       >
@@ -29,7 +32,7 @@ export function DemoShell({ title, description, children }: DemoShellProps) {
             fontWeight: 400,
             fontSize: 14,
             lineHeight: "22px",
-            color: "#737373",
+            color: "var(--showcase-text-subtle, #737373)",
             marginBottom: 28,
             maxWidth: 560,
           }}
@@ -59,7 +62,7 @@ export function DemoRow({ label, children, fullWidth }: DemoRowProps) {
           lineHeight: "16px",
           letterSpacing: "0.4px",
           textTransform: "uppercase",
-          color: "#a3a3a3",
+          color: "var(--showcase-label, #a3a3a3)",
           marginBottom: 12,
         }}
       >
@@ -72,8 +75,8 @@ export function DemoRow({ label, children, fullWidth }: DemoRowProps) {
           alignItems: "center",
           gap: 12,
           padding: "20px 24px",
-          background: "#ffffff",
-          border: "1px solid #e5e5e5",
+          background: "var(--showcase-shell-bg, #ffffff)",
+          border: "1px solid var(--showcase-shell-border, #e5e5e5)",
           borderRadius: 12,
           maxWidth: fullWidth ? "none" : 900,
         }}
@@ -95,7 +98,7 @@ export function DemoBlock({ label, children }: { label: string; children: React.
           lineHeight: "16px",
           letterSpacing: "0.4px",
           textTransform: "uppercase",
-          color: "#a3a3a3",
+          color: "var(--showcase-label, #a3a3a3)",
           marginBottom: 12,
         }}
       >
@@ -103,8 +106,8 @@ export function DemoBlock({ label, children }: { label: string; children: React.
       </p>
       <div
         style={{
-          background: "#ffffff",
-          border: "1px solid #e5e5e5",
+          background: "var(--showcase-shell-bg, #ffffff)",
+          border: "1px solid var(--showcase-shell-border, #e5e5e5)",
           borderRadius: 12,
           overflow: "hidden",
         }}
