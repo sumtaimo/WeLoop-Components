@@ -1,4 +1,5 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useId } from "react";
+import * as RadixCheckbox from "@radix-ui/react-checkbox";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -28,12 +29,13 @@ const SIZE: Record<CheckboxSize, { box: number; radius: number; iconW: number; i
   lg: { box: 20, radius: 5, iconW: 12, iconH: 12 },
 };
 
-// ─── SVG icons ────────────────────────────────────────────────────────────────
+// ─── SVG icons (with CSS animation class) ────────────────────────────────────
 
 function CheckIcon({ w, h, color }: { w: number; h: number; color: string }) {
   return (
     <svg width={w} height={h} viewBox="0 0 10 10" fill="none" aria-hidden="true">
       <path
+        className="wl-check-path"
         d="M1.5 5.5L4 8l4.5-5.5"
         stroke={color}
         strokeWidth="1.75"
@@ -47,141 +49,137 @@ function CheckIcon({ w, h, color }: { w: number; h: number; color: string }) {
 function MinusIcon({ w, h, color }: { w: number; h: number; color: string }) {
   return (
     <svg width={w} height={h} viewBox="0 0 10 10" fill="none" aria-hidden="true">
-      <path d="M2 5h6" stroke={color} strokeWidth="1.75" strokeLinecap="round" />
+      <path
+        className="wl-minus-path"
+        d="M2 5h6"
+        stroke={color}
+        strokeWidth="1.75"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
 
-// ─── Component ────────────────────────────────────────────────────────────────
+// ─── Checkbox ─────────────────────────────────────────────────────────────────
 
 export function Checkbox({
-  checked = false,
+  checked      = false,
   indeterminate = false,
-  disabled = false,
+  disabled     = false,
   label,
-  size = "sm",
+  size         = "sm",
   onChange,
   style,
 }: CheckboxProps) {
-  const [hovered, setHovered] = useState(false);
-  const [focused, setFocused] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const id  = useId();
   const cfg = SIZE[size];
 
-  // Sync the native indeterminate property (not an HTML attribute)
-  useEffect(() => {
-    if (inputRef.current) inputRef.current.indeterminate = indeterminate;
-  }, [indeterminate]);
+  // Radix uses "indeterminate" as a special checked value
+  const radixChecked: RadixCheckbox.CheckedState =
+    indeterminate ? "indeterminate" : checked;
 
-  // ── Visual box style ───────────────────────────────────────────────────────
-  //
-  //  State priority (high → low):
-  //   disabled checked / indeterminate → gray-filled
-  //   disabled unchecked               → gray-outlined
-  //   checked / indeterminate (enabled)→ brand-filled (#1D32FF)
-  //   focused (unchecked)              → blue border + ring
-  //   hovered (unchecked)              → medium gray border
-  //   default (unchecked)              → light gray border
-  //
+  // ── Visual color computation ───────────────────────────────────────────────
+  // Radix supplies data-state="checked" | "indeterminate" | "unchecked"
+  // and data-disabled on the root. We use inline style logic matching Figma.
   const isActive = checked || indeterminate;
 
-  let boxBg     = "#FFFFFF";
-  let boxBorder = "1.5px solid #D4D4D4";
-  let boxShadow: string | undefined;
+  const computeBoxStyle = (
+    isHovered: boolean,
+    isFocused: boolean
+  ): React.CSSProperties => {
+    let bg     = "#FFFFFF";
+    let border = "1.5px solid #D4D4D4";
+    let shadow: string | undefined;
 
-  if (disabled) {
-    if (isActive) {
-      boxBg     = "#D4D4D4";
-      boxBorder = "none";
-    } else {
-      boxBg     = "#F5F5F5";
-      boxBorder = "1.5px solid #E5E5E5";
+    if (disabled) {
+      bg     = isActive ? "#D4D4D4" : "#F5F5F5";
+      border = isActive ? "none"    : "1.5px solid #E5E5E5";
+    } else if (isActive) {
+      bg     = "#1D32FF";
+      border = "none";
+    } else if (isFocused) {
+      border = "1.5px solid #1D32FF";
+      shadow = "0 0 0 3px rgba(29,50,255,0.18)";
+    } else if (isHovered) {
+      border = "1.5px solid #A3A3A3";
     }
-  } else if (isActive) {
-    boxBg     = "#1D32FF";
-    boxBorder = "none";
-  } else if (focused) {
-    boxBorder = "1.5px solid #1D32FF";
-    boxShadow = "0 0 0 3px rgba(29,50,255,0.18)";
-  } else if (hovered) {
-    boxBorder = "1.5px solid #A3A3A3";
-  }
-  // else: default border already set above
+
+    return {
+      width:          cfg.box,
+      height:         cfg.box,
+      borderRadius:   cfg.radius,
+      background:     bg,
+      border:         border,
+      boxShadow:      shadow,
+      boxSizing:      "border-box",
+      display:        "flex",
+      alignItems:     "center",
+      justifyContent: "center",
+      flexShrink:     0,
+      cursor:         disabled ? "not-allowed" : "pointer",
+      transition:     "border-color 0.12s, background 0.12s, box-shadow 0.12s",
+      // Reset Radix button defaults
+      padding:        0,
+      margin:         0,
+    };
+  };
 
   const iconColor = disabled ? "#A3A3A3" : "#FFFFFF";
 
+  // We track hover/focus via React state so the inline style reacts to them
+  const [hovered, setHovered] = React.useState(false);
+  const [focused,  setFocused]  = React.useState(false);
+
   return (
-    <label
-      onMouseEnter={() => { if (!disabled) setHovered(true); }}
-      onMouseLeave={() => setHovered(false)}
+    <div
       style={{
-        display: "inline-flex",
+        display:    "inline-flex",
         alignItems: "center",
-        gap: 8,
-        cursor: disabled ? "not-allowed" : "pointer",
+        gap:        8,
+        cursor:     disabled ? "not-allowed" : "pointer",
         userSelect: "none",
         ...style,
       }}
     >
-      {/* The custom-box wrapper also positions the hidden native input */}
-      <div style={{ position: "relative", width: cfg.box, height: cfg.box, flexShrink: 0 }}>
-        {/* Native input — transparent, covers the box so it receives focus/click */}
-        <input
-          ref={inputRef}
-          type="checkbox"
-          checked={checked}
-          disabled={disabled}
-          onChange={e => onChange?.(e.target.checked)}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            opacity: 0,
-            margin: 0,
-            cursor: disabled ? "not-allowed" : "pointer",
-            zIndex: 1,
-          }}
-        />
+      <RadixCheckbox.Root
+        id={id}
+        checked={radixChecked}
+        disabled={disabled}
+        onCheckedChange={val => {
+          if (val === "indeterminate") return;
+          onChange?.(val);
+        }}
+        onMouseEnter={() => !disabled && setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        style={computeBoxStyle(hovered, focused)}
+      >
+        <RadixCheckbox.Indicator forceMount style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+          {indeterminate
+            ? <MinusIcon w={cfg.iconW} h={cfg.iconH} color={iconColor} />
+            : checked
+              ? <CheckIcon w={cfg.iconW} h={cfg.iconH} color={iconColor} />
+              : null
+          }
+        </RadixCheckbox.Indicator>
+      </RadixCheckbox.Root>
 
-        {/* Visual box — pointer-events:none so clicks pass to the input */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            borderRadius: cfg.radius,
-            background: boxBg,
-            border: boxBorder,
-            boxSizing: "border-box",
-            boxShadow: boxShadow,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            pointerEvents: "none",
-            transition: "border-color 0.1s, background 0.1s, box-shadow 0.1s",
-          }}
-        >
-          {indeterminate && <MinusIcon w={cfg.iconW} h={cfg.iconH} color={iconColor} />}
-          {!indeterminate && checked && <CheckIcon w={cfg.iconW} h={cfg.iconH} color={iconColor} />}
-        </div>
-      </div>
-
-      {/* Label */}
       {label && (
-        <span
+        <label
+          htmlFor={id}
           style={{
             fontFamily: "Inter, sans-serif",
-            fontSize: 14,
+            fontSize:   14,
             fontWeight: 500,
             lineHeight: "20px",
-            color: disabled ? "#A3A3A3" : "#171717",
+            color:      disabled ? "#A3A3A3" : "#171717",
+            cursor:     disabled ? "not-allowed" : "pointer",
           }}
         >
           {label}
-        </span>
+        </label>
       )}
-    </label>
+    </div>
   );
 }

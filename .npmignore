@@ -1,0 +1,15 @@
+# ─── Development / showcase files — NOT published to npm ─────────────────────
+showcase/
+dist/
+*.config.ts
+*.config.js
+postcss.config.js
+tailwind.config.js
+vite.config.ts
+tsconfig.json
+index.html
+.claude/
+.git/
+
+# ─── What IS published: src/components, src/tokens, src/index.ts ─────────────
+# (controlled by "files" field in package.json)

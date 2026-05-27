@@ -3,6 +3,8 @@ export * from "./Avatar";
 export * from "./Chip";
 export * from "./Checkbox";
 export * from "./FormField";
+export * from "./Tooltip";
+export * from "./Toggle";
 export * from "./ButtonDropdown";
 export * from "./ButtonSegment";
 export * from "./ButtonSingle";

@@ -1,4 +1,6 @@
 import React, { useState, useId } from "react";
+import * as RadixLabel  from "@radix-ui/react-label";
+import * as RadixSelect from "@radix-ui/react-select";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -22,9 +24,7 @@ export interface FormFieldProps {
   type?: FormFieldType;
 
   // ── Label ──────────────────────────────────────────────────────────────────
-  /** Label text shown above the field */
   label?: string;
-  /** Adds a red * required marker */
   required?: boolean;
 
   // ── Input ──────────────────────────────────────────────────────────────────
@@ -32,38 +32,28 @@ export interface FormFieldProps {
   value?: string;
   onChange?: (value: string) => void;
 
-  // ── Combo select (comboLeft / comboRight) ──────────────────────────────────
+  // ── Combo select ──────────────────────────────────────────────────────────
   selectValue?: string;
   selectPlaceholder?: string;
+  selectOptions?: string[];   // options for the Radix Select dropdown
   onSelectChange?: (value: string) => void;
 
-  // ── Tags variant (text type with selected pills) ───────────────────────────
-  /** Tags shown as pills inside the field */
+  // ── Tags ──────────────────────────────────────────────────────────────────
   tags?: string[];
-  /** Extra count badge: "+N more" */
   additionalTagCount?: number;
-  /** Called when the clear × button is clicked */
   onClear?: () => void;
 
   // ── Visual states ──────────────────────────────────────────────────────────
-  /** Red border + shadow */
   error?: boolean;
-  /** Green border + shadow */
   success?: boolean;
-  /** Grays out the field, blocks input */
   disabled?: boolean;
 
   style?: React.CSSProperties;
 }
 
-// ─── Shared style helpers ─────────────────────────────────────────────────────
+// ─── Style helpers ────────────────────────────────────────────────────────────
 
-function getBorderColor(
-  focused: boolean,
-  error?: boolean,
-  success?: boolean,
-  disabled?: boolean
-): string {
+function getBorderColor(focused: boolean, error?: boolean, success?: boolean, disabled?: boolean): string {
   if (disabled) return "#E5E7EB";
   if (error)    return "#E1232E";
   if (success)  return "#22C55E";
@@ -71,12 +61,7 @@ function getBorderColor(
   return "#D1D5DB";
 }
 
-function getBoxShadow(
-  focused: boolean,
-  error?: boolean,
-  success?: boolean,
-  disabled?: boolean
-): string | undefined {
+function getBoxShadow(focused: boolean, error?: boolean, success?: boolean, disabled?: boolean): string | undefined {
   if (disabled) return undefined;
   if (error)    return "0 0 0 3px rgba(225,35,46,0.10)";
   if (success)  return "0 0 0 3px rgba(34,197,94,0.10)";
@@ -86,6 +71,7 @@ function getBoxShadow(
 
 const FIELD_RADIUS = 8;
 const FIELD_HEIGHT = 36;
+const PLACEHOLDER_COLOR = "#9CA3AF";
 
 const INPUT_TEXT: React.CSSProperties = {
   fontFamily: "Inter, sans-serif",
@@ -99,8 +85,6 @@ const INPUT_TEXT: React.CSSProperties = {
   padding: 0,
   width: "100%",
 };
-
-const PLACEHOLDER_COLOR = "#9CA3AF";
 
 // ─── Mini SVG icons ───────────────────────────────────────────────────────────
 
@@ -121,87 +105,161 @@ function ClearIcon({ color = "#9CA3AF" }: { color?: string }) {
   );
 }
 
-// ─── Label row ────────────────────────────────────────────────────────────────
-
-function FieldLabel({ label, required }: { label?: string; required?: boolean }) {
-  if (!label) return null;
+function CheckIcon() {
   return (
-    <div style={{
-      display: "flex", alignItems: "center", gap: 2,
-      marginBottom: 6,
-    }}>
-      <span style={{
-        fontFamily: "Inter, sans-serif",
-        fontSize: 12,
-        fontWeight: 500,
-        lineHeight: "16px",
-        color: "#171717",
-      }}>
-        {label}
-      </span>
-      {required && (
-        <span style={{ fontSize: 12, fontWeight: 600, color: "#E1232E", lineHeight: "16px" }}>
-          *
-        </span>
-      )}
-    </div>
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+      <path d="M2 6l3 3 5-6" stroke="#1D32FF" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   );
 }
 
-// ─── Outer field shell ────────────────────────────────────────────────────────
+// ─── Radix Select replacement for SelectPart ─────────────────────────────────
 
-function FieldShell({
-  focused, error, success, disabled, children, style, onClick,
+function SelectPart({
+  value, placeholder = "Choose", disabled, options = [],
+  onChange, width = 96, onOpenChange,
 }: {
-  focused: boolean;
-  error?: boolean;
-  success?: boolean;
+  value?: string;
+  placeholder?: string;
   disabled?: boolean;
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-  onClick?: () => void;
+  options?: string[];
+  onChange?: (v: string) => void;
+  width?: number;
+  onOpenChange?: (open: boolean) => void;
 }) {
   return (
-    <div
-      onClick={onClick}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        width: "100%",
-        minHeight: FIELD_HEIGHT,
-        borderRadius: FIELD_RADIUS,
-        border: `1.5px solid ${getBorderColor(focused, error, success, disabled)}`,
-        background: disabled ? "#F5F5F5" : "#FFFFFF",
-        boxShadow: getBoxShadow(focused, error, success, disabled),
-        boxSizing: "border-box",
-        overflow: "hidden",
-        transition: "border-color 0.15s, box-shadow 0.15s",
-        cursor: disabled ? "not-allowed" : "text",
-        ...style,
-      }}
+    <RadixSelect.Root
+      value={value ?? ""}
+      onValueChange={onChange}
+      disabled={disabled}
+      onOpenChange={onOpenChange}
     >
-      {children}
-    </div>
+      <RadixSelect.Trigger
+        style={{
+          display:        "flex",
+          alignItems:     "center",
+          justifyContent: "space-between",
+          gap:            4,
+          width,
+          minWidth:       width,
+          flexShrink:     0,
+          padding:        "0 10px",
+          height:         "100%",
+          minHeight:      FIELD_HEIGHT,
+          background:     "transparent",
+          border:         "none",
+          cursor:         disabled ? "not-allowed" : "pointer",
+          fontFamily:     "Inter, sans-serif",
+          fontSize:       13,
+          fontWeight:     400,
+          color:          value ? (disabled ? "#A3A3A3" : "#171717") : PLACEHOLDER_COLOR,
+          outline:        "none",
+          boxSizing:      "border-box",
+        }}
+      >
+        <RadixSelect.Value placeholder={placeholder}>
+          <span style={{
+            overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
+            flex: 1, textAlign: "left", display: "block",
+          }}>
+            {value || placeholder}
+          </span>
+        </RadixSelect.Value>
+        <RadixSelect.Icon>
+          <ChevronDown color={disabled ? "#D1D5DB" : "#6B7280"} />
+        </RadixSelect.Icon>
+      </RadixSelect.Trigger>
+
+      <RadixSelect.Portal>
+        <RadixSelect.Content
+          className="wl-select-content"
+          position="popper"
+          sideOffset={4}
+          style={{
+            background:   "#FFFFFF",
+            borderRadius: 10,
+            border:       "1px solid #E5E7EB",
+            boxShadow:    "0 8px 24px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.06)",
+            zIndex:       9999,
+            overflow:     "hidden",
+            minWidth:     "var(--radix-select-trigger-width)",
+          }}
+        >
+          <RadixSelect.Viewport style={{ padding: "4px" }}>
+            {options.map(opt => (
+              <SelectItem key={opt} value={opt} />
+            ))}
+            {options.length === 0 && (
+              <div style={{ padding: "8px 12px", fontFamily: "Inter, sans-serif", fontSize: 13, color: "#9CA3AF" }}>
+                No options
+              </div>
+            )}
+          </RadixSelect.Viewport>
+        </RadixSelect.Content>
+      </RadixSelect.Portal>
+    </RadixSelect.Root>
+  );
+}
+
+function SelectItem({ value }: { value: string }) {
+  return (
+    <RadixSelect.Item
+      value={value}
+      style={{
+        display:        "flex",
+        alignItems:     "center",
+        justifyContent: "space-between",
+        padding:        "7px 10px 7px 12px",
+        borderRadius:   6,
+        cursor:         "pointer",
+        fontFamily:     "Inter, sans-serif",
+        fontSize:       13,
+        color:          "#171717",
+        outline:        "none",
+        userSelect:     "none",
+      }}
+      onMouseEnter={e => (e.currentTarget.style.background = "#F3F4F6")}
+      onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+      onFocus={e    => (e.currentTarget.style.background = "#F3F4F6")}
+      onBlur={e     => (e.currentTarget.style.background = "transparent")}
+    >
+      <RadixSelect.ItemText>{value}</RadixSelect.ItemText>
+      <RadixSelect.ItemIndicator>
+        <CheckIcon />
+      </RadixSelect.ItemIndicator>
+    </RadixSelect.Item>
+  );
+}
+
+// ─── Combo divider ────────────────────────────────────────────────────────────
+
+function ComboDivider({ focused, error, success, disabled }: {
+  focused: boolean; error?: boolean; success?: boolean; disabled?: boolean;
+}) {
+  return (
+    <div style={{
+      width: 1, alignSelf: "stretch",
+      background: getBorderColor(focused, error, success, disabled),
+      opacity: 0.6, flexShrink: 0,
+    }} />
   );
 }
 
 // ─── Text field ───────────────────────────────────────────────────────────────
 
 function TextField({
-  placeholder, value, onChange, disabled,
-  tags, additionalTagCount, onClear,
-  onFocus, onBlur,
+  id, placeholder, value, onChange, disabled,
+  tags, additionalTagCount, onClear, onFocus, onBlur,
 }: {
+  id?: string;
   placeholder?: string; value?: string; onChange?: (v: string) => void;
   disabled?: boolean; tags?: string[]; additionalTagCount?: number;
   onClear?: () => void; onFocus: () => void; onBlur: () => void;
 }) {
   const hasTags = tags && tags.length > 0;
   const showClear = (value || hasTags) && !disabled;
-
   return (
     <div style={{ display: "flex", alignItems: "center", flex: 1, gap: 6, padding: "0 10px", minWidth: 0 }}>
-      {/* Tags */}
       {hasTags && tags!.map((t, i) => (
         <span key={i} style={{
           display: "inline-flex", alignItems: "center",
@@ -224,9 +282,8 @@ function TextField({
           +{additionalTagCount} more
         </span>
       ) : null}
-
-      {/* Text input */}
       <input
+        id={id}
         type="text"
         value={value ?? ""}
         placeholder={hasTags ? "" : placeholder}
@@ -241,8 +298,6 @@ function TextField({
           cursor: disabled ? "not-allowed" : "text",
         }}
       />
-
-      {/* Clear button */}
       {showClear && (
         <button
           type="button"
@@ -264,13 +319,15 @@ function TextField({
 // ─── Numeric field ────────────────────────────────────────────────────────────
 
 function NumericField({
-  placeholder = "0.00", value, onChange, disabled, onFocus, onBlur,
+  id, placeholder = "0.00", value, onChange, disabled, onFocus, onBlur,
 }: {
+  id?: string;
   placeholder?: string; value?: string; onChange?: (v: string) => void;
   disabled?: boolean; onFocus: () => void; onBlur: () => void;
 }) {
   return (
     <input
+      id={id}
       type="text"
       inputMode="decimal"
       value={value ?? ""}
@@ -292,67 +349,18 @@ function NumericField({
   );
 }
 
-// ─── Select part (used in combo fields) ──────────────────────────────────────
-
-function SelectPart({
-  value, placeholder = "Choose", disabled, onChange,
-  width = 96, onFocus, onBlur,
-}: {
-  value?: string; placeholder?: string; disabled?: boolean;
-  onChange?: (v: string) => void; width?: number;
-  onFocus: () => void; onBlur: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      disabled={disabled}
-      onFocus={onFocus}
-      onBlur={onBlur}
-      style={{
-        display: "flex", alignItems: "center", justifyContent: "space-between",
-        gap: 4, width, minWidth: width, flexShrink: 0,
-        padding: "0 10px", height: "100%",
-        background: "transparent", border: "none", cursor: disabled ? "not-allowed" : "pointer",
-        fontFamily: "Inter, sans-serif", fontSize: 13, fontWeight: 400,
-        color: value ? (disabled ? "#A3A3A3" : "#171717") : PLACEHOLDER_COLOR,
-        overflow: "hidden",
-      }}
-    >
-      <span style={{
-        overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flex: 1,
-        textAlign: "left",
-      }}>
-        {value ?? placeholder}
-      </span>
-      <ChevronDown color={disabled ? "#D1D5DB" : "#6B7280"} />
-    </button>
-  );
-}
-
-// ─── Combo divider ────────────────────────────────────────────────────────────
-
-function ComboDivider({ focused, error, success, disabled }: {
-  focused: boolean; error?: boolean; success?: boolean; disabled?: boolean;
-}) {
-  return (
-    <div style={{
-      width: 1, alignSelf: "stretch",
-      background: getBorderColor(focused, error, success, disabled),
-      opacity: 0.6, flexShrink: 0,
-    }} />
-  );
-}
-
 // ─── Textarea ─────────────────────────────────────────────────────────────────
 
 function TextareaField({
-  placeholder, value, onChange, disabled, onFocus, onBlur,
+  id, placeholder, value, onChange, disabled, onFocus, onBlur,
 }: {
+  id?: string;
   placeholder?: string; value?: string; onChange?: (v: string) => void;
   disabled?: boolean; onFocus: () => void; onBlur: () => void;
 }) {
   return (
     <textarea
+      id={id}
       value={value ?? ""}
       placeholder={placeholder}
       disabled={disabled}
@@ -373,17 +381,46 @@ function TextareaField({
   );
 }
 
+// ─── Field shell ──────────────────────────────────────────────────────────────
+
+function FieldShell({
+  focused, error, success, disabled, children, style,
+}: {
+  focused: boolean; error?: boolean; success?: boolean; disabled?: boolean;
+  children: React.ReactNode; style?: React.CSSProperties;
+}) {
+  return (
+    <div style={{
+      display:    "flex",
+      alignItems: "stretch",
+      width:      "100%",
+      minHeight:  FIELD_HEIGHT,
+      borderRadius: FIELD_RADIUS,
+      border:     `1.5px solid ${getBorderColor(focused, error, success, disabled)}`,
+      background: disabled ? "#F5F5F5" : "#FFFFFF",
+      boxShadow:  getBoxShadow(focused, error, success, disabled),
+      boxSizing:  "border-box",
+      overflow:   "hidden",
+      transition: "border-color 0.15s, box-shadow 0.15s",
+      ...style,
+    }}>
+      {children}
+    </div>
+  );
+}
+
 // ─── FormField (public) ───────────────────────────────────────────────────────
 
 export function FormField({
-  type = "text",
+  type                = "text",
   label,
   required,
-  placeholder = "Placeholder",
+  placeholder         = "Placeholder",
   value,
   onChange,
   selectValue,
-  selectPlaceholder = "Choose",
+  selectPlaceholder   = "Choose",
+  selectOptions       = ["Option 1", "Option 2", "Option 3"],
   onSelectChange,
   tags,
   additionalTagCount,
@@ -394,7 +431,7 @@ export function FormField({
   style,
 }: FormFieldProps) {
   const [focused, setFocused] = useState(false);
-  const id = useId();
+  const inputId = useId();
 
   const fo = () => setFocused(true);
   const bl = () => setFocused(false);
@@ -403,34 +440,56 @@ export function FormField({
 
   return (
     <div style={{ display: "flex", flexDirection: "column", width: "100%", ...style }}>
-      {label && <FieldLabel label={label} required={required} />}
+      {/* Radix Label — properly linked via htmlFor */}
+      {label && (
+        <RadixLabel.Root
+          htmlFor={inputId}
+          style={{
+            display:      "flex",
+            alignItems:   "center",
+            gap:          2,
+            marginBottom: 6,
+            fontFamily:   "Inter, sans-serif",
+            fontSize:     12,
+            fontWeight:   500,
+            lineHeight:   "16px",
+            color:        disabled ? "#9CA3AF" : "#171717",
+            cursor:       disabled ? "not-allowed" : "default",
+            userSelect:   "none",
+          }}
+        >
+          {label}
+          {required && (
+            <span style={{ fontSize: 12, fontWeight: 600, color: "#E1232E" }}>*</span>
+          )}
+        </RadixLabel.Root>
+      )}
 
-      {/* ── textarea shell ── */}
+      {/* ── Textarea ── */}
       {isTextarea ? (
         <div style={{
-          width: "100%",
+          width:        "100%",
           borderRadius: FIELD_RADIUS,
-          border: `1.5px solid ${getBorderColor(focused, error, success, disabled)}`,
-          background: disabled ? "#F5F5F5" : "#FFFFFF",
-          boxShadow: getBoxShadow(focused, error, success, disabled),
-          boxSizing: "border-box",
-          overflow: "hidden",
-          transition: "border-color 0.15s, box-shadow 0.15s",
+          border:       `1.5px solid ${getBorderColor(focused, error, success, disabled)}`,
+          background:   disabled ? "#F5F5F5" : "#FFFFFF",
+          boxShadow:    getBoxShadow(focused, error, success, disabled),
+          boxSizing:    "border-box",
+          overflow:     "hidden",
+          transition:   "border-color 0.15s, box-shadow 0.15s",
         }}>
           <TextareaField
+            id={inputId}
             placeholder={placeholder} value={value}
             onChange={onChange} disabled={disabled}
             onFocus={fo} onBlur={bl}
           />
         </div>
       ) : (
+        <FieldShell focused={focused} error={error} success={success} disabled={disabled}>
 
-        /* ── all single-line shells ── */
-        <FieldShell
-          focused={focused} error={error} success={success} disabled={disabled}
-        >
           {type === "text" && (
             <TextField
+              id={inputId}
               placeholder={placeholder} value={value} onChange={onChange}
               disabled={disabled} tags={tags}
               additionalTagCount={additionalTagCount}
@@ -440,6 +499,7 @@ export function FormField({
 
           {type === "numeric" && (
             <NumericField
+              id={inputId}
               placeholder={placeholder} value={value} onChange={onChange}
               disabled={disabled} onFocus={fo} onBlur={bl}
             />
@@ -448,19 +508,25 @@ export function FormField({
           {type === "comboLeft" && (
             <>
               <SelectPart
-                value={selectValue} placeholder={selectPlaceholder}
-                onChange={onSelectChange} disabled={disabled}
-                onFocus={fo} onBlur={bl}
+                value={selectValue}
+                placeholder={selectPlaceholder}
+                options={selectOptions}
+                onChange={onSelectChange}
+                disabled={disabled}
+                onOpenChange={open => { if (open) fo(); else bl(); }}
               />
               <ComboDivider focused={focused} error={error} success={success} disabled={disabled} />
               <div style={{ flex: 1, display: "flex", alignItems: "center", padding: "0 10px", minWidth: 0 }}>
                 <input
+                  id={inputId}
                   type="text"
                   value={value ?? ""}
                   placeholder={placeholder}
                   disabled={disabled}
                   onChange={e => onChange?.(e.target.value)}
                   onFocus={fo} onBlur={bl}
+                  aria-required={required}
+                  aria-invalid={error}
                   style={{ ...INPUT_TEXT, color: disabled ? "#A3A3A3" : "#171717", cursor: disabled ? "not-allowed" : "text" }}
                 />
               </div>
@@ -471,20 +537,26 @@ export function FormField({
             <>
               <div style={{ flex: 1, display: "flex", alignItems: "center", padding: "0 10px", minWidth: 0 }}>
                 <input
+                  id={inputId}
                   type="text"
                   value={value ?? ""}
                   placeholder={placeholder}
                   disabled={disabled}
                   onChange={e => onChange?.(e.target.value)}
                   onFocus={fo} onBlur={bl}
+                  aria-required={required}
+                  aria-invalid={error}
                   style={{ ...INPUT_TEXT, color: disabled ? "#A3A3A3" : "#171717", cursor: disabled ? "not-allowed" : "text" }}
                 />
               </div>
               <ComboDivider focused={focused} error={error} success={success} disabled={disabled} />
               <SelectPart
-                value={selectValue} placeholder={selectPlaceholder}
-                onChange={onSelectChange} disabled={disabled}
-                onFocus={fo} onBlur={bl}
+                value={selectValue}
+                placeholder={selectPlaceholder}
+                options={selectOptions}
+                onChange={onSelectChange}
+                disabled={disabled}
+                onOpenChange={open => { if (open) fo(); else bl(); }}
               />
             </>
           )}

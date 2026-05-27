@@ -1,4 +1,5 @@
 import React from "react";
+import * as RadixAvatar from "@radix-ui/react-avatar";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 export type AvatarType =
@@ -6,7 +7,7 @@ export type AvatarType =
   | "noProfileFill" // person silhouette, gray filled (32px only in Figma)
   | "items"         // items / purpose icon, ring border
   | "bank"          // bank icon, ring border
-  | "office"        // circular photo — supply src
+  | "office"        // circular photo — supply src  ← upgraded to Radix Avatar
   | "textProfile"   // initials text, gray filled
   | "chipLead"      // chip-style: icon or text, gray filled
   | "addMore";      // noProfile base + plus badge in bottom-right
@@ -57,12 +58,7 @@ function PersonIcon({ size }: { size: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 20 20" fill="none" aria-hidden="true">
       <circle cx="10" cy="7.5" r="3.5" stroke={CLR_ICON} strokeWidth="1.4" />
-      <path
-        d="M3 18c0-3.87 3.134-7 7-7s7 3.13 7 7"
-        stroke={CLR_ICON}
-        strokeWidth="1.4"
-        strokeLinecap="round"
-      />
+      <path d="M3 18c0-3.87 3.134-7 7-7s7 3.13 7 7" stroke={CLR_ICON} strokeWidth="1.4" strokeLinecap="round" />
     </svg>
   );
 }
@@ -71,12 +67,7 @@ function PersonFilledIcon({ size }: { size: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 20 20" fill="none" aria-hidden="true">
       <circle cx="10" cy="7.5" r="3.5" fill={CLR_ICON} />
-      <path
-        d="M3 18c0-3.87 3.134-7 7-7s7 3.13 7 7"
-        stroke={CLR_ICON}
-        strokeWidth="1.4"
-        strokeLinecap="round"
-      />
+      <path d="M3 18c0-3.87 3.134-7 7-7s7 3.13 7 7" stroke={CLR_ICON} strokeWidth="1.4" strokeLinecap="round" />
     </svg>
   );
 }
@@ -85,12 +76,7 @@ function ItemsIcon({ size }: { size: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 20 20" fill="none" aria-hidden="true">
       <rect x="4" y="8" width="12" height="9" rx="1.5" stroke={CLR_ICON} strokeWidth="1.4" />
-      <path
-        d="M7.5 8V6a2.5 2.5 0 015 0v2"
-        stroke={CLR_ICON}
-        strokeWidth="1.4"
-        strokeLinecap="round"
-      />
+      <path d="M7.5 8V6a2.5 2.5 0 015 0v2" stroke={CLR_ICON} strokeWidth="1.4" strokeLinecap="round" />
       <path d="M4 11h12" stroke={CLR_ICON} strokeWidth="1.2" />
     </svg>
   );
@@ -117,72 +103,78 @@ function PlusIcon({ size }: { size: number }) {
   );
 }
 
-function DocIcon({ size }: { size: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path
-        d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z"
-        stroke={CLR_ICON}
-        strokeWidth="1.3"
-        strokeLinejoin="round"
-      />
-      <path d="M10 2v4h4" stroke={CLR_ICON} strokeWidth="1.3" strokeLinejoin="round" />
-      <path d="M6 9h4M6 12h2" stroke={CLR_ICON} strokeWidth="1.2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
 // ─── Component ────────────────────────────────────────────────────────────────
+
 export function Avatar({
-  type = "noProfile",
-  size = 24,
+  type      = "noProfile",
+  size      = 24,
   src,
-  alt = "",
-  text = "A",
+  alt       = "",
+  text      = "A",
   icon,
   onClick,
   className,
 }: AvatarProps) {
-  const cfg = SIZE_CONFIG[size];
+  const cfg    = SIZE_CONFIG[size];
   const isRing = ["noProfile", "items", "bank", "addMore", "office"].includes(type);
 
-  // ── Outer container style ──
   const containerStyle: React.CSSProperties = {
-    position: "relative",
-    display: "inline-flex",
-    alignItems: "center",
+    position:       "relative",
+    display:        "inline-flex",
+    alignItems:     "center",
     justifyContent: "center",
-    width: cfg.px,
-    height: cfg.px,
-    borderRadius: 9999,
-    flexShrink: 0,
-    boxSizing: "border-box",
-    overflow: type === "office" ? "hidden" : undefined,
-    background: type === "office"
-      ? "#D1D5DB"          // fallback if no src
-      : isRing
-        ? CLR_BG_LIGHT
-        : CLR_BG_FILLED,
-    border: isRing
-      ? `${cfg.border}px solid ${CLR_BORDER}`
-      : "none",
-    cursor: onClick ? "pointer" : undefined,
+    width:          cfg.px,
+    height:         cfg.px,
+    borderRadius:   9999,
+    flexShrink:     0,
+    boxSizing:      "border-box",
+    overflow:       type === "office" ? "hidden" : undefined,
+    background:     type === "office" ? "#D1D5DB" : isRing ? CLR_BG_LIGHT : CLR_BG_FILLED,
+    border:         isRing ? `${cfg.border}px solid ${CLR_BORDER}` : "none",
+    cursor:         onClick ? "pointer" : undefined,
   };
 
-  // ── Office (photo) ──
+  // ── "office" — uses Radix Avatar for proper image load/fallback ───────────
   if (type === "office") {
     return (
-      <div style={containerStyle} className={className} onClick={onClick}>
-        {src ? (
-          <img
-            src={src}
-            alt={alt}
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-          />
-        ) : (
-          <PersonIcon size={cfg.iconPx} />
-        )}
-      </div>
+      <RadixAvatar.Root
+        style={containerStyle}
+        className={className}
+        onClick={onClick}
+      >
+        <RadixAvatar.Image
+          src={src}
+          alt={alt}
+          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+        />
+        {/* Fallback: shown while image loads or if src is missing/broken */}
+        <RadixAvatar.Fallback
+          delayMs={src ? 300 : 0}
+          style={{
+            width:          "100%",
+            height:         "100%",
+            display:        "flex",
+            alignItems:     "center",
+            justifyContent: "center",
+            background:     "#D1D5DB",
+          }}
+        >
+          {/* Show initials from alt text, or silhouette icon */}
+          {alt ? (
+            <span style={{
+              fontFamily: "Inter, sans-serif",
+              fontWeight: 600,
+              fontSize:   cfg.fontSize,
+              color:      "#6B7280",
+              userSelect: "none",
+            }}>
+              {alt.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase()}
+            </span>
+          ) : (
+            <PersonIcon size={cfg.iconPx} />
+          )}
+        </RadixAvatar.Fallback>
+      </RadixAvatar.Root>
     );
   }
 
@@ -190,16 +182,14 @@ export function Avatar({
   if (type === "textProfile" || (type === "chipLead" && !icon)) {
     return (
       <div style={containerStyle} className={className} onClick={onClick}>
-        <span
-          style={{
-            fontFamily: "Inter, sans-serif",
-            fontWeight: 500,
-            fontSize: cfg.fontSize,
-            lineHeight: cfg.lineHeight,
-            color: CLR_TEXT,
-            userSelect: "none",
-          }}
-        >
+        <span style={{
+          fontFamily: "Inter, sans-serif",
+          fontWeight: 500,
+          fontSize:   cfg.fontSize,
+          lineHeight: cfg.lineHeight,
+          color:      CLR_TEXT,
+          userSelect: "none",
+        }}>
           {text.slice(0, 2).toUpperCase()}
         </span>
       </div>
@@ -231,23 +221,20 @@ export function Avatar({
     return (
       <div style={containerStyle} className={className} onClick={onClick}>
         <PersonIcon size={cfg.iconPx} />
-        {/* Plus badge — bottom-right */}
-        <span
-          style={{
-            position: "absolute",
-            bottom: -Math.floor(cfg.badgePx * 0.2),
-            right: -Math.floor(cfg.badgePx * 0.2),
-            width: cfg.badgePx,
-            height: cfg.badgePx,
-            borderRadius: 9999,
-            background: "#6B7280",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            border: "1.5px solid #F9FAFB",
-            boxSizing: "border-box",
-          }}
-        >
+        <span style={{
+          position:       "absolute",
+          bottom:         -Math.floor(cfg.badgePx * 0.2),
+          right:          -Math.floor(cfg.badgePx * 0.2),
+          width:          cfg.badgePx,
+          height:         cfg.badgePx,
+          borderRadius:   9999,
+          background:     "#6B7280",
+          display:        "flex",
+          alignItems:     "center",
+          justifyContent: "center",
+          border:         "1.5px solid #F9FAFB",
+          boxSizing:      "border-box",
+        }}>
           <PlusIcon size={Math.round(cfg.badgePx * 0.65)} />
         </span>
       </div>

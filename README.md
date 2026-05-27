@@ -1,189 +1,147 @@
-# WeLoop 2.1 — Component Library
+# WeLoop Components 2.1
 
-> **Figma-verified** React + TypeScript component library with a multi-brand design token system.  
-> Built by the **Products Operations Dept.**
-
-Live showcase → run `npm run dev` then open `http://localhost:5173`
+Figma-verified React component library for the WeLoop 2.1 design system.  
+Multi-brand tokens (WeBill365 · WABOOKS · WeCafe) × light/dark modes.  
+Built on **Radix UI** primitives — accessibility, keyboard navigation, and smooth animations out of the box.
 
 ---
 
-## Repository Structure
+## Installation
 
+```bash
+npm install weloop-components
 ```
-weloop-components/
-├── src/
-│   ├── components/
-│   │   ├── atoms/          # ButtonSingle · ButtonDropdown · ButtonSegment · Link · NotifBadge · PaymentBadge
-│   │   ├── molecules/      # DashboardCard
-│   │   └── organisms/
-│   │       └── AppNavigate/  # AppBar · DTopBar · DBottomBar · TitleNavBar · DialogSettingBar
-│   ├── tokens/
-│   │   ├── primitives.ts   # Raw color ramps (blue, orange, gray, green, red …)
-│   │   ├── spacing.ts      # spacingScale · radius · stroke · controlSize
-│   │   ├── typography.ts   # fontFamily · fontSize · lineHeight · fontWeight
-│   │   ├── types.ts        # ThemeTokens · ThemeName · ColorMode
-│   │   ├── context.tsx     # ThemeProvider · useTheme · getTheme · applyThemeToCSSVars
-│   │   └── themes/
-│   │       ├── wabooks-light.ts   # WABOOKS  — purple  #0060B9
-│   │       ├── wabooks-dark.ts
-│   │       ├── webill365-light.ts # WeBill365 — blue   #1D32FF  (default)
-│   │       ├── webill365-dark.ts
-│   │       ├── wecafe-light.ts    # WeCafe   — orange  #E7450F
-│   │       └── wecafe-dark.ts
-│   └── index.ts            # Main barrel export
-└── showcase/               # Interactive token inspector (not published)
-    ├── App.tsx
-    ├── Sidebar.tsx
-    ├── TokenPanel.tsx
-    ├── DemoShell.tsx
-    └── demos/              # One demo file per component
+
+> **Peer dependencies** required in your app:
+> ```bash
+> npm install react react-dom
+> ```
+
+---
+
+## ⚠️ Import rule
+
+Only import from the package root or its sub-paths.  
+**Do not** reference anything inside `showcase/` — that folder is the internal demo app and is excluded from the published package.
+
+```tsx
+// ✅ Correct
+import { Toggle, Tooltip, Dialog } from "weloop-components";
+import { applyThemeToCSSVars }      from "weloop-components/tokens";
+
+// ❌ Never do this
+import { ... } from "weloop-components/showcase/...";
 ```
 
 ---
 
-## Components (12 total — all Figma-verified)
+## Components
 
 ### Atoms
 
-| Component | Props | Sizes | Figma Node |
-|---|---|---|---|
-| **ButtonSingle** | `buttonType` primary/danger/ghost · `variant` filled/outline/ghost · `size` xs/sm/md · `leadIcon` · `shortcut` · `disabled` | xs=24 sm=32 md=40 | `1212:4702` |
-| **ButtonDropdown** | `buttonType` primary/common · `filled` · `size` xs/sm/md · `label` · `open` · `disabled` | xs=24 sm=32 md=36 | `1193:2403` |
-| **ButtonSegment** | `segments[]` {key,label,icon} · `activeKey` · `disabled` · `onChange` | h=28 | `726:3581` |
-| **Link** | `label` · `href` · `showTrailIcon` · `disabled` · `onClick` | fixed 14px | `7676:81933` |
-| **NotifBadge** | `size` large/small/size3 · `label` | — | — |
-| **PaymentBadge** | `status` draft/scheduled/inProgress/approvalPending/partiallyPaid/paid/overdue/refunded/cancelled/failed | — | — |
+| Component | Figma node | Description |
+|---|---|---|
+| `Avatar` | — | 8 types × 3 sizes. `type="office"` uses Radix Avatar for image fallback |
+| `Chip` | 5730:7847 | Suggest (✓) and Input (avatar) types, S/M sizes, removable |
+| `Checkbox` | 215:412 | SM/LG, indeterminate — Radix Checkbox |
+| `FormField` | 215:423 | Text / Numeric / ComboLeft / ComboRight / Textarea — Radix Select + Label |
+| `Tooltip` | 215:425 | Dark pill `#1E293B` with ✦ icon, 9 tail positions — Radix Tooltip |
+| `Toggle` | 215:424 | SM (36×20) / MD (44×24), all states — Radix Switch |
+| `ButtonSingle` | — | Primary/common, filled/outline, 3 sizes |
+| `ButtonDropdown` | — | Split button — pass `menuItems[]` for a real Radix dropdown menu |
+| `ButtonSegment` | — | Segmented control |
+| `Link` | — | Styled anchor |
+| `NotifBadge` | — | Notification count badge |
+| `PaymentBadge` | — | Payment method badge |
 
 ### Molecules
+`Banner` · `DashboardCard`
 
-| Component | Props | Figma Node |
-|---|---|---|
-| **DashboardCard** | `type` toggle/minimal/headline · `headline` · `description` · `subtitle` · `trailText` · `delta` · `period` · `selected` · `disabled` · `onClick` | — |
-
-### Organisms — AppNavigate
-
-| Component | Props |
-|---|---|
-| **AppBar** | `points` · `notificationCount` · `avatarSrc` · `onNotificationClick` · `onAvatarClick` |
-| **DTopBar** | `title` · `showDraftBadge` · `primaryLabel` · `secondaryLabel` · `onPrimaryAction` · `onSecondaryAction` |
-| **DBottomBar** | `dropdownLabel` · `learnMoreLabel` · `primaryLabel` · `secondaryLabel` · `hideActions` · onClick handlers |
-| **TitleNavBar** | `parentLabel` · `currentLabel` · `childLabel` · `onHomeClick` · `onParentClick` |
-| **DialogSettingBar** | `title` · `onBack` · `onForward` · `onClose` |
+### Organisms
+`DataTable` (sortable, selectable, inline notes/status) · `Dialog` (simple / list / form / export)
 
 ---
 
-## Design Token System
-
-3 brand themes × 2 modes = **6 token sets**
-
-| Theme | Brand color | Light | Dark |
-|---|---|---|---|
-| `webill365` | `#1D32FF` blue | ✅ | ✅ |
-| `wabooks` | `#0060B9` purple | ✅ | ✅ |
-| `wecafe` | `#E7450F` orange | ✅ | ✅ |
-
-### Using tokens
+## Quick examples
 
 ```tsx
-import { ThemeProvider, useTheme } from 'weloop-components';
+// Toggle
+import { Toggle } from "weloop-components";
 
-// Wrap your app
-<ThemeProvider defaultTheme="webill365" defaultMode="light">
-  <App />
-</ThemeProvider>
+const [on, setOn] = useState(false);
+<Toggle size="md" checked={on} onChange={setOn} label="Dark mode" showLabel />
 
-// Inside any component
-const { tokens, setTheme, setColorMode } = useTheme();
-const brandColor = tokens.color.bg.brand.primary;
-```
+// Tooltip (all 9 tail positions supported)
+import { Tooltip } from "weloop-components";
 
-### Direct token access (no provider)
+<Tooltip content="Save changes" side="top" align="start">
+  <button>Save</button>
+</Tooltip>
 
-```tsx
-import { getTheme, wecafeLight, webill365Dark } from 'weloop-components';
+// Dialog — 4 variants
+import { Dialog, DEFAULT_FORM_FIELDS } from "weloop-components";
 
-const tokens = getTheme('wecafe', 'dark');
-console.log(tokens.color.text.brand); // '#FFF5ED'
-```
+<Dialog
+  variant="form"
+  open={open}
+  title="Add Member"
+  fields={DEFAULT_FORM_FIELDS}
+  onSubmit={values => console.log(values)}
+  onClose={() => setOpen(false)}
+/>
 
-### Available token categories
+// ButtonDropdown with real Radix menu
+import { ButtonDropdown } from "weloop-components";
 
-```ts
-tokens.color.bg.default              // page background
-tokens.color.bg.surface.subtle       // card / panel background
-tokens.color.bg.brand.primary        // brand fill color
-tokens.color.bg.brand.subtle         // brand tint background
-tokens.color.bg.feedback.error.solid // error state
-tokens.color.text.default            // primary text
-tokens.color.text.brand              // brand-colored text
-tokens.color.text.subtle             // secondary text
-tokens.color.border.default          // default border
-tokens.color.border.brand            // brand border
-tokens.shadow.brand.default          // brand box-shadow
+<ButtonDropdown
+  label="Actions"
+  menuItems={[
+    { id: "edit",   label: "Edit",   icon: <EditIcon /> },
+    { id: "delete", label: "Delete", danger: true, separator: true },
+  ]}
+  onMenuSelect={id => console.log(id)}
+/>
+
+// FormField with live Select dropdown
+import { FormField } from "weloop-components";
+
+<FormField
+  type="comboLeft"
+  label="Amount"
+  selectOptions={["USD", "EUR", "GBP"]}
+  selectValue={currency}
+  onSelectChange={setCurrency}
+  value={amount}
+  onChange={setAmount}
+/>
 ```
 
 ---
 
-## Quick Start
+## Tokens
+
+```tsx
+import { applyThemeToCSSVars } from "weloop-components/tokens";
+
+// Available: "webill365" | "wabooks" | "wecafe"  ×  "light" | "dark"
+applyThemeToCSSVars("webill365", "light");
+```
+
+---
+
+## For contributors
+
+The `showcase/` directory is the internal Vite demo app — **not published**.
 
 ```bash
-# Clone
 git clone https://github.com/sumtaimo/WeLoop-Components.git
 cd WeLoop-Components
-
-# Install
 npm install
-
-# Run interactive showcase
-npm run dev
+npm run dev      # http://localhost:5173
 ```
 
 ---
 
-## Usage in another project
+## License
 
-Point directly to this GitHub repo (until the package is published to npm):
-
-```bash
-npm install github:sumtaimo/WeLoop-Components
-```
-
-Then import:
-
-```tsx
-import { ButtonSingle, ThemeProvider } from 'weloop-components';
-
-export function App() {
-  return (
-    <ThemeProvider defaultTheme="webill365" defaultMode="light">
-      <ButtonSingle buttonType="primary" variant="filled" size="md">
-        Save
-      </ButtonSingle>
-    </ThemeProvider>
-  );
-}
-```
-
----
-
-## Interactive Showcase
-
-The `/showcase` app lets you browse every component with a live **Token Inspector** panel on the right:
-
-- Switch between **WeBill365 · WABOOKS · WeCafe** themes
-- Toggle **Light ↔ Dark** mode
-- See every design token value used by the component
-- Copy token values to clipboard
-
-```
-npm run dev   →  http://localhost:5173
-```
-
----
-
-## Figma Source
-
-**WeLoop 2.1 — Re-Update**  
-`https://www.figma.com/design/cuzALpr4p7pTkkHe3HqUzF/WeLoop-2.1--Re-Update-`
-
-Components verified against node `215:411` (Buttons & 버튼 page).
+ISC © Products Operations Dept.

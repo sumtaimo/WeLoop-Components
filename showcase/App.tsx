@@ -19,6 +19,8 @@ import { AvatarDemo } from "./demos/AvatarDemo";
 import { CheckboxDemo } from "./demos/CheckboxDemo";
 import { FormFieldDemo } from "./demos/FormFieldDemo";
 import { ChipDemo } from "./demos/ChipDemo";
+import { TooltipDemo } from "./demos/TooltipDemo";
+import { ToggleDemo } from "./demos/ToggleDemo";
 import { DialogDemo } from "./demos/DialogDemo";
 import type { ThemeName, ColorMode } from "../src/tokens";
 
@@ -28,6 +30,8 @@ const NAV: NavItem[] = [
     items: [
       { id: "avatar",          label: "Avatar" },
       { id: "chip",            label: "Chip" },
+      { id: "tooltip",         label: "Tooltip" },
+      { id: "toggle",          label: "Toggle" },
       { id: "checkbox",        label: "Checkbox" },
       { id: "form-field",      label: "FormField" },
       { id: "button-single",   label: "ButtonSingle" },
@@ -63,6 +67,8 @@ function DemoContent({ id }: { id: string }) {
   const DEMOS: Record<string, React.ReactNode> = {
     "avatar":          <AvatarDemo />,
     "chip":            <ChipDemo />,
+    "tooltip":         <TooltipDemo />,
+    "toggle":          <ToggleDemo />,
     "checkbox":        <CheckboxDemo />,
     "form-field":      <FormFieldDemo />,
     "button-single":   <ButtonSingleDemo />,
