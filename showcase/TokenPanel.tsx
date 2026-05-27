@@ -151,6 +151,23 @@ export const COMPONENT_TOKENS: Record<string, TokenEntry[]> = {
     { category: 'Radius',     name: 'lg',               description: '16px card', value: _ => '16px', isNumeric: true },
     { category: 'Spacing',    name: 'inset-16',         description: 'Card padding', value: _ => '16px', isNumeric: true },
   ],
+  'datarow': [
+    { category: 'Background', name: 'row default',           value: _ => '#FFFFFF' },
+    { category: 'Background', name: 'row selected',          cssVar: '--color-bg-brand-subtle', value: t => t.color.bg.brand.subtle },
+    { category: 'Background', name: 'row hover',             value: _ => '#F9FAFB' },
+    { category: 'Background', name: 'status inProgress bg',  value: _ => '#EAF3FF' },
+    { category: 'Background', name: 'status done bg',        value: _ => '#DCFCE7' },
+    { category: 'Background', name: 'status pending bg',     value: _ => '#FEF9C3' },
+    { category: 'Background', name: 'status cancelled bg',   value: _ => '#FFE1E3' },
+    { category: 'Text',       name: 'cell default',          value: _ => '#171717' },
+    { category: 'Text',       name: 'cell muted',            value: _ => '#9CA3AF' },
+    { category: 'Text',       name: 'status inProgress',     cssVar: '--color-text-brand', value: t => t.color.text.brand },
+    { category: 'Border',     name: 'cell divider',          value: _ => '#F0F0F0' },
+    { category: 'Border',     name: 'row outline',           value: _ => '#E5E7EB' },
+    { category: 'Border',     name: 'status inProgress',     value: _ => '#628AFF' },
+    { category: 'Size',       name: 'row height',            description: '56px', value: _ => '56px', isNumeric: true },
+    { category: 'Spacing',    name: 'cell padding-x',        description: '12px', value: _ => '12px', isNumeric: true },
+  ],
   'dtopbar': [
     { category: 'Background', name: 'surface.default',  value: t => t.color.bg.surface.default },
     { category: 'Background', name: 'brand.primary',    value: t => t.color.bg.brand.primary },
@@ -225,12 +242,12 @@ interface TokenPanelProps {
   onModeChange: (m: ColorMode) => void;
 }
 
-const PANEL_BG    = '#0F172A';
-const PANEL_CARD  = '#1E293B';
-const PANEL_DIVIDER = '#334155';
-const PANEL_TXT   = '#E2E8F0';
-const PANEL_MUTED = '#94A3B8';
-const PANEL_CAT   = '#64748B';
+const PANEL_BG    = '#FAFAFA';
+const PANEL_CARD  = '#F4F4F5';
+const PANEL_DIVIDER = '#E4E4E7';
+const PANEL_TXT   = '#18181B';
+const PANEL_MUTED = '#71717A';
+const PANEL_CAT   = '#A1A1AA';
 
 export function TokenPanel({ componentId, themeName, colorMode, onThemeChange, onModeChange }: TokenPanelProps) {
   const tokens   = themeMap[themeName][colorMode];
@@ -369,7 +386,7 @@ export function TokenPanel({ componentId, themeName, colorMode, onThemeChange, o
                       <div style={{
                         width: 28, height: 28, borderRadius: 6, flexShrink: 0,
                         background: value,
-                        border: `1px solid ${isLightColor(value) ? '#33415540' : '#ffffff18'}`,
+                        border: `1px solid ${isLightColor(value) ? '#D4D4D8' : '#00000018'}`,
                         boxSizing: 'border-box',
                       }} />
                     ) : (

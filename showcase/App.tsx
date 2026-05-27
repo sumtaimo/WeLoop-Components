@@ -7,6 +7,7 @@ import { ButtonSegmentDemo } from "./demos/ButtonSegmentDemo";
 import { LinkDemo } from "./demos/LinkDemo";
 import { PaymentBadgeDemo } from "./demos/PaymentBadgeDemo";
 import { NotifBadgeDemo } from "./demos/NotifBadgeDemo";
+import { DataRowDemo } from "./demos/DataRowDemo";
 import { DTopBarDemo } from "./demos/DTopBarDemo";
 import { DBottomBarDemo } from "./demos/DBottomBarDemo";
 import { AppBarDemo } from "./demos/AppBarDemo";
@@ -42,6 +43,7 @@ const NAV: NavItem[] = [
   {
     section: "Organisms",
     items: [
+      { id: "datarow",           label: "DataRow" },
       { id: "dtopbar",           label: "DTopBar" },
       { id: "dbottombar",        label: "DBottomBar" },
       { id: "appbar",            label: "AppBar" },
@@ -63,6 +65,7 @@ function DemoContent({ id }: { id: string }) {
     "notif-badge":     <NotifBadgeDemo />,
     "banner":          <BannerDemo />,
     "dashboard-card":  <DashboardCardDemo />,
+    "datarow":         <DataRowDemo />,
     "dtopbar":         <DTopBarDemo />,
     "dbottombar":      <DBottomBarDemo />,
     "appbar":          <AppBarDemo />,
