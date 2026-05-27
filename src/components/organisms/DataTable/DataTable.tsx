@@ -83,22 +83,23 @@ function HeaderCell({
   children,
   width,
   flex,
-  align = "center",
+  padding = "0 12px",
   style,
 }: {
   children?: React.ReactNode;
   width?: number | string;
   flex?: string;
-  align?: "center" | "flex-start" | "flex-end";
+  /** Horizontal padding — defaults to "0 12px", pass per-column overrides here */
+  padding?: string;
   style?: React.CSSProperties;
 }) {
   return (
     <div style={{
       display: "flex",
-      alignItems: align,
+      alignItems: "center",   // ALWAYS vertically center — never use align here
       height: "100%",
       borderRight: HEADER_DIVIDER,
-      padding: "0 12px",
+      padding,
       boxSizing: "border-box",
       flexShrink: 0,
       ...(width ? { width } : {}),
@@ -162,21 +163,31 @@ function AllCheckbox({
 
 // ─── DataTable ────────────────────────────────────────────────────────────────
 
+/**
+ * Per-column config:
+ *   align       — horizontal alignment of BOTH header label and data content
+ *   cellPadding — passed to HeaderCell.padding; MUST match the DataRow Cell's
+ *                 inline padding override for that column so labels stay aligned
+ */
 const COLUMNS: Array<{
   key: string;
   label: string;
   width?: number;
   flex?: string;
   sortable?: boolean;
+  /** "flex-start" | "center" | "flex-end"  — for header button justifyContent */
   align?: "center" | "flex-start" | "flex-end";
+  /** Overrides the default "0 12px" header cell padding to match DataRow cell */
+  cellPadding?: string;
 }> = [
-  { key: "date",     label: "DATE",     width: 172,           sortable: true },
-  { key: "amount",   label: "NUMERIC",  width: 80,            sortable: true, align: "flex-end" },
-  { key: "select",   label: "SELECT",   width: 120,           sortable: false },
-  { key: "assignee", label: "ASSIGNEE", width: 172,           sortable: false },
-  { key: "actions",  label: "ACTIONS",  width: 88,            sortable: false, align: "center" },
-  { key: "notes",    label: "NOTES",    flex: "1",            sortable: false },
-  { key: "status",   label: "STATUS",   width: 136,           sortable: false, align: "center" },
+  // key          label       width  sort   align          cellPadding (must match DataRow cell padding)
+  { key: "date",     label: "DATE",     width: 172, sortable: true  },                                     // DataRow: default 12px ✅
+  { key: "amount",   label: "NUMERIC",  width: 80,  sortable: true,  align: "flex-end" },                  // DataRow: default 12px ✅
+  { key: "select",   label: "SELECT",   width: 120, sortable: false },                                      // DataRow: default 12px ✅
+  { key: "assignee", label: "ASSIGNEE", width: 172, sortable: false },                                      // DataRow: default 12px ✅
+  { key: "actions",  label: "ACTIONS",  width: 88,  sortable: false, align: "center", cellPadding: "0 2px" }, // DataRow: padding "0 2px" (fixed)
+  { key: "notes",    label: "NOTES",    flex: "1",  sortable: false },                                      // DataRow: 12px (fixed from 10px)
+  { key: "status",   label: "STATUS",   width: 136, sortable: false, align: "center" },                    // DataRow: default 12px ✅
 ];
 
 export function DataTable({
@@ -242,49 +253,69 @@ export function DataTable({
           />
         </HeaderCell>
 
-        {COLUMNS.map(col => (
-          <HeaderCell
-            key={col.key}
-            width={col.width}
-            flex={col.flex}
-            align={col.align ?? "flex-start"}
-            style={!col.width && !col.flex ? undefined : undefined}
-          >
-            <button
-              onClick={col.sortable ? () => handleSort(col.key) : undefined}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 5,
-                background: "none",
-                border: "none",
-                padding: 0,
-                cursor: col.sortable ? "pointer" : "default",
-                fontFamily: "Inter, sans-serif",
-                fontSize: 11,
-                fontWeight: 600,
-                color: sortKey === col.key ? "#1D32FF" : "#6B7280",
-                letterSpacing: "0.05em",
-                textTransform: "uppercase",
-                userSelect: "none",
-                width: "100%",
-                justifyContent: col.align === "flex-end" ? "flex-end" :
-                                col.align === "center"   ? "center"   : "flex-start",
-              }}
+        {COLUMNS.map(col => {
+          const isActive   = sortKey === col.key;
+          const textAlign  = col.align ?? "flex-start";
+          const jc         = textAlign; // justifyContent on the button
+          const labelColor = isActive ? "#1D32FF" : "#6B7280";
+
+          return (
+            <HeaderCell
+              key={col.key}
+              width={col.width}
+              flex={col.flex}
+              padding={col.cellPadding ?? "0 12px"}
             >
-              {col.label}
-              {col.sortable && (
-                <SortIcon
-                  active={sortKey === col.key}
-                  dir={sortKey === col.key ? sortDir : undefined}
-                />
-              )}
-              {!col.sortable && col.key !== "actions" && (
-                <FilterIcon />
-              )}
-            </button>
-          </HeaderCell>
-        ))}
+              <button
+                onClick={col.sortable ? () => handleSort(col.key) : undefined}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 4,
+                  background: "none",
+                  border: "none",
+                  padding: 0,
+                  cursor: col.sortable ? "pointer" : "default",
+                  fontFamily: "Inter, sans-serif",
+                  fontSize: 11,
+                  fontWeight: 600,
+                  color: labelColor,
+                  letterSpacing: "0.05em",
+                  textTransform: "uppercase",
+                  userSelect: "none",
+                  width: "100%",
+                  justifyContent: jc,
+                  minWidth: 0,
+                  overflow: "hidden",
+                }}
+              >
+                {/* Label — shrinks + clips if column is too narrow */}
+                <span style={{
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  minWidth: 0,
+                  // For right-aligned columns the icon comes BEFORE the label visually
+                  order: textAlign === "flex-end" ? 2 : 0,
+                }}>
+                  {col.label}
+                </span>
+
+                {/* Icon — never hidden */}
+                {col.sortable && (
+                  <span style={{ flexShrink: 0, order: textAlign === "flex-end" ? 1 : 1, display: "flex" }}>
+                    <SortIcon active={isActive} dir={isActive ? sortDir : undefined} />
+                  </span>
+                )}
+                {!col.sortable && col.key !== "actions" && (
+                  <span style={{ flexShrink: 0, display: "flex" }}>
+                    <FilterIcon />
+                  </span>
+                )}
+              </button>
+            </HeaderCell>
+          );
+        })}
 
         {/* Trailing cell */}
         <HeaderCell width={48} style={{ borderRight: "none" }} />

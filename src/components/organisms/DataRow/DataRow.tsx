@@ -259,7 +259,8 @@ export function DataRow({
       </Cell>
 
       {/* ── 6. Edit actions (3 pencil icons) ── */}
-      <Cell width={88} style={{ justifyContent: "center", gap: 6 }}>
+      {/* padding: "0 2px" gives 84px content — exactly 3×24 + 2×6 = 84px */}
+      <Cell width={88} style={{ justifyContent: "center", gap: 6, padding: "0 2px" }}>
         {[0, 1, 2].map(i => (
           <button
             key={i}
@@ -277,7 +278,7 @@ export function DataRow({
       </Cell>
 
       {/* ── 7. Notes (text input) ── */}
-      <Cell flex="1" style={{ padding: "0 10px" }}>
+      <Cell flex="1" style={{ padding: "0 12px" }}>
         <input
           type="text"
           value={notes}
