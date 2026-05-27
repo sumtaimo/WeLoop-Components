@@ -19,6 +19,7 @@ import { AvatarDemo } from "./demos/AvatarDemo";
 import { CheckboxDemo } from "./demos/CheckboxDemo";
 import { FormFieldDemo } from "./demos/FormFieldDemo";
 import { ChipDemo } from "./demos/ChipDemo";
+import { DialogDemo } from "./demos/DialogDemo";
 import type { ThemeName, ColorMode } from "../src/tokens";
 
 const NAV: NavItem[] = [
@@ -48,6 +49,7 @@ const NAV: NavItem[] = [
     section: "Organisms",
     items: [
       { id: "datarow",           label: "DataTable" },
+      { id: "dialog",            label: "Dialog" },
       { id: "dtopbar",           label: "DTopBar" },
       { id: "dbottombar",        label: "DBottomBar" },
       { id: "appbar",            label: "AppBar" },
@@ -72,6 +74,7 @@ function DemoContent({ id }: { id: string }) {
     "banner":          <BannerDemo />,
     "dashboard-card":  <DashboardCardDemo />,
     "datarow":         <DataRowDemo />,
+    "dialog":          <DialogDemo />,
     "dtopbar":         <DTopBarDemo />,
     "dbottombar":      <DBottomBarDemo />,
     "appbar":          <AppBarDemo />,
