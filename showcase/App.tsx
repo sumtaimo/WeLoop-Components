@@ -22,6 +22,9 @@ import { ChipDemo } from "./demos/ChipDemo";
 import { TooltipDemo } from "./demos/TooltipDemo";
 import { ToggleDemo } from "./demos/ToggleDemo";
 import { DialogDemo } from "./demos/DialogDemo";
+import { ToastDemo } from "./demos/ToastDemo";
+import { TabsDemo } from "./demos/TabsDemo";
+import { SnackbarDemo } from "./demos/SnackbarDemo";
 import type { ThemeName, ColorMode } from "../src/tokens";
 
 const NAV: NavItem[] = [
@@ -40,6 +43,9 @@ const NAV: NavItem[] = [
       { id: "link",            label: "Link" },
       { id: "payment-badge",   label: "PaymentBadge" },
       { id: "notif-badge",     label: "NotifBadge" },
+      { id: "toast",           label: "Toast" },
+      { id: "tabs",            label: "Tabs" },
+      { id: "snackbar",        label: "Snackbar" },
     ],
   },
   {
@@ -77,6 +83,9 @@ function DemoContent({ id }: { id: string }) {
     "link":            <LinkDemo />,
     "payment-badge":   <PaymentBadgeDemo />,
     "notif-badge":     <NotifBadgeDemo />,
+    "toast":           <ToastDemo />,
+    "tabs":            <TabsDemo />,
+    "snackbar":        <SnackbarDemo />,
     "banner":          <BannerDemo />,
     "dashboard-card":  <DashboardCardDemo />,
     "datarow":         <DataRowDemo />,

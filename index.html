@@ -47,6 +47,43 @@
       @keyframes wl-check-in  { from { stroke-dashoffset: 20; opacity: 0; } to { stroke-dashoffset: 0; opacity: 1; } }
       .wl-check-path  { stroke-dasharray: 20; animation: wl-check-in 0.18s cubic-bezier(0.34,1.26,0.64,1); }
       .wl-minus-path  { animation: wl-check-in 0.14s ease; }
+
+      /* ── Toast ───────────────────────────────────────────── */
+      @keyframes wl-toast-in-right  { from { opacity: 0; transform: translateX(110%); } to { opacity: 1; transform: translateX(0); } }
+      @keyframes wl-toast-out-right { from { opacity: 1; transform: translateX(0);    } to { opacity: 0; transform: translateX(110%); } }
+      @keyframes wl-toast-in-left   { from { opacity: 0; transform: translateX(-110%);} to { opacity: 1; transform: translateX(0); } }
+      @keyframes wl-toast-out-left  { from { opacity: 1; transform: translateX(0);    } to { opacity: 0; transform: translateX(-110%); } }
+      @keyframes wl-toast-in-top    { from { opacity: 0; transform: translateY(-110%);} to { opacity: 1; transform: translateY(0); } }
+      @keyframes wl-toast-out-top   { from { opacity: 1; transform: translateY(0);    } to { opacity: 0; transform: translateY(-110%); } }
+      @keyframes wl-toast-in-bottom { from { opacity: 0; transform: translateY(110%); } to { opacity: 1; transform: translateY(0); } }
+      @keyframes wl-toast-out-bottom{ from { opacity: 1; transform: translateY(0);    } to { opacity: 0; transform: translateY(110%); } }
+
+      /* applied by position variant */
+      .wl-toast[data-state="open"][data-pos="bottom-right"],
+      .wl-toast[data-state="open"][data-pos="top-right"]  { animation: wl-toast-in-right  0.28s cubic-bezier(0.34,1.26,0.64,1); }
+      .wl-toast[data-state="closed"][data-pos="bottom-right"],
+      .wl-toast[data-state="closed"][data-pos="top-right"]{ animation: wl-toast-out-right 0.20s ease; }
+
+      .wl-toast[data-state="open"][data-pos="bottom-left"],
+      .wl-toast[data-state="open"][data-pos="top-left"]   { animation: wl-toast-in-left   0.28s cubic-bezier(0.34,1.26,0.64,1); }
+      .wl-toast[data-state="closed"][data-pos="bottom-left"],
+      .wl-toast[data-state="closed"][data-pos="top-left"] { animation: wl-toast-out-left  0.20s ease; }
+
+      .wl-toast[data-state="open"][data-pos="top-center"]    { animation: wl-toast-in-top    0.28s cubic-bezier(0.34,1.26,0.64,1); }
+      .wl-toast[data-state="closed"][data-pos="top-center"]  { animation: wl-toast-out-top   0.20s ease; }
+      .wl-toast[data-state="open"][data-pos="bottom-center"] { animation: wl-toast-in-bottom 0.28s cubic-bezier(0.34,1.26,0.64,1); }
+      .wl-toast[data-state="closed"][data-pos="bottom-center"]{ animation: wl-toast-out-bottom 0.20s ease; }
+
+      /* ── Snackbar ────────────────────────────────────────── */
+      @keyframes wl-snackbar-in-up    { from { opacity: 0; transform: translateY(14px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+      @keyframes wl-snackbar-out-down { from { opacity: 1; transform: translateY(0)    scale(1); }   to { opacity: 0; transform: translateY(14px) scale(0.97); } }
+      @keyframes wl-snackbar-in-down  { from { opacity: 0; transform: translateY(-14px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+      @keyframes wl-snackbar-out-up   { from { opacity: 1; transform: translateY(0)     scale(1); }   to { opacity: 0; transform: translateY(-14px) scale(0.97); } }
+
+      .wl-snackbar[data-state="open"][data-pos^="bottom"]   { animation: wl-snackbar-in-up    0.30s cubic-bezier(0.34,1.26,0.64,1); }
+      .wl-snackbar[data-state="closed"][data-pos^="bottom"] { animation: wl-snackbar-out-down 0.20s ease; }
+      .wl-snackbar[data-state="open"][data-pos^="top"]      { animation: wl-snackbar-in-down  0.30s cubic-bezier(0.34,1.26,0.64,1); }
+      .wl-snackbar[data-state="closed"][data-pos^="top"]    { animation: wl-snackbar-out-up   0.20s ease; }
     </style>
   </head>
   <body>
