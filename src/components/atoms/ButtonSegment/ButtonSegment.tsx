@@ -30,16 +30,28 @@ export function ButtonSegment({
         alignItems: "center",
         gap: 4,
         padding: 2,
-        background: disabled ? "#f9fafb" : "white",
+        background: "white",
         borderRadius: 8,
-        boxShadow: disabled
-          ? "none"
-          : "0 0 0 0.5px #e5e5e5, 0 0 0 0 rgba(0,0,0,0.08), 0 1px 1px 0 rgba(0,0,0,0.06)",
+        // Shadow is the same enabled or disabled — matches Figma
+        boxShadow: "0 0 0 0.5px #e5e5e5, 0 0 0 0px rgba(0,0,0,0.08), 0 1px 1px 0 rgba(0,0,0,0.06)",
         cursor: disabled ? "not-allowed" : "auto",
       }}
     >
       {segments.map((seg) => {
         const isActive = seg.key === activeKey;
+
+        // Active segment shows #f3f4f6 bg even when disabled (matches Figma)
+        const itemBg = isActive ? "#f3f4f6" : "transparent";
+
+        // Figma uses two gray values in disabled state:
+        //   • active (selected) disabled item:   label-inactive #a3a3a3
+        //   • inactive disabled items:           label-disabled  #737373
+        const textColor = disabled
+          ? isActive
+            ? "#a3a3a3"   // selected-but-disabled → lighter gray
+            : "#737373"   // unselected-and-disabled → medium gray
+          : "#171717";    // enabled → full black
+
         return (
           <button
             key={seg.key}
@@ -57,15 +69,16 @@ export function ButtonSegment({
               padding: "4px 8px",
               borderRadius: 6,
               border: "none",
-              background: isActive && !disabled ? "#f3f4f6" : "transparent",
+              background: itemBg,
               cursor: disabled ? "not-allowed" : "pointer",
               fontFamily: "Inter, sans-serif",
               fontWeight: 500,
               fontSize: 12,
               lineHeight: "16px",
               letterSpacing: "-0.2px",
-              color: disabled ? "#a3a3a3" : "#171717",
+              color: textColor,
               whiteSpace: "nowrap",
+              transition: "background 0.12s",
             }}
           >
             {seg.icon && (
@@ -74,6 +87,7 @@ export function ButtonSegment({
                   display: "inline-flex",
                   flexShrink: 0,
                   opacity: disabled ? 0.4 : 1,
+                  transition: "opacity 0.12s",
                 }}
               >
                 {seg.icon}

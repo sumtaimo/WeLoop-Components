@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 export type ButtonDropdownType = "primary" | "common";
 export type ButtonDropdownSize = "xs" | "sm" | "md";
@@ -10,7 +10,7 @@ export interface ButtonDropdownProps {
   filled?: boolean;
   label?: string;
   leadIcon?: React.ReactNode;
-  /** Whether the chevron points up (open state) */
+  /** Whether the chevron points up (open/active state) */
   open?: boolean;
   disabled?: boolean;
   onLabelClick?: () => void;
@@ -31,7 +31,7 @@ const sizes: Record<ButtonDropdownSize, {
   md: { height: 36, labelPx: 14, chevronPx: 12, py: 8, radius: 8, fontSize: 14 },
 };
 
-// filled
+// ─── Container base styles ────────────────────────────────────────────────────
 const filledContainerStyle: Record<ButtonDropdownType, React.CSSProperties> = {
   primary: {
     background: "#1d32ff",
@@ -45,7 +45,6 @@ const filledContainerStyle: Record<ButtonDropdownType, React.CSSProperties> = {
   },
 };
 
-// outline
 const outlineContainerStyle: Record<ButtonDropdownType, React.CSSProperties> = {
   primary: {
     background: "transparent",
@@ -57,6 +56,18 @@ const outlineContainerStyle: Record<ButtonDropdownType, React.CSSProperties> = {
     border: "1.5px solid #d1d5db",
     color: "#171717",
   },
+};
+
+// Hover overlay colors (applied to the section being hovered)
+const filledHoverOverlay: Record<ButtonDropdownType, string> = {
+  primary: "rgba(255, 255, 255, 0.12)",
+  common:  "rgba(0, 0, 0, 0.04)",
+};
+
+// Active (open) state: chevron section gets a deeper overlay
+const activeChevronOverlay: Record<ButtonDropdownType, string> = {
+  primary: "rgba(0, 0, 0, 0.18)",
+  common:  "rgba(0, 0, 0, 0.06)",
 };
 
 const disabledContainerStyle: React.CSSProperties = {
@@ -85,6 +96,8 @@ export function ButtonDropdown({
   className = "",
 }: ButtonDropdownProps) {
   const s = sizes[size];
+  const [labelHovered,   setLabelHovered]   = useState(false);
+  const [chevronHovered, setChevronHovered] = useState(false);
 
   let containerStyle: React.CSSProperties;
   if (disabled) {
@@ -96,6 +109,15 @@ export function ButtonDropdown({
   }
 
   const divColor = disabled ? "#e5e5e5" : dividerColor[buttonType];
+
+  // Compute hover backgrounds for label and chevron sections
+  const labelSectionBg = (!disabled && filled && labelHovered)
+    ? filledHoverOverlay[buttonType]
+    : "transparent";
+
+  const chevronSectionBg = (!disabled && filled && (chevronHovered || open))
+    ? (open ? activeChevronOverlay[buttonType] : filledHoverOverlay[buttonType])
+    : "transparent";
 
   return (
     <div
@@ -109,6 +131,7 @@ export function ButtonDropdown({
         flexShrink: 0,
         cursor: disabled ? "not-allowed" : "pointer",
         boxSizing: "border-box",
+        transition: "background 0.12s, box-shadow 0.12s",
         ...containerStyle,
       }}
     >
@@ -117,6 +140,8 @@ export function ButtonDropdown({
         type="button"
         disabled={disabled}
         onClick={onLabelClick}
+        onMouseEnter={() => setLabelHovered(true)}
+        onMouseLeave={() => setLabelHovered(false)}
         style={{
           display: "inline-flex",
           alignItems: "center",
@@ -124,7 +149,7 @@ export function ButtonDropdown({
           height: "100%",
           padding: `${s.py}px ${s.labelPx}px`,
           border: "none",
-          background: "transparent",
+          background: labelSectionBg,
           cursor: disabled ? "not-allowed" : "pointer",
           fontFamily: "Inter, sans-serif",
           fontWeight: 500,
@@ -136,6 +161,7 @@ export function ButtonDropdown({
           minWidth: 20,
           overflow: "hidden",
           textOverflow: "ellipsis",
+          transition: "background 0.12s",
         }}
       >
         {leadIcon && (
@@ -152,6 +178,8 @@ export function ButtonDropdown({
         type="button"
         disabled={disabled}
         onClick={onChevronClick ?? onLabelClick}
+        onMouseEnter={() => setChevronHovered(true)}
+        onMouseLeave={() => setChevronHovered(false)}
         aria-label={open ? "Close options" : "Open options"}
         style={{
           display: "inline-flex",
@@ -160,10 +188,11 @@ export function ButtonDropdown({
           height: "100%",
           padding: `${s.py}px ${s.chevronPx}px`,
           border: "none",
-          background: "transparent",
+          background: chevronSectionBg,
           cursor: disabled ? "not-allowed" : "pointer",
           color: "inherit",
           flexShrink: 0,
+          transition: "background 0.12s",
         }}
       >
         <ChevronIcon open={open} />
