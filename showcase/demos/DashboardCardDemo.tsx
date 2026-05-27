@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { DashboardCard } from "../../src/components/molecules/DashboardCard";
 import { DemoShell, DemoRow } from "../DemoShell";
 
+// Figma placeholder description (matches node 760:17352 exactly)
+const FIGMA_DESC = "Explanatory text shown in the headline in a single or multiple lines.";
+
 export function DashboardCardDemo() {
   const [toggleSel, setToggleSel] = useState<string | null>(null);
   const [minSel, setMinSel]       = useState<string | null>(null);
@@ -10,10 +13,35 @@ export function DashboardCardDemo() {
   return (
     <DemoShell
       title="DashboardCard"
-      description="3 dashboard card types from the Figma Cards page: Toggle (preview thumbnail + actions), Minimal (compact thumbnail), and Headline (stat card)."
+      description="3 card types from Figma node 760:17352 — Toggle (preview frame + actions), Minimal (compact frame), Headline (stat card). Each with 4 states: Default · Selected · Disabled."
     >
+
       {/* ── Toggle ── */}
-      <DemoRow label="Toggle — Default / Selected / Disabled">
+      <DemoRow label="Toggle — Default · Selected · Disabled">
+        {/* Default */}
+        <DashboardCard
+          type="toggle"
+          headline="Title"
+          description={FIGMA_DESC}
+        />
+        {/* Selected */}
+        <DashboardCard
+          type="toggle"
+          headline="Title"
+          description={FIGMA_DESC}
+          selected
+        />
+        {/* Disabled */}
+        <DashboardCard
+          type="toggle"
+          headline="Title"
+          description={FIGMA_DESC}
+          disabled
+        />
+      </DemoRow>
+
+      {/* ── Toggle interactive ── */}
+      <DemoRow label="Toggle — interactive click to select/deselect">
         <DashboardCard
           type="toggle" headline="Invoices" description="Track and manage your invoices."
           selected={toggleSel === "a"} onClick={() => setToggleSel(toggleSel === "a" ? null : "a")}
@@ -23,13 +51,38 @@ export function DashboardCardDemo() {
           selected={toggleSel === "b"} onClick={() => setToggleSel(toggleSel === "b" ? null : "b")}
         />
         <DashboardCard
-          type="toggle" headline="Disabled card" description="This card cannot be selected."
+          type="toggle" headline="Reports" description="Download monthly summaries."
+          selected={toggleSel === "c"} onClick={() => setToggleSel(toggleSel === "c" ? null : "c")}
+        />
+        <DashboardCard
+          type="toggle" headline="Disabled" description="Cannot be selected."
           disabled
         />
       </DemoRow>
 
       {/* ── Minimal ── */}
-      <DemoRow label="Minimal — Default / Selected / Disabled">
+      <DemoRow label="Minimal — Default · Selected · Disabled">
+        <DashboardCard
+          type="minimal"
+          headline="Title"
+          description={FIGMA_DESC}
+        />
+        <DashboardCard
+          type="minimal"
+          headline="Title"
+          description={FIGMA_DESC}
+          selected
+        />
+        <DashboardCard
+          type="minimal"
+          headline="Title"
+          description={FIGMA_DESC}
+          disabled
+        />
+      </DemoRow>
+
+      {/* ── Minimal interactive ── */}
+      <DemoRow label="Minimal — interactive">
         <DashboardCard
           type="minimal" headline="Customers" description="Manage customer accounts."
           selected={minSel === "a"} onClick={() => setMinSel(minSel === "a" ? null : "a")}
@@ -45,23 +98,47 @@ export function DashboardCardDemo() {
       </DemoRow>
 
       {/* ── Headline (stat cards) ── */}
-      <DemoRow label="Headline — Stat cards">
+      <DemoRow label="Headline — Default · Selected · Disabled (Figma row 3)">
+        <DashboardCard
+          type="headline"
+          subtitle="Subtitle" trailText="10K"
+          headline="Title"
+          delta="5%" period="vs last week"
+        />
+        <DashboardCard
+          type="headline"
+          subtitle="Subtitle" trailText="10K"
+          headline="Title"
+          delta="5%" period="vs last week"
+          selected
+        />
+        <DashboardCard
+          type="headline"
+          subtitle="Subtitle" trailText="10K"
+          headline="Title"
+          delta="5%" period="vs last week"
+          disabled
+        />
+      </DemoRow>
+
+      {/* ── Headline interactive ── */}
+      <DemoRow label="Headline — interactive stat cards">
         <DashboardCard
           type="headline"
           subtitle="Total Revenue" trailText="10K"
-          headline="$24,500" delta="↑5%" period="vs last week"
+          headline="$24,500" delta="5%" period="vs last week"
           selected={headSel === "a"} onClick={() => setHeadSel(headSel === "a" ? null : "a")}
         />
         <DashboardCard
           type="headline"
           subtitle="New Orders" trailText="342"
-          headline="1,280" delta="↑12%" period="vs last month"
+          headline="1,280" delta="12%" period="vs last month"
           selected={headSel === "b"} onClick={() => setHeadSel(headSel === "b" ? null : "b")}
         />
         <DashboardCard
           type="headline"
-          subtitle="Pending" trailText="48"
-          headline="7" delta="↓3%" period="vs last week"
+          subtitle="Overdue" trailText="8"
+          headline="3" delta="-2%" period="vs last week"
           selected={headSel === "c"} onClick={() => setHeadSel(headSel === "c" ? null : "c")}
         />
         <DashboardCard
@@ -69,6 +146,7 @@ export function DashboardCardDemo() {
           headline="N/A" disabled
         />
       </DemoRow>
+
     </DemoShell>
   );
 }

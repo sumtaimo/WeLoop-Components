@@ -26,15 +26,15 @@ const S_DISABLED   = "0 0 0 1px #d4d4d4";
 
 // ─── shared typography ────────────────────────────────────────────────────────
 const TITLE_STYLE: React.CSSProperties = {
-  fontFamily: "Inter, sans-serif", fontWeight: 500,
+  fontFamily: "Inter, sans-serif", fontWeight: 600,
   fontSize: 20, lineHeight: "28px", letterSpacing: "-0.2px",
-  whiteSpace: "nowrap", color: "#171717",
+  color: "#171717",
 };
+// Description wraps to 2 lines (matching Figma "single or multiple lines")
 const DESC_STYLE: React.CSSProperties = {
   fontFamily: "Inter, sans-serif", fontWeight: 400,
   fontSize: 12, lineHeight: "16px", letterSpacing: "-0.1px",
-  color: "#a3a3a3", overflow: "hidden", textOverflow: "ellipsis",
-  whiteSpace: "nowrap", width: "100%",
+  color: "#a3a3a3", width: "100%",
 };
 const MUTED_STYLE: React.CSSProperties = {
   fontFamily: "Inter, sans-serif", fontWeight: 400,
@@ -99,8 +99,8 @@ function ToggleCard({ headline, description, selected, disabled, hover, onClick 
         textAlign: "left", padding: 0,
       }}
     >
-      {/* Preview area */}
-      <div style={{ background: headerBg, height: 96, padding: "12px 16px 0", display: "flex", flexDirection: "column" }}>
+      {/* Preview area — 120 px matches Figma frame proportion */}
+      <div style={{ background: headerBg, height: 120, padding: "12px 16px 0", display: "flex", flexDirection: "column" }}>
         {/* Top tab */}
         <div style={{
           height: 12, width: 180, borderRadius: "8px 8px 0 0",
@@ -118,7 +118,7 @@ function ToggleCard({ headline, description, selected, disabled, hover, onClick 
       {/* Card body */}
       <div style={{
         background: disabled ? "#e5e5e5" : "white",
-        borderTop: "0.5px solid #d8e9ff",
+        borderTop: "0.5px solid #c3d8ff",
         padding: "12px 16px",
         display: "flex", flexDirection: "column", gap: 8,
         boxShadow: S_BODY,
@@ -194,10 +194,10 @@ function MinimalCard({ headline, description, selected, disabled, hover, onClick
         </div>
       </div>
 
-      {/* Card body */}
+      {/* Card body — neutral separator (Minimal is gray-themed, not brand-blue) */}
       <div style={{
         background: disabled ? "#e5e5e5" : "white",
-        borderTop: "0.5px solid #d8e9ff",
+        borderTop: "0.5px solid #e5e5e5",
         padding: "8px 12px",
         display: "flex", flexDirection: "column", gap: 4,
         boxShadow: S_FLOAT_CARD,
@@ -206,6 +206,20 @@ function MinimalCard({ headline, description, selected, disabled, hover, onClick
         <span style={DESC_STYLE}>{description}</span>
       </div>
     </div>
+  );
+}
+
+// ─── DeltaIcon (solid triangle — matches Figma trend indicator) ──────────────
+function DeltaIcon({ direction, disabled }: { direction: "up" | "down"; disabled: boolean }) {
+  const color = disabled ? "#d4d4d4" : direction === "up" ? "#15803d" : "#dc2626";
+  return direction === "up" ? (
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
+      <path d="M5 2L9 8H1L5 2Z" fill={color} />
+    </svg>
+  ) : (
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
+      <path d="M5 8L1 2H9L5 8Z" fill={color} />
+    </svg>
   );
 }
 
@@ -245,18 +259,22 @@ function HeadlineCard({ headline, subtitle, trailText, delta, period, selected, 
       {/* Title */}
       <span style={{ ...TITLE_STYLE, color: disabled ? "#a3a3a3" : "#171717" }}>{headline}</span>
 
-      {/* Delta row */}
+      {/* Delta row — solid triangle icon + value + period */}
       {delta && (
         <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+          <DeltaIcon direction={delta.startsWith("-") || delta.startsWith("↓") ? "down" : "up"} disabled={disabled} />
           <span style={{
-            fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: 12,
+            fontFamily: "Inter, sans-serif", fontWeight: 500, fontSize: 12,
             lineHeight: "16px", letterSpacing: "-0.1px",
-            color: disabled ? "#d4d4d4" : "#15803d",
-          }}>{delta}</span>
+            color: disabled ? "#d4d4d4" : (delta.startsWith("-") || delta.startsWith("↓") ? "#dc2626" : "#15803d"),
+          }}>
+            {/* Strip arrow prefix if caller passed it as part of the string */}
+            {delta.replace(/^[↑↓+\-]/, "")}
+          </span>
           {period && (
             <span style={{
               fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: 12,
-              lineHeight: "16px", letterSpacing: "-0.1px", color: "#a3a3a3",
+              lineHeight: "16px", letterSpacing: "-0.1px", color: disabled ? "#d4d4d4" : "#a3a3a3",
             }}>{period}</span>
           )}
         </div>
