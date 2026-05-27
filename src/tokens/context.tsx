@@ -82,6 +82,12 @@ interface ThemeProviderProps {
   defaultTheme?: ThemeName;
   defaultMode?: ColorMode;
   applyToCSSVars?: boolean;
+  /**
+   * Fully-resolved custom tokens from `createCustomTheme()` or `createBrandTheme()`.
+   * When provided, overrides `defaultTheme`/`defaultMode` as the active token set.
+   * Theme-switching via `setTheme` / `setColorMode` still works and will override this.
+   */
+  customTokens?: ThemeTokens;
 }
 
 export function ThemeProvider({
@@ -89,18 +95,31 @@ export function ThemeProvider({
   defaultTheme = 'webill365',
   defaultMode = 'light',
   applyToCSSVars = true,
+  customTokens,
 }: ThemeProviderProps) {
   const [themeName, setThemeName] = useState<ThemeName>(defaultTheme);
   const [colorMode, setColorModeState] = useState<ColorMode>(defaultMode);
+  // If customTokens is provided and no runtime switch has happened yet, use it as the base
+  const [hasUserSwitched, setHasUserSwitchedState] = useState(false);
 
-  const tokens = getTheme(themeName, colorMode);
+  const resolvedTokens = hasUserSwitched || !customTokens
+    ? getTheme(themeName, colorMode)
+    : customTokens;
+
+  const tokens = resolvedTokens;
 
   useEffect(() => {
     if (applyToCSSVars) applyThemeToCSSVars(tokens);
   }, [tokens, applyToCSSVars]);
 
-  const setTheme = useCallback((name: ThemeName) => setThemeName(name), []);
-  const setColorMode = useCallback((mode: ColorMode) => setColorModeState(mode), []);
+  const setTheme = useCallback((name: ThemeName) => {
+    setThemeName(name);
+    setHasUserSwitchedState(true);
+  }, []);
+  const setColorMode = useCallback((mode: ColorMode) => {
+    setColorModeState(mode);
+    setHasUserSwitchedState(true);
+  }, []);
   const toggleColorMode = useCallback(
     () => setColorModeState(m => (m === 'light' ? 'dark' : 'light')),
     []

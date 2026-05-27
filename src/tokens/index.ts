@@ -24,6 +24,9 @@ export { wecafeDark } from './themes/wecafe-dark';
 // ─── React ThemeContext ───────────────────────────────────────────────────────
 export { getTheme, applyThemeToCSSVars, ThemeProvider, useTheme } from './context';
 
+// ─── Custom theme utilities ───────────────────────────────────────────────────
+export { createCustomTheme, createBrandTheme } from './createCustomTheme';
+
 // ─── Legacy tokens (kept for backward compatibility with existing components) ─
 export const colors = {
   primary: {

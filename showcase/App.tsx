@@ -13,6 +13,7 @@ import { AppBarDemo } from "./demos/AppBarDemo";
 import { TitleNavBarDemo } from "./demos/TitleNavBarDemo";
 import { DialogSettingBarDemo } from "./demos/DialogSettingBarDemo";
 import { DashboardCardDemo } from "./demos/DashboardCardDemo";
+import { BannerDemo } from "./demos/BannerDemo";
 import { AvatarDemo } from "./demos/AvatarDemo";
 import type { ThemeName, ColorMode } from "../src/tokens";
 
@@ -32,6 +33,7 @@ const NAV: NavItem[] = [
   {
     section: "Molecules",
     items: [
+      { id: "banner",        label: "Banner" },
       { id: "dashboard-card", label: "DashboardCard" },
     ],
   },
@@ -56,6 +58,7 @@ function DemoContent({ id }: { id: string }) {
     "link":            <LinkDemo />,
     "payment-badge":   <PaymentBadgeDemo />,
     "notif-badge":     <NotifBadgeDemo />,
+    "banner":          <BannerDemo />,
     "dashboard-card":  <DashboardCardDemo />,
     "dtopbar":         <DTopBarDemo />,
     "dbottombar":      <DBottomBarDemo />,
