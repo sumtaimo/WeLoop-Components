@@ -34,27 +34,40 @@ export interface BannerProps {
 
 interface BannerConfig {
   bg: string;
+  /** Text + icon color */
   text: string;
+  /** Left-border color on the close button separator */
   closeBorder: string;
-  /** Accent border color for subtle/multi variants (bottom edge) */
+  /**
+   * Outline border for the whole card.
+   * - information: visible 1px blue border
+   * - multi types: 1px accent border (all sides) + 3px bottom accent
+   * - solid types: undefined (solid bg is its own visual boundary)
+   */
+  cardBorder?: string;
+  /** Bottom accent stripe for multi-line subtle variants */
   accentBorder?: string;
-  /** true = solid colored bg; false = subtle / light bg */
+  /** true = solid colored bg (success/warning/critical/actionable) */
   isSolid: boolean;
   /** true = multi-line layout */
   isMulti: boolean;
-  /** Icon fill color override (defaults to `text`) */
-  iconColor?: string;
 }
 
 const CONFIG: Record<BannerType, BannerConfig> = {
-  information:     { bg: "#D8E9FF", text: "#1D32FF", closeBorder: "#628AFF", isSolid: false, isMulti: false },
-  success:         { bg: "#22C55E", text: "#F0FDF4", closeBorder: "#16A34A", isSolid: true,  isMulti: false },
-  warning:         { bg: "#F65F19", text: "#FEE9D6", closeBorder: "#BF310F", isSolid: true,  isMulti: false },
-  critical:        { bg: "#E1232E", text: "#FEF2F3", closeBorder: "#BD1822", isSolid: true,  isMulti: false },
-  actionable:      { bg: "#EAB308", text: "#FEF9C3", closeBorder: "#FEF9C3", isSolid: true,  isMulti: false },
-  multiActionable: { bg: "#FEF9C3", text: "#CA8A04", closeBorder: "#EAB308", accentBorder: "#EAB308", isSolid: false, isMulti: true  },
-  multiCritical:   { bg: "#FFE1E3", text: "#E1232E", closeBorder: "#FC6D75", accentBorder: "#FC6D75", isSolid: false, isMulti: true  },
-  multiWarning:    { bg: "#FDCFAB", text: "#BF310F", closeBorder: "#BF310F", accentBorder: "#F97316", isSolid: false, isMulti: true  },
+  // ── Single-line ──────────────────────────────────────────────────────────
+  // FIX #1: solid text is pure white (Figma row 2-5 all show #FFFFFF)
+  // FIX #2: solid close separator is rgba white (Figma shows white separator)
+  // FIX #3: information gets a full card border matching its text/icon color
+  information:     { bg: "#D8E9FF", text: "#1D32FF", closeBorder: "#628AFF",            cardBorder: "#628AFF",  isSolid: false, isMulti: false },
+  success:         { bg: "#22C55E", text: "#FFFFFF",  closeBorder: "rgba(255,255,255,0.5)",                      isSolid: true,  isMulti: false },
+  warning:         { bg: "#F65F19", text: "#FFFFFF",  closeBorder: "rgba(255,255,255,0.5)",                      isSolid: true,  isMulti: false },
+  critical:        { bg: "#E1232E", text: "#FFFFFF",  closeBorder: "rgba(255,255,255,0.5)",                      isSolid: true,  isMulti: false },
+  actionable:      { bg: "#EAB308", text: "#FFFFFF",  closeBorder: "rgba(255,255,255,0.5)",                      isSolid: true,  isMulti: false },
+  // ── Multi-line ───────────────────────────────────────────────────────────
+  // FIX #4: multi types have cardBorder + accentBorder (all sides + thick bottom)
+  multiActionable: { bg: "#FEF9C3", text: "#CA8A04", closeBorder: "#EAB308", cardBorder: "#EAB308", accentBorder: "#EAB308", isSolid: false, isMulti: true },
+  multiCritical:   { bg: "#FFE1E3", text: "#E1232E", closeBorder: "#FC6D75", cardBorder: "#FC6D75", accentBorder: "#FC6D75", isSolid: false, isMulti: true },
+  multiWarning:    { bg: "#FDCFAB", text: "#BF310F", closeBorder: "#BF310F", cardBorder: "#D97706", accentBorder: "#D97706", isSolid: false, isMulti: true },
 };
 
 // ─── Inline SVG Icons ────────────────────────────────────────────────────────
@@ -141,20 +154,23 @@ export function Banner({
   style,
 }: BannerProps) {
   const cfg = CONFIG[type];
-  const isMulti = cfg.isMulti;
+  const { isMulti, isSolid } = cfg;
   const iconSize = isMulti ? 32 : 24;
 
-  // Action button styles — ghost outline for solid banners, filled white for subtle
-  const actionBtnStyle: React.CSSProperties = cfg.isSolid
+  // ── Action button ──────────────────────────────────────────────────────────
+  // Solid banners: ghost outline (white border + semi-transparent bg + white text)
+  // Subtle/multi banners: white filled (white bg + neutral border + cfg.text color)
+  // FIX #6: multi button border → neutral rgba gray (Figma shows subtle gray outline)
+  const actionBtnStyle: React.CSSProperties = isSolid
     ? {
         display: "inline-flex",
         alignItems: "center",
         height: 32,
         padding: "0 14px",
         borderRadius: 8,
-        border: `1.5px solid ${cfg.text}`,
-        background: "rgba(255,255,255,0.12)",
-        color: cfg.text,
+        border: "1.5px solid rgba(255,255,255,0.8)",
+        background: "rgba(255,255,255,0.14)",
+        color: "#FFFFFF",
         fontFamily: "Inter, sans-serif",
         fontSize: 13,
         fontWeight: 600,
@@ -162,6 +178,7 @@ export function Banner({
         whiteSpace: "nowrap" as const,
         letterSpacing: "0.01em",
         outline: "none",
+        flexShrink: 0,
       }
     : {
         display: "inline-flex",
@@ -169,8 +186,8 @@ export function Banner({
         height: 32,
         padding: "0 14px",
         borderRadius: 8,
-        border: `1.5px solid ${cfg.text}`,
-        background: "#ffffff",
+        border: "1.5px solid rgba(0,0,0,0.12)",
+        background: "#FFFFFF",
         color: cfg.text,
         fontFamily: "Inter, sans-serif",
         fontSize: 13,
@@ -179,17 +196,17 @@ export function Banner({
         whiteSpace: "nowrap" as const,
         letterSpacing: "0.01em",
         outline: "none",
+        flexShrink: 0,
       };
 
-  // Close button
+  // ── Close button ───────────────────────────────────────────────────────────
   const closeBtnStyle: React.CSSProperties = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     width: 48,
     minWidth: 48,
-    height: "100%",
-    minHeight: 48,
+    alignSelf: "stretch",
     background: "transparent",
     border: "none",
     borderLeft: `1px solid ${cfg.closeBorder}`,
@@ -199,7 +216,9 @@ export function Banner({
     flexShrink: 0,
   };
 
-  // Outer container
+  // ── Outer container ────────────────────────────────────────────────────────
+  // FIX #3 + #4: information → 1px solid blue border all around
+  //              multi types → 1px border all sides + 3px thick bottom accent
   const containerStyle: React.CSSProperties = {
     display: "flex",
     alignItems: "stretch",
@@ -209,37 +228,44 @@ export function Banner({
     borderRadius: 10,
     overflow: "hidden",
     boxSizing: "border-box",
-    ...(cfg.accentBorder
-      ? { borderBottom: `2px solid ${cfg.accentBorder}` }
-      : {}),
+    // card border (information + multi types)
+    ...(cfg.cardBorder ? { border: `1px solid ${cfg.cardBorder}` } : {}),
+    // thick bottom accent for multi types (overrides the 1px set above for bottom)
+    ...(cfg.accentBorder ? { borderBottom: `3px solid ${cfg.accentBorder}` } : {}),
     ...style,
   };
 
-  // Inner content area (left of close button)
+  // ── Content area ───────────────────────────────────────────────────────────
+  // FIX #5 + #6: multi layout is a single flex row:
+  //   [icon] [text-col flex:1] [action-btn] — NOT action-btn inside text col
+  // FIX #5b: alignItems "center" for multi (button sits beside the 2-line text)
   const contentAreaStyle: React.CSSProperties = {
     flex: 1,
     display: "flex",
-    alignItems: isMulti ? "flex-start" : "center",
+    alignItems: "center",
     gap: 12,
     padding: isMulti ? "12px 16px" : "0 16px",
     minHeight: 48,
   };
 
-  // Text block
-  const textBlockStyle: React.CSSProperties = isMulti
-    ? {
-        flex: 1,
-        display: "flex",
-        flexDirection: "column",
-        gap: 2,
-        paddingTop: 4,
-      }
-    : {
-        flex: 1,
-        display: "flex",
-        alignItems: "center",
-        gap: 16,
-      };
+  // For single-line: [message flex:1] [action-btn]  — text + btn in same row
+  const singleTextStyle: React.CSSProperties = {
+    fontFamily: "Inter, sans-serif",
+    fontSize: 14,
+    fontWeight: 500,
+    color: cfg.text,
+    lineHeight: "20px",
+    flex: 1,
+  };
+
+  // For multi-line: separate title + description stacked (no action btn inside)
+  const multiTextColStyle: React.CSSProperties = {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    gap: 2,
+    minWidth: 0,
+  };
 
   const titleStyle: React.CSSProperties = {
     fontFamily: "Inter, sans-serif",
@@ -260,48 +286,44 @@ export function Banner({
     margin: 0,
   };
 
-  const singleTextStyle: React.CSSProperties = {
-    fontFamily: "Inter, sans-serif",
-    fontSize: 14,
-    fontWeight: 500,
-    color: cfg.text,
-    lineHeight: "20px",
-    flex: 1,
-  };
-
   return (
     <div style={containerStyle} role="alert">
-      {/* Content + action */}
       <div style={contentAreaStyle}>
+
         {/* Icon */}
         <BannerIcon type={type} color={cfg.text} size={iconSize} />
 
-        {/* Text + optional action */}
         {isMulti ? (
-          <div style={textBlockStyle}>
-            {title && <p style={titleStyle}>{title}</p>}
-            {description && <p style={descStyle}>{description}</p>}
-            {actionLabel && onAction && (
-              <div style={{ marginTop: 10 }}>
-                <button style={actionBtnStyle} onClick={onAction}>
-                  {actionLabel}
-                </button>
-              </div>
-            )}
-          </div>
-        ) : (
-          <div style={textBlockStyle}>
-            <span style={singleTextStyle}>{message}</span>
+          <>
+            {/* Text column — title + description only, NO action btn here */}
+            <div style={multiTextColStyle}>
+              {title       && <p style={titleStyle}>{title}</p>}
+              {description && <p style={descStyle}>{description}</p>}
+            </div>
+
+            {/* Action button beside text (FIX #5) */}
             {actionLabel && onAction && (
               <button style={actionBtnStyle} onClick={onAction}>
                 {actionLabel}
               </button>
             )}
-          </div>
+          </>
+        ) : (
+          <>
+            {/* Single-line message */}
+            <span style={singleTextStyle}>{message}</span>
+
+            {/* Action button inline */}
+            {actionLabel && onAction && (
+              <button style={actionBtnStyle} onClick={onAction}>
+                {actionLabel}
+              </button>
+            )}
+          </>
         )}
       </div>
 
-      {/* Close button */}
+      {/* Close button with left-border separator */}
       {onClose && (
         <button style={closeBtnStyle} onClick={onClose} aria-label="Close banner">
           <CloseIcon color={cfg.text} />
