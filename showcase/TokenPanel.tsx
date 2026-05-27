@@ -14,6 +14,23 @@ export interface TokenEntry {
 }
 
 export const COMPONENT_TOKENS: Record<string, TokenEntry[]> = {
+  'checkbox': [
+    { category: 'Background', name: 'checked / indeterminate', cssVar: '--color-bg-brand-primary', value: t => t.color.bg.brand.primary },
+    { category: 'Background', name: 'unchecked default',       value: _ => '#FFFFFF' },
+    { category: 'Background', name: 'disabled filled',         value: _ => '#D4D4D4' },
+    { category: 'Background', name: 'disabled unchecked',      value: _ => '#F5F5F5' },
+    { category: 'Border',     name: 'default',                 value: _ => '#D4D4D4' },
+    { category: 'Border',     name: 'hover',                   value: _ => '#A3A3A3' },
+    { category: 'Border',     name: 'focus',                   cssVar: '--color-border-brand', value: t => t.color.border.brand },
+    { category: 'Border',     name: 'disabled',                value: _ => '#E5E5E5' },
+    { category: 'Shadow',     name: 'focus ring',              value: _ => '0 0 0 3px rgba(29,50,255,0.18)' },
+    { category: 'Text',       name: 'label enabled',           value: _ => '#171717' },
+    { category: 'Text',       name: 'label disabled',          value: _ => '#A3A3A3' },
+    { category: 'Radius',     name: 'sm box',                  description: '4px',  value: _ => '4px',  isNumeric: true },
+    { category: 'Radius',     name: 'lg box',                  description: '5px',  value: _ => '5px',  isNumeric: true },
+    { category: 'Size',       name: 'sm',                      description: '16×16px', value: _ => '16px', isNumeric: true },
+    { category: 'Size',       name: 'lg',                      description: '20×20px', value: _ => '20px', isNumeric: true },
+  ],
   'avatar': [
     { category: 'Background', name: 'surface.default (ring types)', value: _ => '#F9FAFB' },
     { category: 'Background', name: 'surface.disabled (fill types)', value: _ => '#E5E5E5' },

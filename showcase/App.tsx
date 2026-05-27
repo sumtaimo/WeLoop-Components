@@ -15,6 +15,7 @@ import { DialogSettingBarDemo } from "./demos/DialogSettingBarDemo";
 import { DashboardCardDemo } from "./demos/DashboardCardDemo";
 import { BannerDemo } from "./demos/BannerDemo";
 import { AvatarDemo } from "./demos/AvatarDemo";
+import { CheckboxDemo } from "./demos/CheckboxDemo";
 import type { ThemeName, ColorMode } from "../src/tokens";
 
 const NAV: NavItem[] = [
@@ -22,6 +23,7 @@ const NAV: NavItem[] = [
     section: "Atoms",
     items: [
       { id: "avatar",          label: "Avatar" },
+      { id: "checkbox",        label: "Checkbox" },
       { id: "button-single",   label: "ButtonSingle" },
       { id: "button-dropdown", label: "ButtonDropdown" },
       { id: "button-segment",  label: "ButtonSegment" },
@@ -52,6 +54,7 @@ const NAV: NavItem[] = [
 function DemoContent({ id }: { id: string }) {
   const DEMOS: Record<string, React.ReactNode> = {
     "avatar":          <AvatarDemo />,
+    "checkbox":        <CheckboxDemo />,
     "button-single":   <ButtonSingleDemo />,
     "button-dropdown": <ButtonDropdownDemo />,
     "button-segment":  <ButtonSegmentDemo />,
