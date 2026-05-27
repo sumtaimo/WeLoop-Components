@@ -45,7 +45,7 @@ const NAV: NavItem[] = [
   {
     section: "Organisms",
     items: [
-      { id: "datarow",           label: "DataRow" },
+      { id: "datarow",           label: "DataTable" },
       { id: "dtopbar",           label: "DTopBar" },
       { id: "dbottombar",        label: "DBottomBar" },
       { id: "appbar",            label: "AppBar" },

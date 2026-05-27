@@ -1,164 +1,248 @@
 import React, { useState } from "react";
-import { DataRow } from "../../src/components/organisms/DataRow";
-import { DemoShell, DemoRow } from "../DemoShell";
+import { DataTable, type DataTableRow } from "../../src/components/organisms/DataTable";
+import { DemoShell } from "../DemoShell";
+
+// ─── Seed data ────────────────────────────────────────────────────────────────
+
+const INITIAL_ROWS: DataTableRow[] = [
+  {
+    id: "r1",
+    checked: false,
+    date: "18 May 2024",
+    amount: "0.00",
+    selectValue: undefined,
+    assignee: { name: "Olivia Rhye",    avatarSrc: "https://i.pravatar.cc/64?img=5"  },
+    notes: "",
+    status: "In Progress",
+    statusVariant: "inProgress",
+    selected: false,
+  },
+  {
+    id: "r2",
+    checked: false,
+    date: "19 May 2024",
+    amount: "125.50",
+    selectValue: "Option A",
+    assignee: { name: "Phoenix Baker",  avatarSrc: "https://i.pravatar.cc/64?img=9"  },
+    notes: "",
+    status: "In Progress",
+    statusVariant: "inProgress",
+    selected: true,
+  },
+  {
+    id: "r3",
+    checked: false,
+    date: "20 May 2024",
+    amount: "251.00",
+    selectValue: "Option B",
+    assignee: { name: "Lana Steiner",   avatarSrc: "https://i.pravatar.cc/64?img=12" },
+    notes: "Review required",
+    status: "Done",
+    statusVariant: "done",
+    selected: false,
+  },
+  {
+    id: "r4",
+    checked: false,
+    date: "21 May 2024",
+    amount: "376.50",
+    selectValue: undefined,
+    assignee: { name: "Demi Wilkinson", avatarSrc: "https://i.pravatar.cc/64?img=20" },
+    notes: "",
+    status: "Pending",
+    statusVariant: "pending",
+    selected: false,
+  },
+  {
+    id: "r5",
+    checked: false,
+    date: "22 May 2024",
+    amount: "502.00",
+    selectValue: "Option C",
+    assignee: { name: "Candice Wu",     avatarSrc: "https://i.pravatar.cc/64?img=25" },
+    notes: "On hold",
+    status: "Pending",
+    statusVariant: "pending",
+    selected: false,
+  },
+  {
+    id: "r6",
+    checked: true,
+    date: "23 May 2024",
+    amount: "627.50",
+    selectValue: "Option A",
+    assignee: { name: "Natali Craig",   avatarSrc: "https://i.pravatar.cc/64?img=30" },
+    notes: "Urgent",
+    status: "Cancelled",
+    statusVariant: "cancelled",
+    selected: false,
+  },
+];
+
+// ─── Demo ─────────────────────────────────────────────────────────────────────
 
 export function DataRowDemo() {
-  const [rows, setRows] = useState([
-    { id: "a", checked: false, notes: "",       status: "inProgress" as const, selected: false },
-    { id: "b", checked: false, notes: "",       status: "inProgress" as const, selected: true  },
-    { id: "c", checked: false, notes: "",       status: "done"       as const, selected: false },
-    { id: "d", checked: false, notes: "",       status: "pending"    as const, selected: false },
-    { id: "e", checked: false, notes: "",       status: "cancelled"  as const, selected: false },
-    { id: "f", checked: true,  notes: "Urgent", status: "inProgress" as const, selected: false },
-  ]);
+  const [rows, setRows] = useState<DataTableRow[]>(INITIAL_ROWS);
 
-  function toggle(id: string, val: boolean) {
-    setRows(prev => prev.map(r => r.id === id ? { ...r, checked: val } : r));
-  }
-  function setNotes(id: string, val: string) {
-    setRows(prev => prev.map(r => r.id === id ? { ...r, notes: val } : r));
-  }
-  function selectRow(id: string) {
-    setRows(prev => prev.map(r => ({ ...r, selected: r.id === id ? !r.selected : false })));
+  function handleCheck(id: string, checked: boolean) {
+    setRows(prev => prev.map(r => r.id === id ? { ...r, checked } : r));
   }
 
-  const STATUS_LABELS: Record<string, string> = {
-    inProgress: "In Progress",
-    done:       "Done",
-    pending:    "Pending",
-    cancelled:  "Cancelled",
-  };
+  function handleNotes(id: string, value: string) {
+    setRows(prev => prev.map(r => r.id === id ? { ...r, notes: value } : r));
+  }
 
-  const ASSIGNEES = [
-    { name: "Olivia Rhye",  avatarSrc: "https://i.pravatar.cc/64?img=5"  },
-    { name: "Phoenix Baker", avatarSrc: "https://i.pravatar.cc/64?img=9"  },
-    { name: "Lana Steiner", avatarSrc: "https://i.pravatar.cc/64?img=12" },
-    { name: "Demi Wilkinson",avatarSrc: "https://i.pravatar.cc/64?img=20" },
-    { name: "Candice Wu",   avatarSrc: "https://i.pravatar.cc/64?img=25" },
-    { name: "Natali Craig", avatarSrc: "https://i.pravatar.cc/64?img=30" },
-  ];
+  function handleEdit(id: string) {
+    // Toggle selected on click
+    setRows(prev => prev.map(r => ({
+      ...r,
+      selected: r.id === id ? !r.selected : false,
+    })));
+  }
+
+  const checkedIds = rows.filter(r => r.checked).map(r => r.id);
 
   return (
     <DemoShell
-      title="DataRow"
-      description="Spreadsheet-style data row from Figma node 215:413 — checkbox, date, amount, select, assignee, edit actions, notes input, status badge. Click a row to select/deselect it."
+      title="DataTable"
+      description="Spreadsheet-style table from Figma node 215:413 — column headers with sort/filter, checkbox selection, date, amount, select, assignee, edit actions, notes input, status badge. Click a row's edit icons to select/deselect it."
     >
-      {/* ── Column header strip ── */}
-      <DemoRow label="Column headers (reference)">
+      {/* ── Toolbar strip ── */}
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        marginBottom: 12,
+      }}>
         <div style={{
-          display: "flex", alignItems: "center",
-          width: "100%", gap: 6, flexWrap: "wrap",
+          fontFamily: "Inter, sans-serif",
+          fontSize: 13,
+          color: checkedIds.length > 0 ? "#1D32FF" : "#9CA3AF",
+          fontWeight: checkedIds.length > 0 ? 500 : 400,
+          transition: "color 0.15s",
         }}>
-          {[
-            { w: 48,  label: "" },
-            { w: 172, label: "DATE ↑" },
-            { w: 80,  label: "NUMERIC" },
-            { w: 120, label: "SELECT" },
-            { w: 172, label: "ASSIGNEE" },
-            { w: 88,  label: "ACTIONS" },
-            { w: 120, label: "NOTES" },
-            { w: 136, label: "STATUS" },
-            { w: 48,  label: "" },
-          ].map((col, i) => col.label ? (
-            <div key={i} style={{
-              display: "inline-flex", alignItems: "center", gap: 4,
-              height: 28, padding: "0 10px", borderRadius: 8,
-              background: "#F3F4F6", border: "1px solid #E5E7EB",
-              fontFamily: "Inter, sans-serif", fontSize: 11, fontWeight: 600,
-              color: "#6B7280", letterSpacing: "0.04em", textTransform: "uppercase",
-              flexShrink: 0,
-            }}>
-              {col.label}
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" style={{ opacity: 0.5 }}>
-                <path d="M2 3.5l3 3 3-3" stroke="#6B7280" strokeWidth="1.2" strokeLinecap="round" />
-              </svg>
-            </div>
-          ) : (
-            <div key={i} style={{ width: col.w, flexShrink: 0 }} />
-          ))}
+          {checkedIds.length > 0
+            ? `${checkedIds.length} row${checkedIds.length > 1 ? "s" : ""} selected`
+            : `${rows.length} rows`}
         </div>
-      </DemoRow>
 
-      {/* ── Live interactive rows ── */}
-      <DemoRow label="Interactive rows — check boxes · click row to select · edit notes">
-        <div style={{
-          width: "100%",
-          border: "1px solid #E5E7EB",
-          borderRadius: 10,
-          overflow: "hidden",
-        }}>
-          {rows.map((row, i) => (
-            <DataRow
-              key={row.id}
-              checked={row.checked}
-              onCheck={val => toggle(row.id, val)}
-              date={`${i + 18} May 2024`}
-              amount={(i * 125.5).toFixed(2)}
-              assignee={ASSIGNEES[i]}
-              notes={row.notes}
-              onNotesChange={val => setNotes(row.id, val)}
-              status={STATUS_LABELS[row.status]}
-              statusVariant={row.status}
-              selected={row.selected}
-              onEdit={() => selectRow(row.id)}
+        <div style={{ display: "flex", gap: 8 }}>
+          <ActionButton
+            label="+ Add Row"
+            onClick={() =>
+              setRows(prev => [
+                ...prev,
+                {
+                  id: `r${Date.now()}`,
+                  checked: false,
+                  date: "27 May 2024",
+                  amount: "0.00",
+                  assignee: { name: "New User", initials: "NU" },
+                  notes: "",
+                  status: "Pending",
+                  statusVariant: "pending",
+                  selected: false,
+                },
+              ])
+            }
+          />
+          {checkedIds.length > 0 && (
+            <ActionButton
+              label="Delete selected"
+              variant="danger"
+              onClick={() =>
+                setRows(prev => prev.filter(r => !r.checked))
+              }
             />
-          ))}
+          )}
         </div>
-      </DemoRow>
+      </div>
 
-      {/* ── Static state examples ── */}
-      <DemoRow label="Individual states — default · selected · checked">
-        <div style={{
-          width: "100%",
-          border: "1px solid #E5E7EB",
-          borderRadius: 10,
-          overflow: "hidden",
-        }}>
-          {/* Default */}
-          <DataRow
-            date="22 May 2024"
-            amount="0.00"
-            assignee={{ name: "Olivia Rhye", avatarSrc: "https://i.pravatar.cc/64?img=5" }}
-            status="In Progress" statusVariant="inProgress"
-          />
-          {/* Selected row */}
-          <DataRow
-            date="22 May 2024"
-            amount="0.00"
-            assignee={{ name: "Olivia Rhye", avatarSrc: "https://i.pravatar.cc/64?img=5" }}
-            status="In Progress" statusVariant="inProgress"
-            selected
-          />
-          {/* Checked */}
-          <DataRow
-            checked
-            date="22 May 2024"
-            amount="0.00"
-            assignee={{ name: "Olivia Rhye", avatarSrc: "https://i.pravatar.cc/64?img=5" }}
-            status="In Progress" statusVariant="inProgress"
-          />
-        </div>
-      </DemoRow>
+      {/* ── The table ── */}
+      <DataTable
+        rows={rows}
+        onRowCheck={handleCheck}
+        onRowNotesChange={handleNotes}
+        onRowEdit={handleEdit}
+      />
 
-      {/* ── All status variants ── */}
-      <DemoRow label="Status badge variants">
-        <div style={{
-          width: "100%",
-          border: "1px solid #E5E7EB",
-          borderRadius: 10,
-          overflow: "hidden",
-        }}>
-          <DataRow date="22 May 2024" amount="750.00" status="In Progress" statusVariant="inProgress"
-            assignee={{ name: "Olivia Rhye", avatarSrc: "https://i.pravatar.cc/64?img=5" }} />
-          <DataRow date="22 May 2024" amount="1,200.00" status="Done" statusVariant="done"
-            assignee={{ name: "Phoenix Baker", avatarSrc: "https://i.pravatar.cc/64?img=9" }} />
-          <DataRow date="22 May 2024" amount="320.50" status="Pending" statusVariant="pending"
-            assignee={{ name: "Lana Steiner", avatarSrc: "https://i.pravatar.cc/64?img=12" }} />
-          <DataRow date="22 May 2024" amount="0.00" status="Cancelled" statusVariant="cancelled"
-            assignee={{ name: "Demi Wilkinson", avatarSrc: "https://i.pravatar.cc/64?img=20" }} />
-        </div>
-      </DemoRow>
-
+      {/* ── State legend ── */}
+      <div style={{
+        marginTop: 20,
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "8px 20px",
+        fontFamily: "Inter, sans-serif",
+        fontSize: 12,
+        color: "#6B7280",
+      }}>
+        {[
+          { dot: "#E5E7EB", label: "Default" },
+          { dot: "#F9FAFB", label: "Hover" },
+          { dot: "#EAF3FF", label: "Selected" },
+          { dot: "#1D32FF", label: "Checked (blue ✓)" },
+        ].map(({ dot, label }) => (
+          <div key={label} style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <div style={{
+              width: 12, height: 12, borderRadius: 3,
+              background: dot, border: "1px solid #E5E7EB", flexShrink: 0,
+            }} />
+            {label}
+          </div>
+        ))}
+      </div>
     </DemoShell>
+  );
+}
+
+// ─── Tiny toolbar button ──────────────────────────────────────────────────────
+
+function ActionButton({
+  label,
+  onClick,
+  variant = "default",
+}: {
+  label: string;
+  onClick: () => void;
+  variant?: "default" | "danger";
+}) {
+  const [hovered, setHovered] = useState(false);
+
+  const base: React.CSSProperties = {
+    display: "inline-flex",
+    alignItems: "center",
+    height: 32,
+    padding: "0 14px",
+    borderRadius: 7,
+    fontFamily: "Inter, sans-serif",
+    fontSize: 12,
+    fontWeight: 500,
+    cursor: "pointer",
+    border: "1px solid",
+    transition: "background 0.1s, color 0.1s",
+  };
+
+  const styles: Record<string, React.CSSProperties> = {
+    default: {
+      background: hovered ? "#F3F4F6" : "#FFFFFF",
+      borderColor: "#E5E7EB",
+      color: "#374151",
+    },
+    danger: {
+      background: hovered ? "#FEE2E2" : "#FFFFFF",
+      borderColor: "#FCA5A5",
+      color: "#DC2626",
+    },
+  };
+
+  return (
+    <button
+      style={{ ...base, ...styles[variant] }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onClick={onClick}
+    >
+      {label}
+    </button>
   );
 }

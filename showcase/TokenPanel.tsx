@@ -185,7 +185,10 @@ export const COMPONENT_TOKENS: Record<string, TokenEntry[]> = {
     { category: 'Border',     name: 'cell divider',          value: _ => '#F0F0F0' },
     { category: 'Border',     name: 'row outline',           value: _ => '#E5E7EB' },
     { category: 'Border',     name: 'status inProgress',     value: _ => '#628AFF' },
-    { category: 'Size',       name: 'row height',            description: '56px', value: _ => '56px', isNumeric: true },
+    { category: 'Size',       name: 'row height',            description: '64px', value: _ => '64px', isNumeric: true },
+    { category: 'Size',       name: 'header height',         description: '44px', value: _ => '44px', isNumeric: true },
+    { category: 'Background', name: 'header bg',             value: _ => '#F9FAFB' },
+    { category: 'Border',     name: 'notes input',           value: _ => '#E5E7EB' },
     { category: 'Spacing',    name: 'cell padding-x',        description: '12px', value: _ => '12px', isNumeric: true },
   ],
   'dtopbar': [

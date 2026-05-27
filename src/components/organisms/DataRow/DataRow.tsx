@@ -190,7 +190,7 @@ export function DataRow({
       style={{
         display: "flex",
         alignItems: "stretch",
-        minHeight: 56,
+        minHeight: 64,
         background: rowBg,
         borderBottom: "1px solid #F0F0F0",
         transition: "background 0.1s",
@@ -277,7 +277,7 @@ export function DataRow({
       </Cell>
 
       {/* ── 7. Notes (text input) ── */}
-      <Cell flex="1" style={{ padding: "0 12px" }}>
+      <Cell flex="1" style={{ padding: "0 10px" }}>
         <input
           type="text"
           value={notes}
@@ -285,9 +285,13 @@ export function DataRow({
           placeholder="Placeholder"
           style={{
             width: "100%",
-            background: "transparent",
-            border: "none",
+            height: 32,
+            background: "#FFFFFF",
+            border: "1px solid #E5E7EB",
+            borderRadius: 6,
             outline: "none",
+            padding: "0 10px",
+            boxSizing: "border-box",
             fontFamily: "Inter, sans-serif",
             fontSize: 13,
             fontWeight: 400,
