@@ -48,6 +48,7 @@ export function DemoShell({ title, description, children }: DemoShellProps) {
 interface DemoRowProps {
   label: string;
   children: React.ReactNode;
+  /** Remove max-width cap and use column flex (for wide table layouts) */
   fullWidth?: boolean;
 }
 
@@ -71,14 +72,16 @@ export function DemoRow({ label, children, fullWidth }: DemoRowProps) {
       <div
         style={{
           display: "flex",
-          flexWrap: "wrap",
-          alignItems: "center",
+          flexDirection: fullWidth ? "column" : "row",
+          flexWrap: fullWidth ? "nowrap" : "wrap",
+          alignItems: fullWidth ? "stretch" : "center",
           gap: 12,
           padding: "20px 24px",
           background: "var(--showcase-shell-bg, #ffffff)",
           border: "1px solid var(--showcase-shell-border, #e5e5e5)",
           borderRadius: 12,
           maxWidth: fullWidth ? "none" : 900,
+          overflowX: fullWidth ? "auto" : undefined,
         }}
       >
         {children}
