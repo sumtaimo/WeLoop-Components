@@ -28,6 +28,7 @@ import { SnackbarDemo } from "./demos/SnackbarDemo";
 import { ListItemDemo } from "./demos/ListItemDemo";
 import { InlineTipDemo } from "./demos/InlineTipDemo";
 import { PaginationDemo } from "./demos/PaginationDemo";
+import { FileUploadDemo } from "./demos/FileUploadDemo";
 import type { ThemeName, ColorMode } from "../src/tokens";
 
 const NAV: NavItem[] = [
@@ -59,6 +60,7 @@ const NAV: NavItem[] = [
       { id: "banner",        label: "Banner" },
       { id: "dashboard-card", label: "DashboardCard" },
       { id: "pagination",    label: "Pagination" },
+      { id: "file-upload",   label: "FileUpload" },
     ],
   },
   {
@@ -95,6 +97,7 @@ function DemoContent({ id }: { id: string }) {
     "list-item":       <ListItemDemo />,
     "inline-tip":      <InlineTipDemo />,
     "pagination":      <PaginationDemo />,
+    "file-upload":     <FileUploadDemo />,
     "banner":          <BannerDemo />,
     "dashboard-card":  <DashboardCardDemo />,
     "datarow":         <DataRowDemo />,
