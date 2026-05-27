@@ -25,6 +25,9 @@ import { DialogDemo } from "./demos/DialogDemo";
 import { ToastDemo } from "./demos/ToastDemo";
 import { TabsDemo } from "./demos/TabsDemo";
 import { SnackbarDemo } from "./demos/SnackbarDemo";
+import { ListItemDemo } from "./demos/ListItemDemo";
+import { InlineTipDemo } from "./demos/InlineTipDemo";
+import { PaginationDemo } from "./demos/PaginationDemo";
 import type { ThemeName, ColorMode } from "../src/tokens";
 
 const NAV: NavItem[] = [
@@ -46,6 +49,8 @@ const NAV: NavItem[] = [
       { id: "toast",           label: "Toast" },
       { id: "tabs",            label: "Tabs" },
       { id: "snackbar",        label: "Snackbar" },
+      { id: "list-item",       label: "ListItem" },
+      { id: "inline-tip",      label: "InlineTip" },
     ],
   },
   {
@@ -53,6 +58,7 @@ const NAV: NavItem[] = [
     items: [
       { id: "banner",        label: "Banner" },
       { id: "dashboard-card", label: "DashboardCard" },
+      { id: "pagination",    label: "Pagination" },
     ],
   },
   {
@@ -86,6 +92,9 @@ function DemoContent({ id }: { id: string }) {
     "toast":           <ToastDemo />,
     "tabs":            <TabsDemo />,
     "snackbar":        <SnackbarDemo />,
+    "list-item":       <ListItemDemo />,
+    "inline-tip":      <InlineTipDemo />,
+    "pagination":      <PaginationDemo />,
     "banner":          <BannerDemo />,
     "dashboard-card":  <DashboardCardDemo />,
     "datarow":         <DataRowDemo />,
