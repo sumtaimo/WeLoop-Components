@@ -34,6 +34,9 @@ import { EmptyStateDemo } from "./demos/EmptyStateDemo";
 import { RadioDemo }        from "./demos/RadioDemo";
 import { ProgressBarDemo }  from "./demos/ProgressBarDemo";
 import { DatePickerDemo }   from "./demos/DatePickerDemo";
+import { IconDemo }         from "./demos/IconDemo";
+import { BankLogoDemo }     from "./demos/BankLogoDemo";
+import { FlagDemo }         from "./demos/FlagDemo";
 import type { ThemeName, ColorMode } from "../src/tokens";
 
 const NAV: NavItem[] = [
@@ -59,6 +62,9 @@ const NAV: NavItem[] = [
       { id: "inline-tip",      label: "InlineTip" },
       { id: "radio",           label: "Radio" },
       { id: "progress-bar",    label: "ProgressBar" },
+      { id: "icon",            label: "Icons" },
+      { id: "bank-logo",       label: "BankLogo" },
+      { id: "flag",            label: "Flag" },
     ],
   },
   {
@@ -113,6 +119,9 @@ function DemoContent({ id }: { id: string }) {
     "radio":           <RadioDemo />,
     "progress-bar":    <ProgressBarDemo />,
     "date-picker":     <DatePickerDemo />,
+    "icon":            <IconDemo />,
+    "bank-logo":       <BankLogoDemo />,
+    "flag":            <FlagDemo />,
     "banner":          <BannerDemo />,
     "dashboard-card":  <DashboardCardDemo />,
     "datarow":         <DataRowDemo />,

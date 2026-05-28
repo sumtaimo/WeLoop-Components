@@ -9,6 +9,9 @@
     "./tokens": "./src/tokens/index.ts",
     "./components": "./src/components/index.ts",
     "./components/atoms": "./src/components/atoms/index.ts",
+    "./icons": "./src/components/atoms/Icon/index.ts",
+    "./bank-logos": "./src/components/atoms/BankLogo/index.ts",
+    "./flags": "./src/components/atoms/Flag/index.ts",
     "./components/molecules": "./src/components/molecules/index.ts",
     "./components/organisms": "./src/components/organisms/index.ts"
   },
