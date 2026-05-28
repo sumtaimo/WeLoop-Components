@@ -38,12 +38,14 @@ import { IconDemo }         from "./demos/IconDemo";
 import { BankLogoDemo }     from "./demos/BankLogoDemo";
 import { FlagDemo }         from "./demos/FlagDemo";
 import { TokensPage }       from "./TokensPage";
+import { OverviewPage }     from "./demos/OverviewPage";
 import type { ThemeName, ColorMode } from "../src/tokens";
 
 const NAV: NavItem[] = [
   {
-    section: "Reference",
+    section: "Home",
     items: [
+      { id: "overview",      label: "Overview" },
       { id: "design-tokens", label: "Design Tokens" },
     ],
   },
@@ -100,7 +102,20 @@ const NAV: NavItem[] = [
   },
 ];
 
-function DemoContent({ id, theme, mode }: { id: string; theme: ThemeName; mode: ColorMode }) {
+function DemoContent({
+  id,
+  theme,
+  mode,
+  onNavigate,
+}: {
+  id: string;
+  theme: ThemeName;
+  mode: ColorMode;
+  onNavigate: (id: string) => void;
+}) {
+  if (id === "overview") {
+    return <OverviewPage onChange={onNavigate} />;
+  }
   if (id === "design-tokens") {
     return <TokensPage themeName={theme} colorMode={mode} />;
   }
@@ -145,32 +160,30 @@ function DemoContent({ id, theme, mode }: { id: string; theme: ThemeName; mode: 
   return <>{DEMOS[id] ?? <p style={{ color: "#a3a3a3" }}>Select a component.</p>}</>;
 }
 
-// Showcase CSS variables keyed by color mode
 const SHOWCASE_VARS: Record<ColorMode, Record<string, string>> = {
   light: {
-    '--showcase-canvas-bg':    '#F9FAFB',
-    '--showcase-shell-bg':     '#FFFFFF',
-    '--showcase-shell-border': '#E5E5E5',
-    '--showcase-title':        '#171717',
-    '--showcase-text-subtle':  '#737373',
-    '--showcase-label':        '#A3A3A3',
+    "--showcase-canvas-bg":    "#F9FAFB",
+    "--showcase-shell-bg":     "#FFFFFF",
+    "--showcase-shell-border": "#E5E5E5",
+    "--showcase-title":        "#171717",
+    "--showcase-text-subtle":  "#737373",
+    "--showcase-label":        "#A3A3A3",
   },
   dark: {
-    '--showcase-canvas-bg':    '#111827',
-    '--showcase-shell-bg':     '#1E293B',
-    '--showcase-shell-border': 'rgba(255, 255, 255, 0.08)',
-    '--showcase-title':        '#F1F5F9',
-    '--showcase-text-subtle':  'rgba(255, 255, 255, 0.56)',
-    '--showcase-label':        '#64748B',
+    "--showcase-canvas-bg":    "#111827",
+    "--showcase-shell-bg":     "#1E293B",
+    "--showcase-shell-border": "rgba(255, 255, 255, 0.08)",
+    "--showcase-title":        "#F1F5F9",
+    "--showcase-text-subtle":  "rgba(255, 255, 255, 0.56)",
+    "--showcase-label":        "#64748B",
   },
 };
 
 export function App() {
-  const [active, setActive] = useState("button-single");
+  const [active, setActive] = useState("overview");
   const [theme,  setTheme]  = useState<ThemeName>("webill365");
   const [mode,   setMode]   = useState<ColorMode>("light");
 
-  // Inject CSS variables for demo shell whenever mode changes
   useEffect(() => {
     const vars = SHOWCASE_VARS[mode];
     Object.entries(vars).forEach(([key, value]) => {
@@ -178,14 +191,20 @@ export function App() {
     });
   }, [mode]);
 
-  const bgMain = `var(--showcase-canvas-bg, ${mode === 'dark' ? '#111827' : '#F9FAFB'})`;
+  const bgMain = `var(--showcase-canvas-bg, ${mode === "dark" ? "#111827" : "#F9FAFB"})`;
 
   return (
     <div style={{ display: "flex", height: "100vh", overflow: "hidden" }}>
-      {/* Left: navigation sidebar */}
-      <Sidebar nav={NAV} active={active} onChange={setActive} />
+      <Sidebar
+        nav={NAV}
+        active={active}
+        onChange={setActive}
+        theme={theme}
+        colorMode={mode}
+        onThemeChange={setTheme}
+        onModeChange={setMode}
+      />
 
-      {/* Center: component demo canvas */}
       <main
         style={{
           flex: 1,
@@ -195,17 +214,18 @@ export function App() {
           transition: "background 0.2s",
         }}
       >
-        <DemoContent id={active} theme={theme} mode={mode} />
+        <DemoContent id={active} theme={theme} mode={mode} onNavigate={setActive} />
       </main>
 
-      {/* Right: token inspector panel (hidden on design-tokens page) */}
-      {active !== "design-tokens" && <TokenPanel
-        componentId={active}
-        themeName={theme}
-        colorMode={mode}
-        onThemeChange={setTheme}
-        onModeChange={setMode}
-      />}
+      {active !== "design-tokens" && active !== "overview" && (
+        <TokenPanel
+          componentId={active}
+          themeName={theme}
+          colorMode={mode}
+          onThemeChange={setTheme}
+          onModeChange={setMode}
+        />
+      )}
     </div>
   );
 }
