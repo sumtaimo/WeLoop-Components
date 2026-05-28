@@ -29,7 +29,11 @@ export function CheckboxDemo() {
     >
 
       {/* ── sm — all states ── */}
-      <DemoRow label="sm (16 px) — all states">
+      <DemoRow label="sm (16 px) — all states" code={`<Checkbox size="sm" label="Unchecked" />
+<Checkbox size="sm" label="Checked"       checked />
+<Checkbox size="sm" label="Indeterminate" indeterminate />
+<Checkbox size="sm" label="Disabled"      disabled />
+<Checkbox size="sm" label="Dis. checked"  disabled checked />`}>
         <Checkbox size="sm" label="Default"       />
         <Checkbox size="sm" label="Checked"        checked />
         <Checkbox size="sm" label="Indeterminate"  indeterminate />

@@ -38,7 +38,16 @@ export function TabsDemo() {
     >
 
       {/* ── Box variant ── */}
-      <DemoRow label="Box variant — 4 tabs × all states (hover each)">
+      <DemoRow label="Box variant — 4 tabs × all states (hover each)" code={`const [tab, setTab] = useState("overview");
+
+const items = [
+  { id: "overview",  label: "Overview",  count: 12 },
+  { id: "analytics", label: "Analytics", count: 4  },
+  { id: "reports",   label: "Reports",   count: 29 },
+  { id: "settings",  label: "Settings"             },
+];
+
+<Tabs variant="box" items={items} value={tab} onChange={setTab} />`}>
         <Tabs
           variant="box"
           items={TABS_4}

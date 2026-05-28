@@ -14,7 +14,21 @@ export function ButtonSingleDemo() {
       importCode={`import { ButtonSingle } from 'weloop-components';\nimport { IconAdd, IconSearch16, IconStar16 } from 'weloop-components';`}
     >
       {/* ── XS ── */}
-      <DemoRow label="XS — Default">
+      <DemoRow label="XS — Default" code={`<ButtonSingle buttonType="primary" variant="filled" size="xs" leadIcon={<IconAdd />}>
+  Button
+</ButtonSingle>
+
+<ButtonSingle buttonType="primary" variant="outline" size="xs" leadIcon={<IconAdd />}>
+  Button
+</ButtonSingle>
+
+<ButtonSingle buttonType="danger" variant="filled" size="xs" leadIcon={<IconAdd />}>
+  Button
+</ButtonSingle>
+
+<ButtonSingle buttonType="ghost" variant="outline" size="xs" leadIcon={<IconAdd />}>
+  Button
+</ButtonSingle>`}>
         <ButtonSingle buttonType="primary" variant="filled"  size="xs" leadIcon={LEAD_ICON}>Button</ButtonSingle>
         <ButtonSingle buttonType="primary" variant="outline" size="xs" leadIcon={LEAD_ICON}>Button</ButtonSingle>
         <ButtonSingle buttonType="primary" variant="ghost"   size="xs" leadIcon={LEAD_ICON}>Button</ButtonSingle>
@@ -34,7 +48,17 @@ export function ButtonSingleDemo() {
       </DemoRow>
 
       {/* ── SM ── */}
-      <DemoRow label="SM — Default (hover &amp; press to see states)">
+      <DemoRow label="SM — Default (hover &amp; press to see states)" code={`<ButtonSingle buttonType="primary" variant="filled" size="sm" leadIcon={<IconSearch16 />}>
+  Button
+</ButtonSingle>
+
+<ButtonSingle buttonType="primary" variant="outline" size="sm" leadIcon={<IconSearch16 />}>
+  Button
+</ButtonSingle>
+
+<ButtonSingle buttonType="danger" variant="filled" size="sm" leadIcon={<IconSearch16 />}>
+  Button
+</ButtonSingle>`}>
         <ButtonSingle buttonType="primary" variant="filled"  size="sm" leadIcon={<IconSearch16 />}>Button</ButtonSingle>
         <ButtonSingle buttonType="primary" variant="outline" size="sm" leadIcon={<IconSearch16 />}>Button</ButtonSingle>
         <ButtonSingle buttonType="primary" variant="ghost"   size="sm" leadIcon={<IconSearch16 />}>Button</ButtonSingle>
@@ -54,7 +78,17 @@ export function ButtonSingleDemo() {
       </DemoRow>
 
       {/* ── MD ── */}
-      <DemoRow label="MD — Default (hover &amp; press to see states)">
+      <DemoRow label="MD — Default (hover &amp; press to see states)" code={`<ButtonSingle buttonType="primary" variant="filled" size="md" leadIcon={<IconStar16 />}>
+  Button
+</ButtonSingle>
+
+<ButtonSingle buttonType="primary" variant="ghost" size="md" leadIcon={<IconStar16 />}>
+  Button
+</ButtonSingle>
+
+<ButtonSingle buttonType="danger" variant="filled" size="md" leadIcon={<IconStar16 />}>
+  Button
+</ButtonSingle>`}>
         <ButtonSingle buttonType="primary" variant="filled"  size="md" leadIcon={<IconStar16 />}>Button</ButtonSingle>
         <ButtonSingle buttonType="primary" variant="outline" size="md" leadIcon={<IconStar16 />}>Button</ButtonSingle>
         <ButtonSingle buttonType="primary" variant="ghost"   size="md" leadIcon={<IconStar16 />}>Button</ButtonSingle>
@@ -74,7 +108,13 @@ export function ButtonSingleDemo() {
       </DemoRow>
 
       {/* ── Shortcut badge ── */}
-      <DemoRow label="With shortcut badge">
+      <DemoRow label="With shortcut badge" code={`<ButtonSingle buttonType="primary" variant="filled" size="sm" shortcut="⌘K">
+  Action
+</ButtonSingle>
+
+<ButtonSingle buttonType="ghost" variant="filled" size="sm" shortcut="⌘P">
+  Command
+</ButtonSingle>`}>
         <ButtonSingle buttonType="primary" variant="filled" size="sm" shortcut="⌘K">Action</ButtonSingle>
         <ButtonSingle buttonType="ghost"   variant="filled" size="sm" shortcut="⌘P">Command</ButtonSingle>
       </DemoRow>

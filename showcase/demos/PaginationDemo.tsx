@@ -56,11 +56,37 @@ export function PaginationDemo() {
       category="molecule"
       importCode={`import { Pagination } from 'weloop-components';`}
     >
-      <DemoRow label="Simple variant — live" fullWidth>
+      <DemoRow label="Simple variant — live" fullWidth code={`// "simple" variant: rows-per-page selector + "X of Y" + prev/next nav
+const [page, setPage] = useState(1);
+const [size, setSize] = useState(10);
+
+<Pagination
+  variant="simple"
+  page={page}
+  totalPages={Math.ceil(totalItems / size)}
+  pageSize={size}
+  totalItems={totalItems}
+  onPageChange={setPage}
+  onPageSizeChange={newSize => { setSize(newSize); setPage(1); }}
+/>`}>
         <LiveSimple />
       </DemoRow>
 
-      <DemoRow label="Paged variant — live" fullWidth>
+      <DemoRow label="Paged variant — live" fullWidth code={`// "paged" variant: numbered page buttons with ellipsis + optional total label
+const [page, setPage] = useState(1);
+const [size, setSize] = useState(25);
+
+<Pagination
+  variant="paged"
+  page={page}
+  totalPages={Math.ceil(total / size)}
+  pageSize={size}
+  totalItems={total}
+  totalLabel="Total Amt: £689,429"
+  pageSizeOptions={[10, 25, 50, 100]}
+  onPageChange={setPage}
+  onPageSizeChange={newSize => { setSize(newSize); setPage(1); }}
+/>`}>
         <LivePaged />
       </DemoRow>
 

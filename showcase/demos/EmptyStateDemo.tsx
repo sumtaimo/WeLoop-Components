@@ -10,7 +10,22 @@ export function EmptyStateDemo() {
       category="organism"
       importCode={`import { EmptyState, ErrorPage } from 'weloop-components';`}
     >
-      <DemoRow label="Inline empty states">
+      <DemoRow label="Inline empty states" code={`// type: "no-results" | "failed-to-load" | "no-clients" | "no-documents"
+// Use inside a table/list container when there's nothing to show
+
+<EmptyState
+  type="no-results"
+  onAction={() => clearFilters()}
+/>
+
+// With custom copy
+<EmptyState
+  type="failed-to-load"
+  title="Connection error"
+  description="Check your internet connection and try again."
+  actionLabel="Try again"
+  onAction={() => refetch()}
+/>`}>
         <div style={{ background: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: 12, width: 220 }}>
           <EmptyState type="no-results" onAction={() => alert("Clear filters")} />
         </div>
@@ -46,7 +61,35 @@ export function EmptyStateDemo() {
         </div>
       </DemoRow>
 
-      <DemoRow label="ErrorPage — default (with expandable steps)" fullWidth>
+      <DemoRow label="ErrorPage — default (with expandable steps)" fullWidth code={`// ErrorPage — full-page error layout for HTTP errors
+// variant: "default" (with expandable troubleshooting steps) | "general" (compact)
+
+<ErrorPage
+  variant="default"
+  errorCode="500"
+  title="Oops! Something went wrong."
+  description="We encountered an unexpected error."
+  primaryLabel="Return to Homepage"
+  secondaryLabel="Go back"
+  onPrimary={() => navigate('/')}
+  onSecondary={() => history.back()}
+  steps={["Refresh the page and clear your browser cache."]}
+  urgentContact="023 900 750"
+  onContactClick={() => openDialer()}
+  timestamp="21/03/2025, 11:54:23 AM UTC"
+/>
+
+// Compact variant (no steps)
+<ErrorPage
+  variant="general"
+  errorCode="404"
+  title="Page not found."
+  description="The page you're looking for doesn't exist."
+  primaryLabel="Return to Homepage"
+  secondaryLabel="Go back"
+  onPrimary={() => navigate('/')}
+  onSecondary={() => history.back()}
+/>`}>
         <div style={{ display: "inline-flex" }}>
           <ErrorPage
             variant="default"

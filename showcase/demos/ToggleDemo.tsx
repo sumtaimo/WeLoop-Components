@@ -17,7 +17,16 @@ export function ToggleDemo() {
     >
 
       {/* ── Interactive ── */}
-      <DemoRow label="Interactive — click to toggle">
+      <DemoRow label="Interactive — click to toggle" code={`const [on, setOn] = useState(false);
+
+// SM (36×20 px)
+<Toggle size="sm" checked={on} onChange={setOn} />
+
+// MD (44×24 px)
+<Toggle size="md" checked={on} onChange={setOn} />
+
+// With visible label
+<Toggle size="md" checked={on} onChange={setOn} label="Enable notifications" showLabel />`}>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "20px 32px", alignItems: "center" }}>
           <LabeledToggle label="SM off→on">
             <Toggle size="sm" checked={smOff}  onChange={setSmOff} />

@@ -22,7 +22,21 @@ export function PopoverDemo() {
       category="molecule"
       importCode={`import { Popover } from 'weloop-components';`}
     >
-      <DemoRow label="Tail at bottom (popover appears above trigger)">
+      <DemoRow label="Tail at bottom (popover appears above trigger)" code={`// Popover wraps any trigger element
+// side + align control which edge the bubble appears on
+
+<Popover
+  side="top"
+  align="center"
+  title="Confirm action"
+  description="This step cannot be undone."
+  cancelLabel="Cancel"
+  actionLabel="Confirm"
+  onAction={() => handleConfirm()}
+  onCancel={() => {}}
+>
+  <button>Open popover</button>
+</Popover>`}>
         <div style={{ paddingBottom: 16 }}>
           <p style={{ fontSize: 11, color: "#A3A3A3", marginBottom: 32, marginTop: 0, fontFamily: "Inter, sans-serif" }}>B-L · side=top, align=start</p>
           <Popover side="top" align="start" cancelLabel="Cancel" actionLabel="Confirm" onAction={() => alert("action")} onCancel={() => {}}>
@@ -79,7 +93,22 @@ export function PopoverDemo() {
         </div>
       </DemoRow>
 
-      <DemoRow label="Custom content">
+      <DemoRow label="Custom content" code={`// All tail positions via side + align:
+//   side="top"    align="start|center|end"  → tail at bottom-left/center/right
+//   side="bottom" align="start|center|end"  → tail at top-left/center/right
+//   side="left"   align="center"            → tail on the right  (C-R)
+//   side="right"  align="center"            → tail on the left   (C-L)
+
+<Popover
+  side="bottom"
+  align="start"
+  title="Delete record"
+  description="This action is permanent and cannot be undone."
+  cancelLabel="Never mind"
+  actionLabel="Delete"
+>
+  <button>Delete</button>
+</Popover>`}>
         <Popover
           side="bottom"
           align="start"

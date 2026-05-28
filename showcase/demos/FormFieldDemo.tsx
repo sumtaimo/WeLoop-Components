@@ -4,10 +4,10 @@ import { DemoShell, DemoRow } from "../DemoShell";
 
 // Helper — show a grid of state variants for one field type
 function StateGrid({
-  label, children,
-}: { label: string; children: React.ReactNode }) {
+  label, children, code,
+}: { label: string; children: React.ReactNode; code?: string }) {
   return (
-    <DemoRow label={label}>
+    <DemoRow label={label} fullWidth code={code}>
       <div style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
@@ -36,7 +36,30 @@ export function FormFieldDemo() {
     >
 
       {/* ── Text ── */}
-      <StateGrid label="text — all states">
+      <StateGrid label="text — all states" code={`// Controlled text input
+const [val, setVal] = useState("");
+
+<FormField
+  label="Invoice reference"
+  required
+  type="text"
+  placeholder="e.g. INV-0042"
+  value={val}
+  onChange={setVal}
+/>
+
+// Error state
+<FormField label="Email" type="text" value={val} onChange={setVal} error />
+
+// Success state
+<FormField label="Email" type="text" value={val} onChange={setVal} success />
+
+// With clear button + tag count
+<FormField label="Tags" type="text" value={val} onChange={setVal}
+  tags={["React"]} additionalTagCount={3} onClear={() => setVal("")} />
+
+// Disabled
+<FormField label="Read-only" type="text" placeholder="…" disabled />`}>
         <FormField label="Label" required type="text"
           placeholder="Placeholder" />
 
@@ -63,7 +86,9 @@ export function FormFieldDemo() {
       </StateGrid>
 
       {/* ── Numeric ── */}
-      <StateGrid label="numeric — all states">
+      <StateGrid label="numeric — all states" code={`// Numeric field — right-aligns value, shows currency-style formatting
+<FormField label="Amount" required type="numeric" placeholder="0.00"
+  value={val} onChange={setVal} />`}>
         <FormField label="Label" required type="numeric"
           placeholder="0.00" />
 
@@ -87,7 +112,16 @@ export function FormFieldDemo() {
       </StateGrid>
 
       {/* ── ComboLeft ── */}
-      <StateGrid label="comboLeft (Select | Text) — all states">
+      <StateGrid label="comboLeft (Select | Text) — all states" code={`// comboLeft: dropdown selector on the left, text input on the right
+<FormField
+  label="Phone"
+  type="comboLeft"
+  placeholder="Enter number"
+  selectValue={countryCode}
+  onSelectClick={() => openCountryPicker()}
+  value={phone}
+  onChange={setPhone}
+/>`}>
         <FormField label="Label" required type="comboLeft"
           placeholder="Placeholder" />
 
@@ -111,7 +145,16 @@ export function FormFieldDemo() {
       </StateGrid>
 
       {/* ── ComboRight ── */}
-      <StateGrid label="comboRight (Text | Select) — all states">
+      <StateGrid label="comboRight (Text | Select) — all states" code={`// comboRight: text input on the left, dropdown selector on the right
+<FormField
+  label="Amount"
+  type="comboRight"
+  placeholder="0.00"
+  value={amount}
+  onChange={setAmount}
+  selectValue={currency}
+  onSelectClick={() => openCurrencyPicker()}
+/>`}>
         <FormField label="Label" required type="comboRight"
           placeholder="Placeholder" />
 
@@ -135,7 +178,15 @@ export function FormFieldDemo() {
       </StateGrid>
 
       {/* ── Textarea ── */}
-      <StateGrid label="textarea — all states">
+      <StateGrid label="textarea — all states" code={`// Multi-line textarea
+<FormField
+  label="Remarks"
+  required
+  type="textarea"
+  placeholder="Add notes…"
+  value={notes}
+  onChange={setNotes}
+/>`}>
         <FormField label="Remarks" required type="textarea"
           placeholder="Placeholder" />
 

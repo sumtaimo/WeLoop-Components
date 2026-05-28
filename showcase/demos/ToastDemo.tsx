@@ -23,7 +23,22 @@ function ToastDemoInner() {
       description="Figma node 7218:13086 — four types: Success (green), Warning (orange), Critical (red), Information (dark). Pill shape 36px, icon + label + divider + ×. Powered by @radix-ui/react-toast with swipe-to-dismiss."
     >
       {/* ── All four types ── */}
-      <DemoRow label="Trigger each type">
+      <DemoRow label="Trigger each type" code={`// 1. Wrap your app (or page) with ToastContainer
+<ToastContainer position="bottom-right">
+  <App />
+</ToastContainer>
+
+// 2. Inside any child component, use the hook
+const toast = useToast();
+
+toast.success("Changes saved successfully");
+toast.warning("Disk space is running low");
+toast.critical("Failed to save — please retry");
+toast.info("New version available");
+
+// Stagger multiple toasts
+toast.success("Profile updated");
+setTimeout(() => toast.warning("Session expires in 5 min"), 150);`}>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "10px 12px" }}>
           <TriggerBtn
             label="✓  Success"

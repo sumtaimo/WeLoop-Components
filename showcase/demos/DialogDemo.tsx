@@ -24,7 +24,25 @@ export function DialogDemo() {
     >
 
       {/* ── Trigger buttons ── */}
-      <DemoRow label="Open as overlay modal (click backdrop or × to close)">
+      <DemoRow label="Open as overlay modal (click backdrop or × to close)" code={`const [open, setOpen] = useState(false);
+
+// Dialog is the overlay container — variant is on the inner DialogCard
+<Dialog open={open} onClose={() => setOpen(false)}>
+  <DialogCard
+    variant="simple"
+    title="Delete Record"
+    description="This action cannot be undone."
+    primaryLabel="Delete"
+    secondaryLabel="Cancel"
+    onPrimary={() => { deleteRecord(); setOpen(false); }}
+    onSecondary={() => setOpen(false)}
+  />
+</Dialog>
+
+// Other variants: "list" | "form" | "export"
+<DialogCard variant="form"   … />
+<DialogCard variant="list"   listItems={DEFAULT_LIST_ITEMS} … />
+<DialogCard variant="export" exportFormats={DEFAULT_EXPORT_FORMATS} … />`}>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "12px 16px" }}>
           {(["Simple", "List", "Form", "Export"] as const).map(v => (
             <TriggerButton

@@ -22,7 +22,15 @@ export function ChipDemo() {
     >
 
       {/* ── Section 1: Suggest type, both sizes, all visible states ── */}
-      <DemoRow label="Suggest type — size S · size M · disabled · squace">
+      <DemoRow label="Suggest type — size S · size M · disabled · squace" code={`// Default suggest chip (shows ✓ when selected)
+<Chip size="s" label="Design" />
+<Chip size="m" label="Design" />
+
+// Disabled
+<Chip size="s" label="Design" disabled />
+
+// Square corners (no pill rounding)
+<Chip size="s" label="Design" squace />`}>
         <Row>
           <Col label="S">
             <Chip size="s" label="Chips" />

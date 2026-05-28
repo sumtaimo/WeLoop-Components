@@ -19,7 +19,23 @@ export function DatePickerDemo() {
       category="molecule"
       importCode={`import { DatePicker, DateRangePicker, DateInput } from 'weloop-components';`}
     >
-      <DemoRow label="DateInput — field only">
+      <DemoRow label="DateInput — field only" code={`// DateInput — just the field, no calendar popover
+// variant: "date" | "due-date"
+<DateInput
+  variant="date"
+  label="Invoice Date"
+  required
+  placeholder="DD / MM / YYYY"
+/>
+
+<DateInput
+  variant="due-date"
+  label="Due Date"
+  placeholder="DD / MM / YYYY"
+/>
+
+// Disabled
+<DateInput variant="date" label="Posted" disabled placeholder="DD / MM / YYYY" />`}>
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           <DateInput variant="date"     label="Date"     required placeholder="DD / MM / YYYY" />
           <DateInput variant="due-date" label="Due Date" placeholder="DD / MM / YYYY" />
@@ -27,7 +43,15 @@ export function DatePickerDemo() {
         </div>
       </DemoRow>
 
-      <DemoRow label="DatePicker — single">
+      <DemoRow label="DatePicker — single" code={`// DatePicker — field + calendar popover, single date
+const [date, setDate] = useState<Date | null>(null);
+
+<DatePicker
+  label="Select date"
+  placeholder="DD / MM / YYYY"
+  value={date}
+  onChange={setDate}
+/>`}>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           <DatePicker
             label="Select date"
@@ -41,7 +65,15 @@ export function DatePickerDemo() {
         </div>
       </DemoRow>
 
-      <DemoRow label="DateRangePicker">
+      <DemoRow label="DateRangePicker" code={`// DateRangePicker — dual calendar + 14 preset chips (Today, Last 7 days…)
+const [range, setRange] = useState<DateRange>({ start: null, end: null });
+
+<DateRangePicker
+  value={range}
+  onChange={setRange}
+  onSave={r => setRange(r)}
+  onClear={() => setRange({ start: null, end: null })}
+/>`}>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           <DateRangePicker
             value={range}

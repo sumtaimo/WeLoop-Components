@@ -24,13 +24,22 @@ export function ButtonSegmentDemo() {
       title="ButtonSegment"
       description="Pill-style tab group. Active segment gets a white background and shadow."
     >
-      <DemoRow label="4 segments">
+      <DemoRow label="4 segments" code={`const [active, setActive] = useState("all");
+
+const segments = [
+  { key: "all",    label: "All"    },
+  { key: "active", label: "Active" },
+  { key: "draft",  label: "Draft"  },
+  { key: "closed", label: "Closed" },
+];
+
+<ButtonSegment segments={segments} activeKey={active} onChange={setActive} />`}>
         <ButtonSegment segments={TABS} activeKey={active} onChange={setActive} />
       </DemoRow>
       <DemoRow label="3 segments">
         <ButtonSegment segments={MONTHS} activeKey={month} onChange={setMonth} />
       </DemoRow>
-      <DemoRow label="Disabled">
+      <DemoRow label="Disabled" code={`<ButtonSegment segments={segments} activeKey="all" disabled />`}>
         <ButtonSegment segments={TABS} activeKey="all" disabled />
       </DemoRow>
     </DemoShell>

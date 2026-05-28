@@ -22,7 +22,14 @@ export function AvatarDemo() {
       description="8 types × 3 sizes — circular graphical elements representing users, profiles, or entities. Matches Figma node 6567:1331."
     >
       {/* ── 20px ── */}
-      <DemoRow label="20px — all types">
+      <DemoRow label="20px — all types" code={`<Avatar type="noProfile"   size={20} />
+<Avatar type="items"       size={20} />
+<Avatar type="bank"        size={20} />
+<Avatar type="addMore"     size={20} />
+<Avatar type="office"      size={20} src="https://…/photo.jpg" alt="User" />
+<Avatar type="textProfile" size={20} text="KK" />
+<Avatar type="chipLead"    size={20} text="A" />
+<Avatar type="chipLead"    size={20} icon={<MyIcon />} />`}>
         <LabeledAvatar label="noProfile">
           <Avatar type="noProfile" size={20} />
         </LabeledAvatar>
@@ -106,7 +113,9 @@ export function AvatarDemo() {
       </DemoRow>
 
       {/* ── Initials examples ── */}
-      <DemoRow label="textProfile — initials examples">
+      <DemoRow label="textProfile — initials examples" code={`<Avatar type="textProfile" size={32} text="KK" />
+<Avatar type="textProfile" size={24} text="TA" />
+<Avatar type="textProfile" size={20} text="WL" />`}>
         <Avatar type="textProfile" size={32} text="KK" />
         <Avatar type="textProfile" size={32} text="TA" />
         <Avatar type="textProfile" size={32} text="WL" />
@@ -115,7 +124,11 @@ export function AvatarDemo() {
       </DemoRow>
 
       {/* ── Photo + fallback ── */}
-      <DemoRow label="office — photo and no-src fallback">
+      <DemoRow label="office — photo and no-src fallback" code={`// With photo
+<Avatar type="office" size={32} src="https://…/avatar.jpg" alt="Jane Doe" />
+
+// Fallback when src is omitted — shows person silhouette
+<Avatar type="office" size={32} />`}>
         <Avatar type="office" size={32} src="https://i.pravatar.cc/64?img=5" alt="Profile 1" />
         <Avatar type="office" size={32} src="https://i.pravatar.cc/64?img=9" alt="Profile 2" />
         <Avatar type="office" size={32} src="https://i.pravatar.cc/64?img=12" alt="Profile 3" />

@@ -19,7 +19,13 @@ export function BannerDemo() {
     >
 
       {/* ── Single-line ── */}
-      <DemoRow label="Information — subtle bg">
+      <DemoRow label="Information — subtle bg" code={`<Banner
+  type="information"
+  message="Your account plan renews in 7 days."
+  actionLabel="View plan"
+  onAction={() => handleAction()}
+  onClose={() => setVisible(false)}
+/>`}>
         <div style={{ width: "100%", maxWidth: 640 }}>
           <Banner
             type="information"
@@ -31,7 +37,11 @@ export function BannerDemo() {
         </div>
       </DemoRow>
 
-      <DemoRow label="Success — solid bg">
+      <DemoRow label="Success — solid bg" code={`<Banner
+  type="success"
+  message="Payment processed successfully."
+  onClose={() => setVisible(false)}
+/>`}>
         <div style={{ width: "100%", maxWidth: 640 }}>
           <Banner
             type="success"
@@ -41,7 +51,13 @@ export function BannerDemo() {
         </div>
       </DemoRow>
 
-      <DemoRow label="Warning — solid bg">
+      <DemoRow label="Warning — solid bg" code={`<Banner
+  type="warning"
+  message="Some items in your order are out of stock."
+  actionLabel="Edit order"
+  onAction={() => handleAction()}
+  onClose={() => setVisible(false)}
+/>`}>
         <div style={{ width: "100%", maxWidth: 640 }}>
           <Banner
             type="warning"

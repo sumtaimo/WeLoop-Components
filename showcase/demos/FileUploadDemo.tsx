@@ -74,7 +74,20 @@ export function FileUploadDemo() {
       category="molecule"
       importCode={`import { FileUploadCard, FileListItem } from 'weloop-components';`}
     >
-      <DemoRow label="Live — click or drag a file" fullWidth>
+      <DemoRow label="Live — click or drag a file" fullWidth code={`// FileUploadCard — click or drag-and-drop zone
+<FileUploadCard
+  onFilesSelected={(files: File[]) => handleUpload(files)}
+  onLinkClick={() => openLearnMore()}
+/>
+
+// FileListItem — one row per uploaded file
+// status: "default" | "processing" | "error" | "completed"
+<FileListItem
+  filename="Q1_Report_Final.xlsx"
+  fileSize="2.30 MB"
+  status="completed"
+  showDivider
+/>`}>
         <LiveUpload />
       </DemoRow>
 
@@ -91,7 +104,13 @@ export function FileUploadDemo() {
         </div>
       </DemoRow>
 
-      <DemoRow label="File list — all statuses">
+      <DemoRow label="File list — all statuses" code={`// Wrap multiple FileListItems in a card container
+<div style={{ background: "#fff", borderRadius: 10, border: "1px solid #E5E7EB", padding: "4px 12px" }}>
+  <FileListItem filename="report.xlsx" fileSize="108 KB" status="default"    showDivider />
+  <FileListItem filename="report.xlsx" fileSize="108 KB" status="processing" showDivider />
+  <FileListItem filename="report.xlsx" fileSize="108 KB" status="error"      showDivider />
+  <FileListItem filename="report.xlsx" fileSize="108 KB" status="completed" />
+</div>`}>
         <div style={{ background: "#FFFFFF", borderRadius: 10, border: "1px solid #E5E7EB", padding: "4px 12px", maxWidth: 520 }}>
           <FileListItem filename="12 Months Monthly business status Summary.exl" fileSize="108.69 KB" status="default"    showDivider />
           <FileListItem filename="12 Months Monthly business status Summary.exl" fileSize="108.69 KB" status="processing" showDivider />

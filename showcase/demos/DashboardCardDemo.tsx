@@ -17,7 +17,26 @@ export function DashboardCardDemo() {
     >
 
       {/* ── Toggle ── */}
-      <DemoRow label="Toggle — Default · Selected · Disabled">
+      <DemoRow label="Toggle — Default · Selected · Disabled" code={`// Toggle card — preview frame + action buttons
+// type: "toggle" | "minimal" | "headline"
+<DashboardCard
+  type="toggle"
+  headline="Invoices"
+  description="Track and manage your invoices."
+/>
+
+// Selected state
+<DashboardCard type="toggle" headline="Invoices" description="…" selected />
+
+// Interactive (controlled selection)
+const [sel, setSel] = useState<string | null>(null);
+<DashboardCard
+  type="toggle"
+  headline="Invoices"
+  description="Track and manage your invoices."
+  selected={sel === "invoices"}
+  onClick={() => setSel(sel === "invoices" ? null : "invoices")}
+/>`}>
         {/* Default */}
         <DashboardCard
           type="toggle"
@@ -98,7 +117,17 @@ export function DashboardCardDemo() {
       </DemoRow>
 
       {/* ── Headline (stat cards) ── */}
-      <DemoRow label="Headline — Default · Selected · Disabled (Figma row 3)">
+      <DemoRow label="Headline — Default · Selected · Disabled (Figma row 3)" code={`// Headline card — stat/KPI card with delta indicator
+<DashboardCard
+  type="headline"
+  subtitle="Total Revenue"
+  trailText="10K"
+  headline="$24,500"
+  delta="5%"
+  period="vs last week"
+  selected={sel === "revenue"}
+  onClick={() => setSel(sel === "revenue" ? null : "revenue")}
+/>`}>
         <DashboardCard
           type="headline"
           subtitle="Subtitle" trailText="10K"

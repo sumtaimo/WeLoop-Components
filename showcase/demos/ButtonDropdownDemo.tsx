@@ -30,7 +30,30 @@ export function ButtonDropdownDemo() {
       importCode={`import { ButtonDropdown } from 'weloop-components';\nimport { IconPen16, IconCopy16, IconTrash16, IconEye16, IconDoc16 } from 'weloop-components';`}
     >
       {/* ── Section 1: Live dropdown (Radix) ── */}
-      <DemoRow label="With menu items — click chevron to open Radix dropdown">
+      <DemoRow label="With menu items — click chevron to open Radix dropdown" code={`import { ButtonDropdown, type DropdownMenuItem } from 'weloop-components';
+import { IconPen16, IconCopy16, IconTrash16 } from 'weloop-components';
+
+const menuItems: DropdownMenuItem[] = [
+  { id: "edit",   label: "Edit",   icon: <IconPen16 /> },
+  { id: "copy",   label: "Copy",   icon: <IconCopy16 /> },
+  { id: "delete", label: "Delete", icon: <IconTrash16 />, danger: true, separator: true },
+];
+
+// Primary (blue) filled — default
+<ButtonDropdown
+  buttonType="primary"
+  size="md"
+  label="Actions"
+  menuItems={menuItems}
+  onLabelClick={() => handlePrimaryAction()}
+  onMenuSelect={id => handleMenuSelect(id)}
+/>
+
+// Common (grey) filled
+<ButtonDropdown buttonType="common" size="md" label="Options" menuItems={menuItems} />
+
+// Outline variant
+<ButtonDropdown buttonType="primary" size="md" filled={false} label="More" menuItems={menuItems} />`}>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "12px 16px" }}>
           <ButtonDropdown
             buttonType="primary" size="md" label="Actions"
@@ -58,7 +81,10 @@ export function ButtonDropdownDemo() {
       </DemoRow>
 
       {/* ── Section 2: Filled × all sizes ── */}
-      <DemoRow label="Primary — Filled × XS · SM · MD">
+      <DemoRow label="Primary — Filled × XS · SM · MD" code={`// 3 sizes: "xs" | "sm" | "md"
+<ButtonDropdown buttonType="primary" size="xs" label="Button Option" />
+<ButtonDropdown buttonType="primary" size="sm" label="Button Option" />
+<ButtonDropdown buttonType="primary" size="md" label="Button Option" />`}>
         <ButtonDropdown buttonType="primary" size="xs" label="Button Option" />
         <ButtonDropdown buttonType="primary" size="sm" label="Button Option" />
         <ButtonDropdown buttonType="primary" size="md" label="Button Option" />

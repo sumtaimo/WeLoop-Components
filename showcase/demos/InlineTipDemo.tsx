@@ -10,7 +10,28 @@ export function InlineTipDemo() {
       category="atom"
       importCode={`import { InlineTip } from 'weloop-components';`}
     >
-      <DemoRow label="Filled (card with border)" fullWidth>
+      <DemoRow label="Filled (card with border)" fullWidth code={`// type: "information" | "danger" | "suggestion" | "warning"
+// fill: "filled" (card with border) | "outline" (flat, no bg)
+
+<InlineTip
+  type="information"
+  fill="filled"
+  title="Important note"
+  description="This action will update settings for all users in your organisation."
+  showLink
+  onLinkClick={() => navigate('/settings')}
+/>
+
+<InlineTip
+  type="warning"
+  fill="filled"
+  title="Warning"
+  description="Your subscription expires in 3 days."
+  showLink
+  linkPrefix="For urgent help,"
+  linkText="Contact support"
+  onLinkClick={() => openSupport()}
+/>`}>
         <InlineTip
           type="information"
           fill="filled"
@@ -49,7 +70,14 @@ export function InlineTipDemo() {
         />
       </DemoRow>
 
-      <DemoRow label="Outline (flat / inline)" fullWidth>
+      <DemoRow label="Outline (flat / inline)" fullWidth code={`// Outline — no background card, sits inline with other content
+<InlineTip
+  type="danger"
+  fill="outline"
+  title="Danger (outline)"
+  description="This action will permanently remove all selected records."
+  showLink={false}
+/>`}>
         <InlineTip
           type="information"
           fill="outline"

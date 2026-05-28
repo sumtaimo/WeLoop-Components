@@ -12,7 +12,13 @@ export function RadioDemo() {
       category="atom"
       importCode={`import { Radio, RadioGroup } from 'weloop-components';`}
     >
-      <DemoRow label="Group — controlled">
+      <DemoRow label="Group — controlled" code={`const [value, setValue] = useState("option-a");
+
+<RadioGroup value={value} onChange={setValue}>
+  <Radio value="option-a" label="Option A" />
+  <Radio value="option-b" label="Option B" />
+  <Radio value="option-c" label="Option C" />
+</RadioGroup>`}>
         <RadioGroup value={groupVal} onChange={setGroupVal} style={{ gap: 12 }}>
           <Radio value="option-a" label="Option A" />
           <Radio value="option-b" label="Option B" />
@@ -23,7 +29,11 @@ export function RadioDemo() {
         </p>
       </DemoRow>
 
-      <DemoRow label="Sizes">
+      <DemoRow label="Sizes" code={`// xs — 16px (default)
+<Radio value="a" label="Label A" size="xs" />
+
+// sm — 20px
+<Radio value="a" label="Label A" size="sm" />`}>
         <div>
           <p style={{ fontFamily: "Inter, sans-serif", fontSize: 11, color: "#9CA3AF", marginBottom: 8, marginTop: 0 }}>xs (16px)</p>
           <RadioGroup defaultValue="xs-b">
@@ -40,7 +50,10 @@ export function RadioDemo() {
         </div>
       </DemoRow>
 
-      <DemoRow label="States">
+      <DemoRow label="States" code={`<Radio value="default"  label="Default (unchecked)" />
+<Radio value="checked"  label="Checked"             checked />
+<Radio value="disabled" label="Disabled"             disabled />
+<Radio value="dis-chk"  label="Disabled checked"     disabled checked />`}>
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           <Radio value="default"  label="Default (unchecked)" />
           <Radio value="checked"  label="Checked"             checked />
@@ -49,7 +62,11 @@ export function RadioDemo() {
         </div>
       </DemoRow>
 
-      <DemoRow label="Error state">
+      <DemoRow label="Error state" code={`// Wrap in RadioGroup with error prop — all children show error styling
+<RadioGroup error defaultValue="err-a">
+  <Radio value="err-a" label="Selected option"   size="xs" />
+  <Radio value="err-b" label="Unselected option" size="xs" />
+</RadioGroup>`}>
         <RadioGroup error defaultValue="err-a">
           <Radio value="err-a" label="Error — selected"   size="xs" />
           <Radio value="err-b" label="Error — unselected" size="xs" />

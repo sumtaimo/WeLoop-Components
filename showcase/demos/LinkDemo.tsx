@@ -8,7 +8,15 @@ export function LinkDemo() {
       title="Link"
       description="4 interactive states matching Figma: Default · Hover (blue bg) · Pressed (focus ring) · Disabled. Hover and click to see states."
     >
-      <DemoRow label="Default">
+      <DemoRow label="Default" code={`// Button (no href) — fires onClick
+<Link label="Learn more"  showTrailIcon onClick={() => handleClick()} />
+<Link label="See all"     showTrailIcon={false} onClick={() => navigate('/list')} />
+
+// Anchor (with href) — renders <a> tag
+<Link label="Open page" href="/dashboard" showTrailIcon />
+
+// Disabled
+<Link label="Unavailable" disabled showTrailIcon />`}>
         <Link label="Learn more" showTrailIcon />
         <Link label="View details" showTrailIcon />
         <Link label="See all" showTrailIcon={false} />

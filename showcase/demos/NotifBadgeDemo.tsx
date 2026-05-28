@@ -8,13 +8,22 @@ export function NotifBadgeDemo() {
       title="NotifBadge"
       description="Notification badge in 3 sizes: Large (count pill), Small (6px dot), Size3 (16px ring dot for online indicator)."
     >
-      <DemoRow label="Large — count pill">
+      <DemoRow label="Large — count pill" code={`// Count pill — pass a string label
+<NotifBadge size="large" label="1" />
+<NotifBadge size="large" label="99" />
+<NotifBadge size="large" label="999+" />`}>
         <NotifBadge size="large" label="1" />
         <NotifBadge size="large" label="9" />
         <NotifBadge size="large" label="99" />
         <NotifBadge size="large" label="999+" />
       </DemoRow>
-      <DemoRow label="Small — dot">
+      <DemoRow label="Small — dot" code={`// Small 6px dot — typically positioned absolute over an icon
+<div style={{ position: "relative", display: "inline-flex" }}>
+  <BellIcon />
+  <div style={{ position: "absolute", top: 2, right: 2 }}>
+    <NotifBadge size="small" />
+  </div>
+</div>`}>
         <NotifBadge size="small" />
         <div style={{ width: 32, height: 32, borderRadius: 8, background: "#f3f4f6", position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}>
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -23,7 +32,13 @@ export function NotifBadgeDemo() {
           <div style={{ position: "absolute", top: 4, right: 4 }}><NotifBadge size="small" /></div>
         </div>
       </DemoRow>
-      <DemoRow label="Size3 — online indicator">
+      <DemoRow label="Size3 — online indicator" code={`// 16px ring dot — overlay on avatar for online status
+<div style={{ position: "relative", display: "inline-flex" }}>
+  <Avatar type="office" size={24} src="…" />
+  <div style={{ position: "absolute", bottom: -2, right: -2 }}>
+    <NotifBadge size="size3" />
+  </div>
+</div>`}>
         <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
           <div style={{ width: 24, height: 24, borderRadius: "50%", background: "#e5e7eb", position: "relative", display: "inline-flex" }}>
             <div style={{ position: "absolute", bottom: -2, right: -2 }}><NotifBadge size="size3" /></div>

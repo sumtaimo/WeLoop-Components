@@ -12,7 +12,24 @@ export function TooltipDemo() {
     >
 
       {/* ── All 9 tail positions ── */}
-      <DemoRow label="Tail positions — hover each pill">
+      <DemoRow label="Tail positions — hover each pill" code={`// Wraps any element — hover/focus shows the bubble
+<Tooltip content="Helpful hint" side="top" align="center">
+  <button>Hover me</button>
+</Tooltip>
+
+// All tail positions via side + align
+<Tooltip content="Top left"   side="top"    align="start">…</Tooltip>
+<Tooltip content="Top center" side="top"    align="center">…</Tooltip>  {/* default */}
+<Tooltip content="Top right"  side="top"    align="end">…</Tooltip>
+<Tooltip content="Below"      side="bottom" align="center">…</Tooltip>
+<Tooltip content="Right"      side="right"  align="center">…</Tooltip>
+<Tooltip content="Left"       side="left"   align="center">…</Tooltip>
+
+// No arrow tail
+<Tooltip content="No tail" showArrow={false}>…</Tooltip>
+
+// Custom delay (ms)
+<Tooltip content="Slow" delayDuration={800}>…</Tooltip>`}>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "12px 16px", alignItems: "center" }}>
           {POSITIONS.map(({ label, side, align }) => (
             <Tooltip key={label} content={label} side={side} align={align}>

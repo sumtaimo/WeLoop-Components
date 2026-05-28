@@ -16,7 +16,14 @@ export function ProgressBarDemo() {
       category="atom"
       importCode={`import { ProgressBar } from 'weloop-components';`}
     >
-      <DemoRow label="Variants — md (8px)" fullWidth>
+      <DemoRow label="Variants — md (8px)" fullWidth code={`// loading — blue fill
+<ProgressBar variant="loading" value={60} label="Uploading…" progressText="60%" />
+
+// fail — red fill
+<ProgressBar variant="fail" value={40} label="Upload failed" progressText="Failed at 40%" />
+
+// complete — green fill
+<ProgressBar variant="complete" value={100} label="Done" progressText="Complete" />`}>
         <div style={{ display: "flex", flexDirection: "column", gap: 20, maxWidth: 480 }}>
           <ProgressBar variant="loading"  value={60}  label="Loading"  progressText="60%" />
           <ProgressBar variant="fail"     value={40}  label="Failed"   progressText="Failed at 40%" />
@@ -24,7 +31,10 @@ export function ProgressBarDemo() {
         </div>
       </DemoRow>
 
-      <DemoRow label="sm (2px track)" fullWidth>
+      <DemoRow label="sm (2px track)" fullWidth code={`// size="sm" — 2px thin track, no label/text
+<ProgressBar variant="loading"  value={70} size="sm" />
+<ProgressBar variant="fail"     value={30} size="sm" />
+<ProgressBar variant="complete" value={100} size="sm" />`}>
         <div style={{ display: "flex", flexDirection: "column", gap: 20, maxWidth: 480 }}>
           <ProgressBar variant="loading"  value={70}  size="sm" />
           <ProgressBar variant="fail"     value={30}  size="sm" />
@@ -32,7 +42,15 @@ export function ProgressBarDemo() {
         </div>
       </DemoRow>
 
-      <DemoRow label="With max + unit (auto text)" fullWidth>
+      <DemoRow label="With max + unit (auto text)" fullWidth code={`// max + unit: progressText is auto-generated as "54 / 200 MB"
+<ProgressBar
+  variant="loading"
+  value={54}
+  max={200}
+  unit=" MB"
+  label="Uploading file"
+  required
+/>`}>
         <div style={{ display: "flex", flexDirection: "column", gap: 20, maxWidth: 480 }}>
           <ProgressBar variant="loading" value={54} max={200} unit=" MB" label="Uploading file" required />
           <ProgressBar variant="loading" value={20} max={100} unit="%" label="Syncing data" />

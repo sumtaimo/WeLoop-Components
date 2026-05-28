@@ -24,7 +24,24 @@ function SnackbarDemoInner() {
     >
 
       {/* ── All four types ── */}
-      <DemoRow label="Trigger each type">
+      <DemoRow label="Trigger each type" code={`// 1. Wrap your app (or page) with SnackbarContainer
+<SnackbarContainer position="bottom-center">
+  <App />
+</SnackbarContainer>
+
+// 2. Inside any child component, use the hook
+const snackbar = useSnackbar();
+
+snackbar.success("Changes saved successfully");
+snackbar.warning("Disk space is running low");
+snackbar.critical("Failed to save — please retry");
+snackbar.info("New version available");
+
+// With an action button
+snackbar.success("Message deleted", {
+  actionLabel: "Undo",
+  onAction: () => restoreMessage(),
+});`}>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "10px 12px" }}>
           <TriggerBtn
             label="✓  Success"

@@ -96,7 +96,35 @@ export function DataRowDemo() {
     >
 
       {/* ── 1. Full interactive DataTable ── */}
-      <DemoRow label="Full DataTable — interactive" fullWidth>
+      <DemoRow label="Full DataTable — interactive" fullWidth code={`import { DataTable, type DataTableRow } from 'weloop-components';
+
+const [rows, setRows] = useState<DataTableRow[]>([
+  {
+    id: "r1",
+    checked: false,
+    date: "18 May 2024",
+    amount: "125.50",
+    selectValue: "Option A",
+    assignee: { name: "Olivia Rhye", avatarSrc: "https://…/avatar.jpg" },
+    notes: "Review required",
+    status: "In Progress",
+    statusVariant: "inProgress",
+    selected: false,
+  },
+  // … more rows
+]);
+
+<DataTable
+  rows={rows}
+  onRowCheck={(id, checked) =>
+    setRows(p => p.map(r => r.id === id ? { ...r, checked } : r))
+  }
+  onRowNotesChange={(id, value) =>
+    setRows(p => p.map(r => r.id === id ? { ...r, notes: value } : r))
+  }
+  onRowEdit={id => openEditPanel(id)}
+  onRowSelectClick={id => openSelectDropdown(id)}
+/>`}>
         {/* Toolbar */}
         <div style={{
           display: "flex", alignItems: "center", justifyContent: "space-between",
