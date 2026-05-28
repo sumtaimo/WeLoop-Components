@@ -367,6 +367,20 @@ const COMPONENTS: ComponentEntry[] = [
     ),
   },
   {
+    id: "logo",
+    label: "Logo",
+    category: "atom",
+    preview: (
+      <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
+        <div style={{ width: 28, height: 18, borderRadius: 3, background: "linear-gradient(90deg,#1D32FF 70%,#F87D39 70%)", opacity: 0.9 }} />
+        <div style={{ width: 18, height: 18, borderRadius: 4, background: "#EB001B", position: "relative", overflow: "hidden" }}>
+          <div style={{ position: "absolute", right: 0, top: 0, width: 10, height: 18, background: "#F79E1B", mixBlendMode: "multiply" }} />
+        </div>
+        <div style={{ width: 18, height: 18, borderRadius: 3, background: "#E1232E" }} />
+      </div>
+    ),
+  },
+  {
     id: "banner",
     label: "Banner",
     category: "molecule",

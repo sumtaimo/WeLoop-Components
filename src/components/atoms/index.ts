@@ -2,6 +2,7 @@
 export * from "./Avatar";
 export * from "./Icon";
 export * from "./BankLogo";
+export * from "./Logo";
 export * from "./Flag";
 export * from "./ProgressBar";
 export * from "./Radio";

@@ -37,6 +37,7 @@ import { DatePickerDemo }   from "./demos/DatePickerDemo";
 import { IconDemo }         from "./demos/IconDemo";
 import { BankLogoDemo }     from "./demos/BankLogoDemo";
 import { FlagDemo }         from "./demos/FlagDemo";
+import { LogoDemo }         from "./demos/LogoDemo";
 import { TokensPage }       from "./TokensPage";
 import { OverviewPage }     from "./demos/OverviewPage";
 import type { ThemeName, ColorMode } from "../src/tokens";
@@ -74,6 +75,7 @@ const NAV: NavItem[] = [
       { id: "icon",            label: "Icons" },
       { id: "bank-logo",       label: "BankLogo" },
       { id: "flag",            label: "Flag" },
+      { id: "logo",            label: "Logo" },
     ],
   },
   {
@@ -147,6 +149,7 @@ function DemoContent({
     "icon":            <IconDemo />,
     "bank-logo":       <BankLogoDemo />,
     "flag":            <FlagDemo />,
+    "logo":            <LogoDemo />,
     "banner":          <BannerDemo />,
     "dashboard-card":  <DashboardCardDemo />,
     "datarow":         <DataRowDemo />,

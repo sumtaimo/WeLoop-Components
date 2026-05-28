@@ -22,7 +22,7 @@ const THEMES: { id: ThemeName; label: string }[] = [
   { id: "wecafe",    label: "WeCafe" },
 ];
 
-const TOTAL_COMPONENTS = 36;
+const TOTAL_COMPONENTS = 37;
 
 export function Sidebar({ nav, active, onChange, theme, colorMode, onThemeChange, onModeChange }: SidebarProps) {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
