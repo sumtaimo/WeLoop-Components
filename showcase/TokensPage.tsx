@@ -3,7 +3,6 @@ import {
   primitives,
   fontFamily, fontSize, lineHeight, fontWeight, letterSpacing,
   spacingScale, radius, stroke, controlSize,
-  shadows,
   wabooksLight, wabooksDark, webill365Light, webill365Dark, wecafeLight, wecafeDark,
 } from "../src/tokens";
 import type { ThemeName, ColorMode, ThemeTokens } from "../src/tokens";
@@ -405,51 +404,48 @@ function RadiusTab() {
 
 // ─── Effects tab ─────────────────────────────────────────────────────────────
 
+function ShadowRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 16, padding: "16px", borderRadius: 10, background: "var(--showcase-shell-bg, #fff)", border: "1px solid var(--showcase-shell-border, #E5E5E5)" }}>
+      <div style={{ width: 56, height: 56, borderRadius: 10, background: "var(--showcase-shell-bg, #fff)", boxShadow: value, flexShrink: 0 }} />
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: "var(--showcase-title, #171717)", fontWeight: 500 }}>
+          {label}
+        </div>
+        <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: "var(--showcase-text-subtle, #737373)", marginTop: 3, wordBreak: "break-all" }}>
+          {value}
+        </div>
+      </div>
+      <CopyButton value={value} />
+    </div>
+  );
+}
+
+function ShadowSection({ title, entries }: { title: string; entries: [string, string][] }) {
+  return (
+    <div>
+      <h3 style={sectionTitle}>{title}</h3>
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        {entries.map(([name, value]) => (
+          <ShadowRow key={name} label={name} value={value} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function EffectsTab({ themeName, colorMode }: Props) {
   const tokens = themeMap[themeName][colorMode];
+  const s = tokens.shadow;
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
-      {/* Brand shadows from theme */}
-      <div>
-        <h3 style={sectionTitle}>Brand Shadows (theme-aware)</h3>
-        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          {Object.entries(tokens.shadow.brand).map(([name, value]) => (
-            <div key={name} style={{ display: "flex", alignItems: "center", gap: 16, padding: "16px", borderRadius: 10, background: "var(--showcase-shell-bg, #fff)", border: "1px solid var(--showcase-shell-border, #E5E5E5)" }}>
-              <div style={{ width: 56, height: 56, borderRadius: 10, background: "var(--showcase-shell-bg, #fff)", boxShadow: value, flexShrink: 0, border: "1px solid var(--showcase-shell-border, #E5E5E5)" }} />
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: "var(--showcase-title, #171717)", fontWeight: 500 }}>
-                  shadow.brand.{name}
-                </div>
-                <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: "var(--showcase-text-subtle, #737373)", marginTop: 3, wordBreak: "break-all" }}>
-                  {value}
-                </div>
-              </div>
-              <CopyButton value={value} />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Global shadows */}
-      <div>
-        <h3 style={sectionTitle}>Global Shadows</h3>
-        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          {Object.entries(shadows).map(([name, value]) => (
-            <div key={name} style={{ display: "flex", alignItems: "center", gap: 16, padding: "16px", borderRadius: 10, background: "var(--showcase-shell-bg, #fff)", border: "1px solid var(--showcase-shell-border, #E5E5E5)" }}>
-              <div style={{ width: 56, height: 56, borderRadius: 10, background: "var(--showcase-shell-bg, #fff)", boxShadow: value, flexShrink: 0, border: "1px solid var(--showcase-shell-border, #E5E5E5)" }} />
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: "var(--showcase-title, #171717)", fontWeight: 500 }}>
-                  shadows.{name}
-                </div>
-                <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: "var(--showcase-text-subtle, #737373)", marginTop: 3, wordBreak: "break-all" }}>
-                  {value}
-                </div>
-              </div>
-              <CopyButton value={value} />
-            </div>
-          ))}
-        </div>
-      </div>
+      <ShadowSection title="Brand" entries={Object.entries(s.brand).map(([k, v]) => [`shadow.brand.${k}`, v])} />
+      <ShadowSection title="Default" entries={Object.entries(s.default).map(([k, v]) => [`shadow.default.${k}`, v])} />
+      <ShadowSection title="Danger" entries={Object.entries(s.danger).map(([k, v]) => [`shadow.danger.${k}`, v])} />
+      <ShadowSection title="Toggle" entries={Object.entries(s.toggle).map(([k, v]) => [`shadow.toggle.${k}`, v])} />
+      <ShadowSection title="Input" entries={Object.entries(s.input).map(([k, v]) => [`shadow.input.${k}`, v])} />
+      <ShadowSection title="Disabled" entries={[["shadow.disabled", s.disabled]]} />
+      <ShadowSection title="Floating" entries={Object.entries(s.floating).map(([k, v]) => [`shadow.floating.${k}`, v])} />
     </div>
   );
 }

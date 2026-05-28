@@ -83,9 +83,40 @@ export const wecafeDark: ThemeTokens = {
   },
   shadow: {
     brand: {
-      default: '0 0 0 1px #BF310F, 0 1px 1px 0 rgba(191, 49, 15, 0.5)',
-      sm: '0 1px 2px 0 rgba(191, 49, 15, 0.5)',
-      md: '0 4px 6px -1px rgba(191, 49, 15, 0.5)',
+      default:   '0 0 0 1px rgba(191,49,15,1), 0 1px 1px 0 rgba(191,49,15,0.5), 0 2px 3px 0 rgba(191,49,15,0.1)',
+      hover:     '0 0 0 1px rgba(231,69,15,1), 0 1px 1px 0 rgba(231,69,15,0.5), 0 2px 3px 0 rgba(231,69,15,0.1)',
+      pressed:   '0 0 0 1.25px rgba(255,255,255,1), 0 0 1px 1px rgba(246,95,25,0.16), 0 0 0 4px rgba(254,233,214,1)',
+      secondary: '0 0 0 1px rgba(245,245,245,1)',
+      sm: '0 1px 2px 0 rgba(191,49,15,0.5)',
+      md: '0 4px 6px -1px rgba(191,49,15,0.5)',
+    },
+    default: {
+      default: '0 0 0 0.5px rgba(229,229,229,1), 0 1px 1px 0 rgba(0,0,0,0.06)',
+      hover:   '0 0 0 1px rgba(212,212,212,1), 0 1px 1px 0 rgba(0,0,0,0.08), 0 1px 2px 0 rgba(0,0,0,0.16)',
+      pressed: '0 0 0 1.25px rgba(255,255,255,1), 0 0 1px 1px rgba(107,114,128,0.16), 0 0 0 4px rgba(209,213,219,1)',
+    },
+    danger: {
+      default: '0 0 0 1px rgba(189,24,34,1), 0 1px 1px 0 rgba(236,0,42,0.15), 0 2px 2px 0 rgba(243,64,74,0.08)',
+      hover:   '0 0 0 1px rgba(243,64,74,1), 0 1px 1px 0 rgba(189,24,34,0.15), 0 2px 3px 0 rgba(189,24,34,0.08)',
+      pressed: '0 0 1px 1px rgba(243,64,74,0.16), 0 0 0 2px rgba(255,201,204,1)',
+    },
+    toggle: {
+      default: '0 0 1px 1px rgba(0,0,0,0.04), 0 0 4px 0 rgba(0,0,0,0.04), 0 0 8px 0 rgba(0,0,0,0.02), 0 0 0 1px rgba(0,0,0,0.06)',
+      hover:   '0 0 4px 0 rgba(191,49,15,0.04), 0 0 1px 0 rgba(191,49,15,0.08), 0 0 6px 0 rgba(191,49,15,0.08)',
+      pressed: '0 0 0 1px rgba(255,255,255,1), 0 0 1px 1px rgba(246,95,25,0.16), 0 0 0 3px rgba(254,233,214,1), 0 0 0 1px rgba(0,0,0,0.06)',
+      checked: '0 0 1px 0 rgba(191,49,15,0.16), 0 0 8px 0 rgba(191,49,15,0.08), 0 0 0 0.75px rgba(191,49,15,1), 0 0 4px 0 rgba(191,49,15,0.04)',
+    },
+    input: {
+      default: '0 0 0 1px rgba(229,229,229,1)',
+      brand:   '0 0 0 1px rgba(251,173,118,1), 0 0 0 4px rgba(253,207,171,1)',
+      warning: '0 0 0 1px rgba(254,163,168,1), 0 0 0 4px rgba(255,201,204,1)',
+      success: '0 0 0 1px rgba(134,239,172,1), 0 0 8px 0 rgba(187,247,208,1)',
+    },
+    disabled: '0 0 0 1px rgba(212,212,212,1)',
+    floating: {
+      default: '0 2px 2px 0 rgba(0,0,0,0.08), 0 1px 2px 0 rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.04)',
+      genCard: '0 0 0 1px rgba(0,0,0,0.12), 0 0 1px -1px rgba(0,0,0,0.06), 0 0 1px 0 rgba(0,0,0,0.04)',
+      float:   '0 1px 1px 0 rgba(0,0,0,0.1), 0 0 2px 0 rgba(0,0,0,0.1), 0 6px 16px 0 rgba(0,0,0,0.1)',
     },
   },
 };
