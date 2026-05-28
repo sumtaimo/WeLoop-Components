@@ -118,7 +118,7 @@ function CheckIcon({ size, color }: { size: number; color: string }) {
 }
 
 function RemoveButton({
-  btnSize, iconSize, bg, xColor, onClick, disabled,
+  btnSize, iconSize, bg, xColor, onClick, disabled, label,
 }: {
   btnSize: number;
   iconSize: number;
@@ -126,6 +126,7 @@ function RemoveButton({
   xColor: string;
   onClick?: () => void;
   disabled?: boolean;
+  label: string;
 }) {
   const [hov, setHov] = useState(false);
   return (
@@ -134,7 +135,7 @@ function RemoveButton({
       disabled={disabled}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
-      aria-label="Remove"
+      aria-label={`Remove ${label}`}
       style={{
         display:         "flex",
         alignItems:      "center",
@@ -276,6 +277,7 @@ export function Chip({
         xColor={C.removeX}
         onClick={onRemove}
         disabled={disabled}
+        label={label}
       />
     </div>
   );

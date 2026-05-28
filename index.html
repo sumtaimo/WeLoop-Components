@@ -90,6 +90,14 @@
       @keyframes wl-popover-hide { from { opacity: 1; transform: scale(1); }   to { opacity: 0; transform: scale(0.95); } }
       .wl-popover[data-state="open"]   { animation: wl-popover-show 0.15s cubic-bezier(0.34,1.26,0.64,1); }
       .wl-popover[data-state="closed"] { animation: wl-popover-hide 0.10s ease; }
+
+      /* ── Accordion ───────────────────────────────────────── */
+      @keyframes wl-accordion-open  { from { height: 0; opacity: 0; } to { height: var(--radix-accordion-content-height); opacity: 1; } }
+      @keyframes wl-accordion-close { from { height: var(--radix-accordion-content-height); opacity: 1; } to { height: 0; opacity: 0; } }
+      .wl-accordion-content[data-state="open"]   { animation: wl-accordion-open  0.22s cubic-bezier(0.34,1.26,0.64,1); overflow: hidden; }
+      .wl-accordion-content[data-state="closed"] { animation: wl-accordion-close 0.18s ease; overflow: hidden; }
+      .wl-accordion [data-state="open"]  .wl-accordion-chevron { transform: rotate(180deg); }
+      .wl-accordion [data-state="closed"] .wl-accordion-chevron { transform: rotate(0deg); }
     </style>
   </head>
   <body>

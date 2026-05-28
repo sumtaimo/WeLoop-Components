@@ -15,8 +15,9 @@
       "@/components/*": ["src/components/*"],
       "@/tokens/*": ["src/tokens/*"],
       "@/styles/*": ["src/styles/*"]
-    }
+    },
+    "types": ["vitest/globals", "@testing-library/jest-dom"]
   },
-  "include": ["src/**/*", "showcase/**/*"],
+  "include": ["src/**/*", "showcase/**/*", "vitest.setup.ts"],
   "exclude": ["node_modules", "dist"]
 }

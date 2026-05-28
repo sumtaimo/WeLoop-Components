@@ -124,7 +124,7 @@ export function Checkbox({
     };
   };
 
-  const iconColor = disabled ? "#A3A3A3" : "#FFFFFF";
+  const iconColor = disabled ? "#9CA3AF" : "#FFFFFF";
 
   // We track hover/focus via React state so the inline style reacts to them
   const [hovered, setHovered] = React.useState(false);

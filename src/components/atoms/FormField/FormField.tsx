@@ -43,6 +43,10 @@ export interface FormFieldProps {
   additionalTagCount?: number;
   onClear?: () => void;
 
+  // ── Helper / feedback text ────────────────────────────────────────────────
+  /** Rendered below the field — neutral help text or validation message */
+  helperText?: string;
+
   // ── Visual states ──────────────────────────────────────────────────────────
   error?: boolean;
   success?: boolean;
@@ -250,11 +254,13 @@ function ComboDivider({ focused, error, success, disabled }: {
 function TextField({
   id, placeholder, value, onChange, disabled,
   tags, additionalTagCount, onClear, onFocus, onBlur,
+  ariaDescribedby, ariaRequired, ariaInvalid,
 }: {
   id?: string;
   placeholder?: string; value?: string; onChange?: (v: string) => void;
   disabled?: boolean; tags?: string[]; additionalTagCount?: number;
   onClear?: () => void; onFocus: () => void; onBlur: () => void;
+  ariaDescribedby?: string; ariaRequired?: boolean; ariaInvalid?: boolean;
 }) {
   const hasTags = tags && tags.length > 0;
   const showClear = (value || hasTags) && !disabled;
@@ -291,6 +297,9 @@ function TextField({
         onChange={e => onChange?.(e.target.value)}
         onFocus={onFocus}
         onBlur={onBlur}
+        aria-describedby={ariaDescribedby}
+        aria-required={ariaRequired}
+        aria-invalid={ariaInvalid}
         style={{
           ...INPUT_TEXT,
           flex: 1,
@@ -353,10 +362,14 @@ function NumericField({
 
 function TextareaField({
   id, placeholder, value, onChange, disabled, onFocus, onBlur,
+  "aria-describedby": ariaDescribedby, "aria-required": ariaRequired, "aria-invalid": ariaInvalid,
 }: {
   id?: string;
   placeholder?: string; value?: string; onChange?: (v: string) => void;
   disabled?: boolean; onFocus: () => void; onBlur: () => void;
+  "aria-describedby"?: string;
+  "aria-required"?: boolean;
+  "aria-invalid"?: boolean;
 }) {
   return (
     <textarea
@@ -367,6 +380,9 @@ function TextareaField({
       onChange={e => onChange?.(e.target.value)}
       onFocus={onFocus}
       onBlur={onBlur}
+      aria-describedby={ariaDescribedby}
+      aria-required={ariaRequired}
+      aria-invalid={ariaInvalid}
       style={{
         ...INPUT_TEXT,
         resize: "none",
@@ -425,13 +441,15 @@ export function FormField({
   tags,
   additionalTagCount,
   onClear,
+  helperText,
   error,
   success,
   disabled,
   style,
 }: FormFieldProps) {
   const [focused, setFocused] = useState(false);
-  const inputId = useId();
+  const inputId   = useId();
+  const helperId  = useId();
 
   const fo = () => setFocused(true);
   const bl = () => setFocused(false);
@@ -482,6 +500,9 @@ export function FormField({
             placeholder={placeholder} value={value}
             onChange={onChange} disabled={disabled}
             onFocus={fo} onBlur={bl}
+            aria-describedby={helperText ? helperId : undefined}
+            aria-required={required}
+            aria-invalid={error}
           />
         </div>
       ) : (
@@ -494,6 +515,9 @@ export function FormField({
               disabled={disabled} tags={tags}
               additionalTagCount={additionalTagCount}
               onClear={onClear} onFocus={fo} onBlur={bl}
+              ariaDescribedby={helperText ? helperId : undefined}
+              ariaRequired={required}
+              ariaInvalid={error}
             />
           )}
 
@@ -561,6 +585,23 @@ export function FormField({
             </>
           )}
         </FieldShell>
+      )}
+
+      {/* Helper text */}
+      {helperText && (
+        <span
+          id={helperId}
+          style={{
+            fontFamily: "Inter, sans-serif",
+            fontSize:   12,
+            fontWeight: 400,
+            lineHeight: "16px",
+            color:      error ? "#E1232E" : success ? "#22C55E" : "#9CA3AF",
+            marginTop:  2,
+          }}
+        >
+          {helperText}
+        </span>
       )}
     </div>
   );

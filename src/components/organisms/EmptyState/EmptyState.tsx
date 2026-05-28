@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import * as Accordion from "@radix-ui/react-accordion";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -236,9 +237,8 @@ export function ErrorPage({
   variant        = "default",
   style,
 }: ErrorPageProps) {
-  const [stepsOpen, setStepsOpen] = useState(false);
-  const [primHov,   setPrimHov]   = useState(false);
-  const [secHov,    setSecHov]    = useState(false);
+  const [primHov, setPrimHov] = useState(false);
+  const [secHov,  setSecHov]  = useState(false);
 
   return (
     <div style={{
@@ -347,90 +347,97 @@ export function ErrorPage({
         </button>
       </div>
 
-      {/* Steps section — default variant only */}
+      {/* Steps section — Radix Accordion for proper keyboard + focus management */}
       {variant === "default" && steps.length > 0 && (
-        <div style={{
-          width:        "100%",
-          background:   "#F9FAFB",
-          borderRadius: 10,
-          border:       "1px solid #E5E7EB",
-          overflow:     "hidden",
-        }}>
-          <button
-            onClick={() => setStepsOpen(v => !v)}
-            style={{
-              width:          "100%",
-              display:        "flex",
-              alignItems:     "center",
-              gap:            8,
-              padding:        "12px 16px",
-              background:     "transparent",
-              border:         "none",
-              cursor:         "pointer",
-              textAlign:      "left",
-            }}
-          >
-            <QuestionIcon />
-            <span style={{
-              fontFamily: "Inter, sans-serif",
-              fontSize:   14,
-              fontWeight: 600,
-              color:      "#374151",
-              flex:       1,
-            }}>
-              Try these steps:
-            </span>
-            <ChevronIcon open={stepsOpen} />
-          </button>
+        <Accordion.Root
+          type="single"
+          collapsible
+          className="wl-accordion"
+          style={{
+            width:        "100%",
+            background:   "#F9FAFB",
+            borderRadius: 10,
+            border:       "1px solid #E5E7EB",
+            overflow:     "hidden",
+            textAlign:    "left",
+          }}
+        >
+          <Accordion.Item value="steps">
+            <Accordion.Header>
+              <Accordion.Trigger
+                style={{
+                  width:      "100%",
+                  display:    "flex",
+                  alignItems: "center",
+                  gap:        8,
+                  padding:    "12px 16px",
+                  background: "transparent",
+                  border:     "none",
+                  cursor:     "pointer",
+                  textAlign:  "left",
+                  outline:    "none",
+                }}
+              >
+                <QuestionIcon />
+                <span style={{
+                  fontFamily: "Inter, sans-serif",
+                  fontSize:   14,
+                  fontWeight: 600,
+                  color:      "#374151",
+                  flex:       1,
+                }}>
+                  Try these steps:
+                </span>
+                <ChevronIcon />
+              </Accordion.Trigger>
+            </Accordion.Header>
 
-          {stepsOpen && (
-            <div style={{
-              padding:    "0 16px 14px",
-              textAlign:  "left",
-            }}>
-              {steps.map((step, i) => (
-                <p key={i} style={{
-                  fontFamily: "Inter, sans-serif",
-                  fontSize:   13,
-                  fontWeight: 400,
-                  color:      "#6B7280",
-                  lineHeight: "20px",
-                  margin:     "0 0 8px",
-                }}>
-                  {step}
-                </p>
-              ))}
-              {urgentContact && (
-                <p style={{
-                  fontFamily: "Inter, sans-serif",
-                  fontSize:   13,
-                  fontWeight: 400,
-                  color:      "#6B7280",
-                  lineHeight: "20px",
-                  margin:     0,
-                }}>
-                  For urgent situation,{" "}
-                  <button
-                    onClick={onContactClick}
-                    style={{
-                      background:  "none",
-                      border:      "none",
-                      padding:     0,
-                      cursor:      "pointer",
-                      fontFamily:  "Inter, sans-serif",
-                      fontSize:    13,
-                      fontWeight:  500,
-                      color:       "#1D32FF",
-                      textDecoration: "underline",
-                    }}
-                  >
-                    call us at {urgentContact}
-                  </button>
-                </p>
-              )}
-            </div>
-          )}
-        </div>
+            <Accordion.Content className="wl-accordion-content">
+              <div style={{ padding: "0 16px 14px" }}>
+                {steps.map((step, i) => (
+                  <p key={i} style={{
+                    fontFamily: "Inter, sans-serif",
+                    fontSize:   13,
+                    fontWeight: 400,
+                    color:      "#6B7280",
+                    lineHeight: "20px",
+                    margin:     "0 0 8px",
+                  }}>
+                    {step}
+                  </p>
+                ))}
+                {urgentContact && (
+                  <p style={{
+                    fontFamily: "Inter, sans-serif",
+                    fontSize:   13,
+                    fontWeight: 400,
+                    color:      "#6B7280",
+                    lineHeight: "20px",
+                    margin:     0,
+                  }}>
+                    For urgent situation,{" "}
+                    <button
+                      onClick={onContactClick}
+                      style={{
+                        background:     "none",
+                        border:         "none",
+                        padding:        0,
+                        cursor:         "pointer",
+                        fontFamily:     "Inter, sans-serif",
+                        fontSize:       13,
+                        fontWeight:     500,
+                        color:          "#1D32FF",
+                        textDecoration: "underline",
+                      }}
+                    >
+                      call us at {urgentContact}
+                    </button>
+                  </p>
+                )}
+              </div>
+            </Accordion.Content>
+          </Accordion.Item>
+        </Accordion.Root>
       )}
 
       {/* Timestamp */}
@@ -472,11 +479,12 @@ function QuestionIcon() {
   );
 }
 
-function ChevronIcon({ open }: { open: boolean }) {
+function ChevronIcon() {
   return (
     <svg
       width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"
-      style={{ transition: "transform 0.2s", transform: open ? "rotate(180deg)" : "rotate(0deg)", flexShrink: 0 }}
+      className="wl-accordion-chevron"
+      style={{ flexShrink: 0, transition: "transform 0.2s" }}
     >
       <path d="M4 6l4 4 4-4" stroke="#9CA3AF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>

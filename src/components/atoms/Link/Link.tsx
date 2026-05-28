@@ -12,7 +12,7 @@ export interface LinkProps {
 // Chevron SVG (12×12)
 function TrailChevron({ color }: { color: string }) {
   return (
-    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
       <path
         d="M6 4l4 4-4 4"
         stroke={color}
