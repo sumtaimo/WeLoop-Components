@@ -44,33 +44,22 @@ export interface DataTableProps {
 // ─── SVG icons ────────────────────────────────────────────────────────────────
 
 function SortIcon({ active, dir }: { active: boolean; dir?: "asc" | "desc" }) {
-  const col = active ? "var(--color-text-brand, #1D32FF)" : "#9CA3AF";
+  const col = active ? "var(--color-text-brand, #1D32FF)" : "#D1D5DB";
+  const isAsc = active && dir === "asc";
   return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-      {/* up chevron */}
-      <path
-        d="M3 7.5l3-3 3 3"
-        stroke={active && dir === "asc" ? col : "#D1D5DB"}
-        strokeWidth="1.3"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {/* down chevron */}
-      <path
-        d="M3 4.5l3 3 3-3"
-        stroke={active && dir === "desc" ? col : "#D1D5DB"}
-        strokeWidth="1.3"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"
+      style={{ transform: isAsc ? "rotate(180deg)" : "none", transition: "transform 150ms" }}>
+      <path d="M3 4.5l3 3 3-3" stroke={col} strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
 
-function FilterIcon() {
+function InfoCircleIcon() {
   return (
-    <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true">
-      <path d="M1 2.5h9M2.5 5.5h6M4 8.5h3" stroke="#9CA3AF" strokeWidth="1.2" strokeLinecap="round" />
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+      <circle cx="6" cy="6" r="4.5" stroke="#9CA3AF" strokeWidth="1.1" />
+      <path d="M6 5.5v3" stroke="#9CA3AF" strokeWidth="1.2" strokeLinecap="round" />
+      <circle cx="6" cy="3.8" r="0.6" fill="#9CA3AF" />
     </svg>
   );
 }
@@ -175,19 +164,17 @@ const COLUMNS: Array<{
   width?: number;
   flex?: string;
   sortable?: boolean;
-  /** "flex-start" | "center" | "flex-end"  — for header button justifyContent */
+  hasInfo?: boolean;
   align?: "center" | "flex-start" | "flex-end";
-  /** Overrides the default "0 12px" header cell padding to match DataRow cell */
   cellPadding?: string;
 }> = [
-  // key          label       width  sort   align          cellPadding (must match DataRow cell padding)
-  { key: "date",     label: "DATE",     width: 172, sortable: true  },                                     // DataRow: default 12px ✅
-  { key: "amount",   label: "NUMERIC",  width: 80,  sortable: true,  align: "flex-end" },                  // DataRow: default 12px ✅
-  { key: "select",   label: "SELECT",   width: 120, sortable: false },                                      // DataRow: default 12px ✅
-  { key: "assignee", label: "ASSIGNEE", width: 172, sortable: false },                                      // DataRow: default 12px ✅
-  { key: "actions",  label: "ACTIONS",  width: 88,  sortable: false, align: "center", cellPadding: "0 2px" }, // DataRow: padding "0 2px" (fixed)
-  { key: "notes",    label: "NOTES",    flex: "1",  sortable: false },                                      // DataRow: 12px (fixed from 10px)
-  { key: "status",   label: "STATUS",   width: 136, sortable: false, align: "center" },                    // DataRow: default 12px ✅
+  { key: "date",     label: "DATE",     width: 172, sortable: true,  hasInfo: true  },
+  { key: "amount",   label: "NUMERIC",  width: 80,  sortable: true,  align: "flex-end" },
+  { key: "select",   label: "SELECT",   width: 120, hasInfo: true },
+  { key: "assignee", label: "ASSIGNEE", width: 172, hasInfo: true },
+  { key: "actions",  label: "ACTIONS",  width: 88,  align: "center", cellPadding: "0 2px" },
+  { key: "notes",    label: "NOTES",    flex: "1",  hasInfo: true },
+  { key: "status",   label: "STATUS",   width: 136, hasInfo: true, align: "center" },
 ];
 
 export function DataTable({
@@ -301,15 +288,15 @@ export function DataTable({
                   {col.label}
                 </span>
 
-                {/* Icon — never hidden */}
-                {col.sortable && (
-                  <span style={{ flexShrink: 0, order: textAlign === "flex-end" ? 1 : 1, display: "flex" }}>
-                    <SortIcon active={isActive} dir={isActive ? sortDir : undefined} />
+                {/* Icons — info circle and/or sort chevron */}
+                {col.hasInfo && (
+                  <span style={{ flexShrink: 0, display: "flex", order: textAlign === "flex-end" ? 0 : 2 }}>
+                    <InfoCircleIcon />
                   </span>
                 )}
-                {!col.sortable && col.key !== "actions" && (
-                  <span style={{ flexShrink: 0, display: "flex" }}>
-                    <FilterIcon />
+                {col.sortable && (
+                  <span style={{ flexShrink: 0, order: textAlign === "flex-end" ? 1 : 3, display: "flex" }}>
+                    <SortIcon active={isActive} dir={isActive ? sortDir : undefined} />
                   </span>
                 )}
               </button>

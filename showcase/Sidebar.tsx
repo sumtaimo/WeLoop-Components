@@ -3,7 +3,7 @@ import type { ThemeName, ColorMode } from "../src/tokens";
 
 export interface NavItem {
   section: string;
-  items: { id: string; label: string }[];
+  items: { id: string; label: string; icon?: React.ReactNode }[];
 }
 
 interface SidebarProps {
@@ -190,17 +190,28 @@ export function Sidebar({ nav, active, onChange, theme, colorMode, onThemeChange
                 >
                   <span
                     style={{
-                      width: 6,
-                      height: 6,
-                      borderRadius: "50%",
-                      background: isActive
-                        ? "var(--color-text-brand, #1D32FF)"
-                        : "transparent",
-                      border: isActive ? "none" : "1.5px solid #D4D4D4",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: 16,
+                      height: 16,
                       flexShrink: 0,
-                      transition: "background 0.1s, border 0.1s",
+                      color: isActive
+                        ? "var(--color-text-brand, #1D32FF)"
+                        : isHovered ? "#737373" : "#A3A3A3",
+                      transition: "color 0.1s",
                     }}
-                  />
+                  >
+                    {item.icon ?? (
+                      <svg width="6" height="6" viewBox="0 0 6 6" fill="none" aria-hidden="true">
+                        <circle cx="3" cy="3" r="2.5"
+                          fill={isActive ? "var(--color-text-brand, #1D32FF)" : "transparent"}
+                          stroke={isActive ? "var(--color-text-brand, #1D32FF)" : "#D4D4D4"}
+                          strokeWidth="1"
+                        />
+                      </svg>
+                    )}
+                  </span>
                   {item.label}
                 </button>
               );

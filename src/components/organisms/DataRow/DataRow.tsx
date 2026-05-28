@@ -95,7 +95,32 @@ function PencilIcon() {
   );
 }
 
-function HourglassIcon({ color }: { color: string }) {
+function StatusIcon({ variant, color }: { variant: DataRowStatus; color: string }) {
+  if (variant === "done") {
+    return (
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
+        <circle cx="6.5" cy="6.5" r="5" stroke={color} strokeWidth="1.2" />
+        <path d="M4 6.5l2 2 3-3" stroke={color} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+  if (variant === "pending") {
+    return (
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
+        <circle cx="6.5" cy="6.5" r="5" stroke={color} strokeWidth="1.2" />
+        <path d="M6.5 4v3l1.5 1.5" stroke={color} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+  if (variant === "cancelled") {
+    return (
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
+        <circle cx="6.5" cy="6.5" r="5" stroke={color} strokeWidth="1.2" />
+        <path d="M4.5 4.5l4 4M8.5 4.5l-4 4" stroke={color} strokeWidth="1.2" strokeLinecap="round" />
+      </svg>
+    );
+  }
+  // inProgress — hourglass
   return (
     <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
       <path d="M2.5 1.5h8M2.5 11.5h8" stroke={color} strokeWidth="1.2" strokeLinecap="round" />
@@ -158,8 +183,8 @@ export function DataRow({
 }: DataRowProps) {
   const [hovered, setHovered] = useState(false);
 
-  const rowBg = selected
-    ? "#EAF3FF"
+  const rowBg = (selected || checked)
+    ? "var(--color-bg-brand-contrast, #EAF3FF)"
     : hovered
       ? "#F9FAFB"
       : "#FFFFFF";
@@ -311,7 +336,7 @@ export function DataRow({
           border: `1px solid ${statusCfg.border}`,
           flexShrink: 0,
         }}>
-          <HourglassIcon color={statusCfg.text} />
+          <StatusIcon variant={statusVariant} color={statusCfg.text} />
           <span style={{
             fontFamily: "Inter, sans-serif",
             fontSize: 12, fontWeight: 500,
