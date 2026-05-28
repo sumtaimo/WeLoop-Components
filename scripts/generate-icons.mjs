@@ -8,7 +8,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ICONS_DIR = '/tmp/icons-raw/ICONS';
+const ICONS_DIR      = '/tmp/weloop-icons/Weloop icon';
+const BANK_LOGOS_DIR = '/tmp/icons-raw/ICONS';   // old ZIP — has 124 bank logos
 const OUT_ICON  = path.join(__dirname, '../src/components/atoms/Icon/Icon.tsx');
 const OUT_BANK  = path.join(__dirname, '../src/components/atoms/BankLogo/BankLogo.tsx');
 const OUT_FLAG  = path.join(__dirname, '../src/components/atoms/Flag/Flag.tsx');
@@ -37,7 +38,24 @@ const ATTR = {
 const KEEP_COLORS = new Set([
   'ico_figma.svg','ico_excel.svg','ico_aba.svg','ico_bakong.svg',
   'Ico_caminv.svg','ico_APIs.svg',
+  'ico_mastercard.svg','ico_visa.svg','ico_khqr.svg','ico_khqr.svg',
+  'ico_logoWeBill365.svg','ico_logoPPCB.svg','ico_wabooks.svg',
+  'ico_Webcash Group.svg','ico_WebcashVietnam.svg','ico_webcash.svg',
+  'ico_webill365.svg','ico_webill365small.svg','ico_ppcb.svg','ico_shinhan.svg',
+  'ico_shinhanlogo.svg','ico_react-js-ex.svg','ico_react-js.svg',
+  'ico_javascript.svg','bank logo WOORI BANK.svg',
 ]);
+
+// ─── New ZIP: flags are numbered, not named — map to country names ────────────
+// Order determined by matching first fill colors against known country flags.
+const FLAG_NUM_TO_COUNTRY = {
+  '':   'canbodia',                      // #032EA1
+  '-1': 'south-korea',                   // white
+  '-2': 'united-kingdom',               // #012169
+  '-3': 'united-states-of-america',     // #BD3D44
+  '-4': 'vietnam',                       // #DA251D
+  '-5': 'china',                         // #EE1C25
+};
 // Also keep color for file-type icons
 function shouldKeepColor(filename, content) {
   if (KEEP_COLORS.has(filename)) return true;
@@ -176,12 +194,13 @@ function toPascal(str) {
 // ─── 2. Bank Logos ───────────────────────────────────────────────────────────
 {
   // Only include SVGs under 25KB with clean names (no "-1" duplicates)
-  const allFiles = fs.readdirSync(ICONS_DIR)
+  // Uses the old ZIP directory which has 124+ bank logos
+  const allFiles = fs.readdirSync(BANK_LOGOS_DIR)
     .filter(f => {
       if (/^[Ii]co_|^[Ii]con_|Style=|catalog|\.html$|zitZ/.test(f)) return false;
       if (f.endsWith('-1.svg') || f.endsWith('-2.svg') || f.endsWith('-3.svg')) return false;
       if (!f.endsWith('.svg')) return false;
-      const size = fs.statSync(path.join(ICONS_DIR, f)).size;
+      const size = fs.statSync(path.join(BANK_LOGOS_DIR, f)).size;
       return size < 25000;
     })
     .sort();
@@ -189,7 +208,7 @@ function toPascal(str) {
   const bankMap = {};
 
   for (const file of allFiles) {
-    const raw = fs.readFileSync(path.join(ICONS_DIR, file), 'utf8');
+    const raw = fs.readFileSync(path.join(BANK_LOGOS_DIR, file), 'utf8');
     // For bank logos: strip P3 styles but keep brand colors
     let inner = raw.replace(/\s+style="[^"]*"/g, '');
     inner = inner.replace(/\s+xmlns(?::[a-z]+)?="[^"]*"/g, '');
@@ -276,10 +295,22 @@ function toPascal(str) {
   const flagMap = {}; // `${style}-${country}` → { viewBox, inner }
 
   for (const file of files) {
-    const m = file.match(/Style=(\w+)\s+\(([^)]+)\)\.svg/);
-    if (!m) continue;
-    const style   = m[1].toLowerCase();
-    const country = m[2].toLowerCase().replace(/\s+/g, '-');
+    // Support both old naming: Style=Circle (Vietnam).svg
+    // and new naming:          Style=Circle-4.svg  (numbered)
+    let style, country;
+    const oldMatch = file.match(/Style=(\w+)\s+\(([^)]+)\)\.svg/);
+    const newMatch = file.match(/Style=(\w+?)(-\d+)?\.svg$/);
+    if (oldMatch) {
+      style   = oldMatch[1].toLowerCase();
+      country = oldMatch[2].toLowerCase().replace(/\s+/g, '-');
+    } else if (newMatch) {
+      style   = newMatch[1].toLowerCase();
+      const suffix = newMatch[2] ?? '';  // '' | '-1' | '-2' … '-5'
+      country = FLAG_NUM_TO_COUNTRY[suffix];
+      if (!country) { console.warn('skip unknown flag suffix', file); continue; }
+    } else {
+      continue;
+    }
     const key = `${style}-${country}`;
 
     const raw = fs.readFileSync(path.join(ICONS_DIR, file), 'utf8');
