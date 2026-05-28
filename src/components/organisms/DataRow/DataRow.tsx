@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Checkbox } from "../../atoms/Checkbox";
 import { Avatar } from "../../atoms/Avatar";
+import { IconRestart16, IconChevron165, IconPen16 } from "../../atoms/Icon/Icon";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -55,15 +56,6 @@ const CELL_DIVIDER = "1px solid #F0F0F0";
 
 // ─── Mini SVG icons ───────────────────────────────────────────────────────────
 
-function SyncIcon() {
-  return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-      <path d="M10 6A4 4 0 112.1 3.5" stroke="#9CA3AF" strokeWidth="1.2" strokeLinecap="round" />
-      <path d="M10 2.5V6H6.5" stroke="#9CA3AF" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 function CmdChip() {
   return (
     <span style={{
@@ -74,24 +66,6 @@ function CmdChip() {
     }}>
       ⌘
     </span>
-  );
-}
-
-function ChevronDown() {
-  return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-      <path d="M3 4.5l3 3 3-3" stroke="#6B7280" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function PencilIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M11.5 2.5l2 2-8.5 8.5H3v-2l8.5-8.5z"
-        stroke="#9CA3AF" strokeWidth="1.3" strokeLinejoin="round" />
-      <path d="M9.5 4.5l2 2" stroke="#9CA3AF" strokeWidth="1.3" />
-    </svg>
   );
 }
 
@@ -236,7 +210,7 @@ export function DataRow({
       <Cell width={172}>
         <div style={{ display: "flex", alignItems: "center", gap: 6, minWidth: 0 }}>
           <span style={textStyle}>{date}</span>
-          <SyncIcon />
+          <IconRestart16 size={12} color="#9CA3AF" />
           <CmdChip />
         </div>
       </Cell>
@@ -258,7 +232,7 @@ export function DataRow({
           }}
         >
           <span>{selectValue ?? "Choose"}</span>
-          <ChevronDown />
+          <IconChevron165 size={12} color="#6B7280" />
         </button>
       </Cell>
 
@@ -297,7 +271,7 @@ export function DataRow({
               cursor: "pointer", padding: 0, flexShrink: 0,
             }}
           >
-            <PencilIcon />
+            <IconPen16 size={14} color="#9CA3AF" />
           </button>
         ))}
       </Cell>

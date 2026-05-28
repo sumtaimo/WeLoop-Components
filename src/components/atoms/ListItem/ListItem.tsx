@@ -1,4 +1,5 @@
 import React from "react";
+import { IconDoc16, IconChevron163 } from "../Icon/Icon";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -38,45 +39,6 @@ export interface ListItemProps {
   showDivider?:  boolean;
   style?:        React.CSSProperties;
   onClick?:      () => void;
-}
-
-// ─── Default lead icon (document / notification icon) ─────────────────────────
-
-function DefaultIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="3" y="2" width="14" height="18" rx="2" stroke="#9CA3AF" strokeWidth="1.5" />
-      <line x1="6" y1="7"  x2="14" y2="7"  stroke="#9CA3AF" strokeWidth="1.2" strokeLinecap="round" />
-      <line x1="6" y1="11" x2="14" y2="11" stroke="#9CA3AF" strokeWidth="1.2" strokeLinecap="round" />
-      <line x1="6" y1="15" x2="11" y2="15" stroke="#9CA3AF" strokeWidth="1.2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function SmallIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <rect x="2" y="1" width="10" height="13" rx="1.5" stroke="#9CA3AF" strokeWidth="1.2" />
-      <line x1="4" y1="5"  x2="10" y2="5"  stroke="#9CA3AF" strokeWidth="1" strokeLinecap="round" />
-      <line x1="4" y1="8"  x2="10" y2="8"  stroke="#9CA3AF" strokeWidth="1" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function ChevronRightSmall() {
-  return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" style={{ flexShrink: 0, color: "var(--color-text-brand, #1D32FF)" }}>
-      <path d="M4.5 3L7.5 6L4.5 9" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function ChevronRight() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
-      <path d="M7.5 5L12.5 10L7.5 15" stroke="#A3A3A3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
 }
 
 // ─── Shared text styles ───────────────────────────────────────────────────────
@@ -183,13 +145,13 @@ export function ListItem({
           justifyContent: "center",
           flexShrink:     0,
         }}>
-          {icon ?? <DefaultIcon />}
+          {icon ?? <IconDoc16 size={24} color="#9CA3AF" />}
         </div>
       )}
 
       {hasSmallIcon && (
         <div style={{ display: "flex", alignItems: "center", flexShrink: 0, paddingTop: 4 }}>
-          {icon ?? <SmallIcon />}
+          {icon ?? <IconDoc16 size={16} color="#9CA3AF" />}
         </div>
       )}
 
@@ -251,7 +213,7 @@ export function ListItem({
           {isMinimal && (
             <div style={{ display: "flex", alignItems: "center", gap: 4, flexShrink: 0 }}>
               {count !== undefined && <span style={countStyle}>{count}</span>}
-              <ChevronRight />
+              <IconChevron163 size={20} color="#A3A3A3" />
             </div>
           )}
         </div>
@@ -288,7 +250,7 @@ export function ListItem({
             }}
           >
             {linkText}
-            <ChevronRightSmall />
+            <IconChevron163 size={12} color="var(--color-text-brand, #1D32FF)" />
           </button>
         )}
       </div>

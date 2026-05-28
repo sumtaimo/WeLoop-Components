@@ -1,4 +1,5 @@
 import React, { useState, useRef, useCallback } from "react";
+import { IconClock16, IconLoading16, IconClose161, IconCheck161, IconChevron163 } from "../../atoms/Icon/Icon";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -69,62 +70,7 @@ function ExcelFileIcon({ size = 28 }: { size?: number }) {
   );
 }
 
-// ─── Status icons ─────────────────────────────────────────────────────────────
-
-function StatusDefaultIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="10" stroke="#D1D5DB" strokeWidth="1.5" />
-      <path d="M12 7v5.5l3 1.8" stroke="#9CA3AF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function StatusProcessingIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="9.5" stroke="#E5E7EB" strokeWidth="1.5" />
-      <path d="M12 2.5C6.75 2.5 2.5 6.75 2.5 12" stroke="#1D32FF" strokeWidth="2" strokeLinecap="round">
-        <animateTransform
-          attributeName="transform"
-          type="rotate"
-          from="0 12 12"
-          to="360 12 12"
-          dur="0.8s"
-          repeatCount="indefinite"
-        />
-      </path>
-    </svg>
-  );
-}
-
-function StatusErrorIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="10" fill="#EF4444" />
-      <path d="M8.5 8.5l7 7M15.5 8.5l-7 7" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function StatusCompletedIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="10" fill="#1D32FF" />
-      <path d="M8 12l3.2 3.2 5.3-5.9" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-// ─── Learn-more chevron ───────────────────────────────────────────────────────
-
-function ChevronRight() {
-  return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
-      <path d="M4.5 3L7.5 6L4.5 9" stroke="#1D32FF" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
+// ─── (status icons and chevron replaced with Icon library imports) ─────────────
 
 // ─── FileUploadCard ───────────────────────────────────────────────────────────
 
@@ -268,7 +214,7 @@ export function FileUploadCard({
             }}
           >
             {linkText}
-            {!disabled && <ChevronRight />}
+            {!disabled && <IconChevron163 size={12} color="currentColor" />}
           </button>
         )}
       </div>
@@ -293,10 +239,10 @@ export function FileListItem({
   style,
 }: FileListItemProps) {
   const icon = {
-    default:    <StatusDefaultIcon />,
-    processing: <StatusProcessingIcon />,
-    error:      <StatusErrorIcon />,
-    completed:  <StatusCompletedIcon />,
+    default:    <IconClock16 size={24} color="#9CA3AF" />,
+    processing: <IconLoading16 size={24} color="#9CA3AF" />,
+    error:      <IconClose161 size={24} color="#E1232E" />,
+    completed:  <IconCheck161 size={24} color="#22C55E" />,
   }[status];
 
   return (

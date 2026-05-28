@@ -1,6 +1,7 @@
 import React, { useState, useId } from "react";
 import * as RadixLabel  from "@radix-ui/react-label";
 import * as RadixSelect from "@radix-ui/react-select";
+import { IconChevron165, IconClose161, IconCheck16 } from "../Icon/Icon";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -90,33 +91,6 @@ const INPUT_TEXT: React.CSSProperties = {
   width: "100%",
 };
 
-// ─── Mini SVG icons ───────────────────────────────────────────────────────────
-
-function ChevronDown({ color = "#6B7280" }: { color?: string }) {
-  return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
-      <path d="M3.5 5.5l3.5 3.5 3.5-3.5" stroke={color} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function ClearIcon({ color = "#9CA3AF" }: { color?: string }) {
-  return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-      <circle cx="7" cy="7" r="6" fill={color} fillOpacity="0.2" />
-      <path d="M9 5l-4 4M5 5l4 4" stroke={color} strokeWidth="1.3" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function CheckIcon() {
-  return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" style={{ color: "var(--color-text-brand, #1D32FF)" }}>
-      <path d="M2 6l3 3 5-6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 // ─── Radix Select replacement for SelectPart ─────────────────────────────────
 
 function SelectPart({
@@ -170,7 +144,7 @@ function SelectPart({
           </span>
         </RadixSelect.Value>
         <RadixSelect.Icon>
-          <ChevronDown color={disabled ? "#D1D5DB" : "#6B7280"} />
+          <IconChevron165 size={14} color={disabled ? "#D1D5DB" : "#6B7280"} />
         </RadixSelect.Icon>
       </RadixSelect.Trigger>
 
@@ -229,7 +203,7 @@ function SelectItem({ value }: { value: string }) {
     >
       <RadixSelect.ItemText>{value}</RadixSelect.ItemText>
       <RadixSelect.ItemIndicator>
-        <CheckIcon />
+        <IconCheck16 size={12} color="var(--color-text-brand, #1D32FF)" />
       </RadixSelect.ItemIndicator>
     </RadixSelect.Item>
   );
@@ -318,7 +292,7 @@ function TextField({
           }}
           aria-label="Clear"
         >
-          <ClearIcon />
+          <IconClose161 size={14} color="#9CA3AF" />
         </button>
       )}
     </div>

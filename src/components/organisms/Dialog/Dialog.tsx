@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import * as RadixDialog from "@radix-ui/react-dialog";
+import { IconClose16, IconCheck16, IconCopy16, IconChevron165 } from "../../atoms/Icon/Icon";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -123,9 +124,7 @@ function CloseButton() {
           flexShrink:     0,
         }}
       >
-        <svg width={14} height={14} viewBox="0 0 14 14" fill="none" aria-hidden="true">
-          <path d="M2 2l10 10M12 2L2 12" stroke="#6B7280" strokeWidth="1.8" strokeLinecap="round"/>
-        </svg>
+        <IconClose16 size={14} color="#6B7280" />
       </button>
     </RadixDialog.Close>
   );
@@ -348,14 +347,9 @@ function ListRow({ item, last }: { item: DialogListItem; last?: boolean }) {
           }}
         >
           {copied ? (
-            <svg width={14} height={14} viewBox="0 0 14 14" fill="none">
-              <path d="M2 7l4 4 6-7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+            <IconCheck16 size={14} color="currentColor" />
           ) : (
-            <svg width={14} height={14} viewBox="0 0 14 14" fill="none">
-              <rect x="5" y="5" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.4"/>
-              <path d="M3 9V3a1 1 0 011-1h6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
-            </svg>
+            <IconCopy16 size={14} color="currentColor" />
           )}
         </button>
       </div>
@@ -723,9 +717,7 @@ export function DialogCard({
           zIndex:         1,
         }}
       >
-        <svg width={14} height={14} viewBox="0 0 14 14" fill="none" aria-hidden="true">
-          <path d="M2 2l10 10M12 2L2 12" stroke="#6B7280" strokeWidth="1.8" strokeLinecap="round"/>
-        </svg>
+        <IconClose16 size={14} color="#6B7280" />
       </button>
 
       {variant === "simple" && <SimpleBody title={title} description={description} />}

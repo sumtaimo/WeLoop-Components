@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { IconChevron164, IconChevron165, IconCheck16 } from "../../atoms/Icon/Icon";
 
 export type DashboardCardType = "toggle" | "minimal" | "headline";
 
@@ -145,9 +146,7 @@ function ToggleCard({ headline, description, selected, disabled, hover, onClick 
             fontFamily: "Inter, sans-serif", fontWeight: 500, fontSize: 12, lineHeight: "16px",
             letterSpacing: "-0.2px", color: btnPrimary.textColor,
           }}>
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-              <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+            <IconCheck16 size={10} color="currentColor" />
             Button
           </button>
         </div>
@@ -209,17 +208,13 @@ function MinimalCard({ headline, description, selected, disabled, hover, onClick
   );
 }
 
-// ─── DeltaIcon (solid triangle — matches Figma trend indicator) ──────────────
+// ─── DeltaIcon (trend indicator) ─────────────────────────────────────────────
 function DeltaIcon({ direction, disabled }: { direction: "up" | "down"; disabled: boolean }) {
   const color = disabled ? "#d4d4d4" : direction === "up" ? "#15803d" : "#dc2626";
   return direction === "up" ? (
-    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
-      <path d="M5 2L9 8H1L5 2Z" fill={color} />
-    </svg>
+    <IconChevron164 size={10} color={color} style={{ flexShrink: 0 }} />
   ) : (
-    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
-      <path d="M5 8L1 2H9L5 8Z" fill={color} />
-    </svg>
+    <IconChevron165 size={10} color={color} style={{ flexShrink: 0 }} />
   );
 }
 
@@ -245,10 +240,7 @@ function HeadlineCard({ headline, subtitle, trailText, delta, period, selected, 
       {/* Subtitle row */}
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 4 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 4, flex: 1, minWidth: 0 }}>
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
-            <circle cx="6" cy="6" r="4.5" stroke="#a3a3a3" strokeWidth="1.25" />
-            <path d="M4 6l1.5 1.5 2.5-3" stroke="#a3a3a3" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+          <IconCheck16 size={10} color="currentColor" style={{ flexShrink: 0 }} />
           <span style={{ ...MUTED_STYLE, color: disabled ? "#d4d4d4" : "#a3a3a3" }}>{subtitle}</span>
         </div>
         {trailText && (

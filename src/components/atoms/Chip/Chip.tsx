@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { IconCheck16, IconClose16 } from "../Icon/Icon";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -97,26 +98,6 @@ const COLORS: Record<"default" | "hover" | "pressed" | "disabled", StateColors> 
 
 // ─── SVG icons ────────────────────────────────────────────────────────────────
 
-function CheckIcon({ size, color }: { size: number; color: string }) {
-  return (
-    <svg
-      width={size} height={size}
-      viewBox="0 0 12 12"
-      fill="none"
-      aria-hidden="true"
-      style={{ flexShrink: 0 }}
-    >
-      <path
-        d="M2 6.5l3 3L10 3"
-        stroke={color}
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
 function RemoveButton({
   btnSize, iconSize, bg, xColor, onClick, disabled, label,
 }: {
@@ -151,19 +132,7 @@ function RemoveButton({
         transition:      "background 0.12s",
       }}
     >
-      <svg
-        width={iconSize} height={iconSize}
-        viewBox="0 0 10 10"
-        fill="none"
-        aria-hidden="true"
-      >
-        <path
-          d="M2 2l6 6M8 2L2 8"
-          stroke={xColor}
-          strokeWidth="1.6"
-          strokeLinecap="round"
-        />
-      </svg>
+      <IconClose16 size={iconSize} color={xColor} />
     </button>
   );
 }
@@ -219,7 +188,7 @@ export function Chip({
     >
       {/* ── Left icon ── */}
       {type === "suggest" ? (
-        <CheckIcon size={cfg.iconSize} color={C.iconColor} />
+        <IconCheck16 size={cfg.iconSize} color={C.iconColor} />
       ) : (
         /* Avatar */
         <div style={{

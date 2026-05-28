@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { IconChevron162, IconChevron163, IconChevron165 } from "../../atoms/Icon/Icon";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -23,40 +24,6 @@ export interface PaginationProps {
   onPageChange:     (page: number) => void;
   onPageSizeChange?: (size: number) => void;
   style?:           React.CSSProperties;
-}
-
-// ─── SVG navigation icons ─────────────────────────────────────────────────────
-
-function IconFirst() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M3 4v8M7 5L4 8l3 3M10 5l-3 3 3 3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function IconPrev() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M10 4L6 8l4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function IconNext() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function IconLast() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M13 4v8M9 5l3 3-3 3M6 5l3 3-3 3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
 }
 
 // ─── Nav button ───────────────────────────────────────────────────────────────
@@ -138,13 +105,9 @@ function PageSizeSelect({
         {options.map(n => <option key={n} value={n}>{n}</option>)}
       </select>
       {/* Chevron */}
-      <svg
-        width="14" height="14" viewBox="0 0 14 14" fill="none"
-        aria-hidden="true"
-        style={{ position: "absolute", right: 6, pointerEvents: "none", color: "#6B7280" }}
-      >
-        <path d="M3.5 5L7 8.5L10.5 5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
+      <span style={{ position: "absolute", right: 6, pointerEvents: "none", display: "flex", alignItems: "center" }}>
+        <IconChevron165 size={14} color="#6B7280" />
+      </span>
     </div>
   );
 }
@@ -199,10 +162,10 @@ export function Pagination({
 
         {/* Nav */}
         <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-          <NavBtn onClick={() => onPageChange(1)}          disabled={disableFirst} label="First page"><IconFirst /></NavBtn>
-          <NavBtn onClick={() => onPageChange(page - 1)}   disabled={disableFirst} label="Previous page"><IconPrev /></NavBtn>
-          <NavBtn onClick={() => onPageChange(page + 1)}   disabled={disableLast}  label="Next page"><IconNext /></NavBtn>
-          <NavBtn onClick={() => onPageChange(totalPages)} disabled={disableLast}  label="Last page"><IconLast /></NavBtn>
+          <NavBtn onClick={() => onPageChange(1)}          disabled={disableFirst} label="First page"><IconChevron162 size={16} color="currentColor" /></NavBtn>
+          <NavBtn onClick={() => onPageChange(page - 1)}   disabled={disableFirst} label="Previous page"><IconChevron162 size={16} color="currentColor" /></NavBtn>
+          <NavBtn onClick={() => onPageChange(page + 1)}   disabled={disableLast}  label="Next page"><IconChevron163 size={16} color="currentColor" /></NavBtn>
+          <NavBtn onClick={() => onPageChange(totalPages)} disabled={disableLast}  label="Last page"><IconChevron163 size={16} color="currentColor" /></NavBtn>
         </div>
       </div>
     );
@@ -241,8 +204,8 @@ export function Pagination({
       />
 
       {/* First / Prev */}
-      <NavBtn onClick={() => onPageChange(1)}        disabled={disableFirst} label="First page"><IconFirst /></NavBtn>
-      <NavBtn onClick={() => onPageChange(page - 1)} disabled={disableFirst} label="Previous page"><IconPrev /></NavBtn>
+      <NavBtn onClick={() => onPageChange(1)}        disabled={disableFirst} label="First page"><IconChevron162 size={16} color="currentColor" /></NavBtn>
+      <NavBtn onClick={() => onPageChange(page - 1)} disabled={disableFirst} label="Previous page"><IconChevron162 size={16} color="currentColor" /></NavBtn>
 
       {/* Page numbers */}
       {pages.map((p, i) =>
@@ -256,8 +219,8 @@ export function Pagination({
       )}
 
       {/* Next / Last */}
-      <NavBtn onClick={() => onPageChange(page + 1)}   disabled={disableLast} label="Next page"><IconNext /></NavBtn>
-      <NavBtn onClick={() => onPageChange(totalPages)} disabled={disableLast}  label="Last page"><IconLast /></NavBtn>
+      <NavBtn onClick={() => onPageChange(page + 1)}   disabled={disableLast} label="Next page"><IconChevron163 size={16} color="currentColor" /></NavBtn>
+      <NavBtn onClick={() => onPageChange(totalPages)} disabled={disableLast}  label="Last page"><IconChevron163 size={16} color="currentColor" /></NavBtn>
 
       {/* Info */}
       <span style={{ fontSize: 14, fontWeight: 500, color: "#111827", whiteSpace: "nowrap", marginLeft: 4 }}>

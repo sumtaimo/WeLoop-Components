@@ -1,4 +1,5 @@
 import React from "react";
+import { IconInfo16, IconCheck161, IconWarning16, IconClose161, IconClose16 } from "../../atoms/Icon/Icon";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -70,74 +71,19 @@ const CONFIG: Record<BannerType, BannerConfig> = {
   multiWarning:    { bg: "#FDCFAB", text: "#BF310F", closeBorder: "#BF310F", cardBorder: "#D97706", accentBorder: "#D97706", isSolid: false, isMulti: true },
 };
 
-// ─── Inline SVG Icons ────────────────────────────────────────────────────────
-
-function InfoIcon({ color, size }: { color: string; size: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
-      <circle cx="12" cy="12" r="10" fill={color} fillOpacity="0.18" stroke={color} strokeWidth="1.5" />
-      <path d="M12 8v1M12 11v5" stroke={color} strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function CheckCircleIcon({ color, size }: { color: string; size: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
-      <circle cx="12" cy="12" r="10" fill={color} fillOpacity="0.22" stroke={color} strokeWidth="1.5" />
-      <path d="M7.5 12.5l3 3 5.5-6" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function WarningIcon({ color, size }: { color: string; size: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
-      <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
-        fill={color} fillOpacity="0.2" stroke={color} strokeWidth="1.5" strokeLinejoin="round" />
-      <path d="M12 9v4M12 17v.01" stroke={color} strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function CriticalIcon({ color, size }: { color: string; size: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
-      <circle cx="12" cy="12" r="10" fill={color} fillOpacity="0.2" stroke={color} strokeWidth="1.5" />
-      <path d="M15 9l-6 6M9 9l6 6" stroke={color} strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function ActionableIcon({ color, size }: { color: string; size: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
-      <polygon points="12,2 22,22 2,22"
-        fill={color} fillOpacity="0.22" stroke={color} strokeWidth="1.5" strokeLinejoin="round" />
-      <path d="M12 9v4M12 17v.01" stroke={color} strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function CloseIcon({ color }: { color: string }) {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <path d="M15 5L5 15M5 5l10 10" stroke={color} strokeWidth="1.6" strokeLinecap="round" />
-    </svg>
-  );
-}
+// ─── Banner Icon ──────────────────────────────────────────────────────────────
 
 function BannerIcon({ type, color, size }: { type: BannerType; color: string; size: number }) {
   switch (type) {
-    case "information":     return <InfoIcon color={color} size={size} />;
-    case "success":         return <CheckCircleIcon color={color} size={size} />;
+    case "information":     return <IconInfo16 size={size} color={color} style={{ flexShrink: 0 }} />;
+    case "success":         return <IconCheck161 size={size} color={color} style={{ flexShrink: 0 }} />;
     case "warning":
-    case "multiWarning":    return <WarningIcon color={color} size={size} />;
+    case "multiWarning":    return <IconWarning16 size={size} color={color} style={{ flexShrink: 0 }} />;
     case "critical":
-    case "multiCritical":   return <CriticalIcon color={color} size={size} />;
+    case "multiCritical":   return <IconClose161 size={size} color={color} style={{ flexShrink: 0 }} />;
     case "actionable":
-    case "multiActionable": return <ActionableIcon color={color} size={size} />;
-    default:                return <InfoIcon color={color} size={size} />;
+    case "multiActionable": return <IconWarning16 size={size} color={color} style={{ flexShrink: 0 }} />;
+    default:                return <IconInfo16 size={size} color={color} style={{ flexShrink: 0 }} />;
   }
 }
 
@@ -326,7 +272,7 @@ export function Banner({
       {/* Close button with left-border separator */}
       {onClose && (
         <button style={closeBtnStyle} onClick={onClose} aria-label="Close banner">
-          <CloseIcon color={cfg.text} />
+          <IconClose16 size={16} color={cfg.text} />
         </button>
       )}
     </div>

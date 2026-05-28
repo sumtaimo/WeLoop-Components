@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import * as Accordion from "@radix-ui/react-accordion";
+import { IconSearch16, IconCheck161, IconDoc16, IconHelp16, IconChevron165, IconRestart16 } from "../../atoms/Icon/Icon";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -58,40 +59,6 @@ const TYPE_DEFAULTS: Record<EmptyStateType, { title: string; description: string
   "custom":         { title: "Nothing here",            description: "" },
 };
 
-// ─── Inline icons ─────────────────────────────────────────────────────────────
-
-function SearchIcon({ color = "#9CA3AF" }: { color?: string }) {
-  return (
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-      <circle cx="16" cy="16" r="15" fill={color === "#9CA3AF" ? "#F3F4F6" : "#FEE2E2"} />
-      <circle cx="15" cy="14" r="6" stroke={color} strokeWidth="2" />
-      <path d="M20 19l3 3" stroke={color} strokeWidth="2" strokeLinecap="round" />
-      <path d="M13 11.5l1.5 1 1.5-1" stroke={color} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function CheckCircleIcon() {
-  return (
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-      <circle cx="16" cy="16" r="15" fill="#DCFCE7" />
-      <circle cx="16" cy="16" r="10" fill="#22C55E" />
-      <path d="M11.5 16l3 3 6-6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function DocumentIcon() {
-  return (
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-      <rect x="7" y="4" width="18" height="24" rx="3" fill="#F9FAFB" stroke="#E5E7EB" strokeWidth="1.5" />
-      <line x1="11" y1="11" x2="21" y2="11" stroke="#D1D5DB" strokeWidth="1.5" strokeLinecap="round" />
-      <line x1="11" y1="15" x2="19" y2="15" stroke="#D1D5DB" strokeWidth="1.5" strokeLinecap="round" />
-      <line x1="11" y1="19" x2="17" y2="19" stroke="#D1D5DB" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
-
 // ─── EmptyState ───────────────────────────────────────────────────────────────
 
 export function EmptyState({
@@ -118,10 +85,10 @@ export function EmptyState({
 
   const renderedIcon = icon ?? (() => {
     switch (type) {
-      case "no-results":     return <SearchIcon color="#9CA3AF" />;
-      case "failed-to-load": return <SearchIcon color="#EF4444" />;
-      case "no-clients":     return <CheckCircleIcon />;
-      case "no-documents":   return <DocumentIcon />;
+      case "no-results":     return <IconSearch16 size={32} color="#9CA3AF" />;
+      case "failed-to-load": return <IconSearch16 size={32} color="#EF4444" />;
+      case "no-clients":     return <IconCheck161 size={32} color="#22C55E" />;
+      case "no-documents":   return <IconDoc16 size={32} color="#9CA3AF" />;
       default:               return null;
     }
   })();
@@ -321,7 +288,7 @@ export function ErrorPage({
             transition:   "background 0.12s",
           }}
         >
-          <RefreshIcon />
+          <IconRestart16 size={14} color="currentColor" />
           {primaryLabel}
         </button>
 
@@ -378,7 +345,7 @@ export function ErrorPage({
                   outline:    "none",
                 }}
               >
-                <QuestionIcon />
+                <IconHelp16 size={20} color="currentColor" />
                 <span style={{
                   fontFamily: "Inter, sans-serif",
                   fontSize:   14,
@@ -388,7 +355,7 @@ export function ErrorPage({
                 }}>
                   Try these steps:
                 </span>
-                <ChevronIcon />
+                <IconChevron165 size={16} color="currentColor" style={{ flexShrink: 0, transition: "transform 0.2s" }} />
               </Accordion.Trigger>
             </Accordion.Header>
 
@@ -457,36 +424,3 @@ export function ErrorPage({
   );
 }
 
-// ─── Small SVG icons ──────────────────────────────────────────────────────────
-
-function RefreshIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-      <path d="M1.5 7A5.5 5.5 0 0 1 7 1.5c2.1 0 3.9 1.2 4.8 2.9" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
-      <path d="M12.5 7A5.5 5.5 0 0 1 7 12.5c-2.1 0-3.9-1.2-4.8-2.9" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
-      <path d="M10.5 1.5l2 2-2 2" stroke="white" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M3.5 12.5l-2-2 2-2" stroke="white" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function QuestionIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <circle cx="10" cy="10" r="9" fill="var(--color-bg-brand-contrast, #EEF1FF)" />
-      <text x="10" y="14" fontFamily="Inter,sans-serif" fontSize="12" fontWeight="700" fill="var(--color-text-brand, #1D32FF)" textAnchor="middle">?</text>
-    </svg>
-  );
-}
-
-function ChevronIcon() {
-  return (
-    <svg
-      width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"
-      className="wl-accordion-chevron"
-      style={{ flexShrink: 0, transition: "transform 0.2s" }}
-    >
-      <path d="M4 6l4 4 4-4" stroke="#9CA3AF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}

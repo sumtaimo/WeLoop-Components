@@ -1,4 +1,5 @@
 import React from "react";
+import { IconLoading16, IconStar16 } from "../../atoms/Icon/Icon";
 
 export interface DTopBarProps {
   title?: string;
@@ -68,14 +69,7 @@ export function DTopBar({
             }}
           >
             {/* loading/draft icon */}
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <path
-                d="M8 2a6 6 0 1 0 6 6"
-                stroke="#737373"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-            </svg>
+            <IconLoading16 size={16} color="currentColor" />
             <span
               style={{
                 fontFamily: "Inter, sans-serif",
@@ -149,22 +143,9 @@ export function DTopBar({
           flexShrink: 0,
         }}
       >
-        <StarIcon />
+        <IconStar16 size={16} color="currentColor" />
         {secondaryLabel}
       </button>
     </div>
-  );
-}
-
-function StarIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path
-        d="M8 1.5l1.6 3.3 3.6.5-2.6 2.5.6 3.6L8 9.8l-3.2 1.6.6-3.6L2.8 5.3l3.6-.5L8 1.5z"
-        stroke="#171717"
-        strokeWidth="1.25"
-        strokeLinejoin="round"
-      />
-    </svg>
   );
 }

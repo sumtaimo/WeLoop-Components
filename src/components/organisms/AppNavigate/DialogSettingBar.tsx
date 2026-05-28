@@ -1,4 +1,5 @@
 import React from "react";
+import { IconChevron162, IconChevron163, IconClose16 } from "../../atoms/Icon/Icon";
 
 export interface DialogSettingBarProps {
   title?: string;
@@ -41,7 +42,7 @@ export function DialogSettingBar({
             aria-label="Back"
             style={iconBtnStyle}
           >
-            <ChevronLeftIcon />
+            <IconChevron162 size={16} color="currentColor" />
           </button>
           <button
             type="button"
@@ -49,7 +50,7 @@ export function DialogSettingBar({
             aria-label="Forward"
             style={iconBtnStyle}
           >
-            <ChevronRightIcon />
+            <IconChevron163 size={16} color="currentColor" />
           </button>
         </div>
 
@@ -75,7 +76,7 @@ export function DialogSettingBar({
         aria-label="Close"
         style={iconBtnStyle}
       >
-        <CloseIcon />
+        <IconClose16 size={16} color="currentColor" />
       </button>
     </div>
   );
@@ -95,26 +96,3 @@ const iconBtnStyle: React.CSSProperties = {
   color: "#171717",
 };
 
-function ChevronLeftIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function ChevronRightIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function CloseIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}

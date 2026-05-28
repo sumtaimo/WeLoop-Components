@@ -1,4 +1,5 @@
 import React from "react";
+import { IconStar16, IconBell16, IconUser16 } from "../../atoms/Icon/Icon";
 
 export interface AppBarProps {
   points?: string;
@@ -64,15 +65,7 @@ export function AppBar({
               flexShrink: 0,
             }}
           >
-            <svg width="10.667" height="10.667" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <path
-                d="M8 1.5l1.6 3.3 3.6.5-2.6 2.5.6 3.6L8 9.8l-3.2 1.6.6-3.6L2.8 5.3l3.6-.5L8 1.5z"
-                fill="white"
-                stroke="rgba(255,255,255,0.6)"
-                strokeWidth="0.75"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <IconStar16 size={11} color="currentColor" />
           </div>
           <span
             style={{
@@ -108,7 +101,7 @@ export function AppBar({
               color: "#171717",
             }}
           >
-            <BellIcon />
+            <IconBell16 size={24} color="currentColor" />
           </button>
           {notificationCount && (
             <span
@@ -163,7 +156,7 @@ export function AppBar({
           {avatarSrc ? (
             <img src={avatarSrc} alt="User avatar" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
           ) : (
-            <DefaultAvatarIcon />
+            <IconUser16 size={20} color="currentColor" />
           )}
         </button>
 
@@ -172,25 +165,3 @@ export function AppBar({
   );
 }
 
-function BellIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M12 2a7 7 0 0 1 7 7v4l1.447 2.894A1 1 0 0 1 19.553 17H4.447a1 1 0 0 1-.894-1.447L5 13V9a7 7 0 0 1 7-7z"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-      <path d="M10 17v1a2 2 0 1 0 4 0v-1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function DefaultAvatarIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <circle cx="10" cy="7" r="3.5" stroke="#9ca3af" strokeWidth="1.25" />
-      <path d="M3 18c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#9ca3af" strokeWidth="1.25" strokeLinecap="round" />
-    </svg>
-  );
-}

@@ -1,4 +1,5 @@
 import React from "react";
+import { IconBuilding16, IconChevron163 } from "../../atoms/Icon/Icon";
 
 export interface TitleNavBarProps {
   /** First (parent) breadcrumb label — rendered muted */
@@ -56,7 +57,7 @@ export function TitleNavBar({
           color: "#171717",
         }}
       >
-        <BuildingIcon />
+        <IconBuilding16 size={16} color="currentColor" />
       </button>
 
       {/* Vertical divider */}
@@ -96,7 +97,7 @@ export function TitleNavBar({
 
         {/* Separator chevron */}
         <span style={{ margin: "0 4px", color: "#a3a3a3", display: "inline-flex", alignItems: "center" }}>
-          <ChevronRightIcon size={16} />
+          <IconChevron163 size={16} color="currentColor" />
         </span>
 
         {/* Current (active) */}
@@ -118,7 +119,7 @@ export function TitleNavBar({
         {childLabel && (
           <>
             <span style={{ margin: "0 4px", color: "#a3a3a3", display: "inline-flex", alignItems: "center" }}>
-              <ChevronRightIcon size={16} />
+              <IconChevron163 size={16} color="currentColor" />
             </span>
             <span
               style={{
@@ -140,21 +141,3 @@ export function TitleNavBar({
   );
 }
 
-function BuildingIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <rect x="1.5" y="4.5" width="13" height="10" rx="1" stroke="currentColor" strokeWidth="1.25" />
-      <path d="M5.5 14.5V10h5v4.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M1.5 7.5h13" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-      <rect x="4" y="1.5" width="8" height="3" rx="0.5" stroke="currentColor" strokeWidth="1.25" />
-    </svg>
-  );
-}
-
-function ChevronRightIcon({ size = 16 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}

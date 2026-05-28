@@ -1,4 +1,5 @@
 import React from "react";
+import { IconChevron165, IconChevron163, IconStar16 } from "../../atoms/Icon/Icon";
 
 export interface DBottomBarProps {
   dropdownLabel?: string;
@@ -105,7 +106,7 @@ export function DBottomBar({
                 color: "#171717",
               }}
             >
-              <ChevronDownIcon />
+              <IconChevron165 size={16} color="currentColor" />
             </button>
           </div>
 
@@ -133,7 +134,7 @@ export function DBottomBar({
             }}
           >
             {learnMoreLabel}
-            <ChevronRightSmallIcon />
+            <IconChevron163 size={12} color="currentColor" />
           </button>
         </div>
       )}
@@ -194,38 +195,9 @@ export function DBottomBar({
           flexShrink: 0,
         }}
       >
-        <StarIcon />
+        <IconStar16 size={16} color="currentColor" />
         {secondaryLabel}
       </button>
     </div>
-  );
-}
-
-function ChevronDownIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function ChevronRightSmallIcon() {
-  return (
-    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function StarIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path
-        d="M8 1.5l1.6 3.3 3.6.5-2.6 2.5.6 3.6L8 9.8l-3.2 1.6.6-3.6L2.8 5.3l3.6-.5L8 1.5z"
-        stroke="#171717"
-        strokeWidth="1.25"
-        strokeLinejoin="round"
-      />
-    </svg>
   );
 }

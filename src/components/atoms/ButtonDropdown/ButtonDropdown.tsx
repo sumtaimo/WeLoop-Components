@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import * as RadixDropdown from "@radix-ui/react-dropdown-menu";
+import { IconChevron165 } from "../Icon/Icon";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -83,18 +84,6 @@ const disabledStyle: React.CSSProperties = {
   background: "#f5f5f5", color: "#a3a3a3",
   border: "1px solid #e5e5e5", boxShadow: "none", cursor: "not-allowed",
 };
-
-// ─── Chevron icon ─────────────────────────────────────────────────────────────
-
-function ChevronIcon({ open }: { open: boolean }) {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"
-      style={{ transform: open ? "rotate(180deg)" : "none", transition: "transform 150ms" }}
-    >
-      <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
 
 // ─── Split button trigger ─────────────────────────────────────────────────────
 
@@ -194,7 +183,7 @@ function SplitTrigger({
           transition:     "background 0.12s",
         }}
       >
-        <ChevronIcon open={open ?? false} />
+        <IconChevron165 size={16} color="currentColor" style={{ transform: open ? "rotate(180deg)" : "none", transition: "transform 150ms" }} />
       </button>
     </div>
   );
