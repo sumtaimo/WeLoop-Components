@@ -1,28 +1,16 @@
 import React from "react";
 import { InlineTip } from "../../src/components/atoms/InlineTip";
-
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div style={{ marginBottom: 40 }}>
-      <p style={{ fontFamily: "Inter, sans-serif", fontSize: 11, fontWeight: 600, color: "#A3A3A3", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 16 }}>
-        {title}
-      </p>
-      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-        {children}
-      </div>
-    </div>
-  );
-}
+import { DemoShell, DemoRow } from "../DemoShell";
 
 export function InlineTipDemo() {
   return (
-    <div style={{ maxWidth: 600, fontFamily: "Inter, sans-serif" }}>
-      <h2 style={{ fontSize: 22, fontWeight: 700, color: "#111827", marginBottom: 8 }}>InlineTip</h2>
-      <p style={{ fontSize: 14, color: "#6B7280", marginBottom: 40 }}>
-        Four types × two fills. Optionally show a "Learn more" link with prefix text.
-      </p>
-
-      <Section title="Filled (card with border)">
+    <DemoShell
+      title="InlineTip"
+      description='Four types × two fills. Optionally show a "Learn more" link with prefix text.'
+      category="atom"
+      importCode={`import { InlineTip } from 'weloop-components';`}
+    >
+      <DemoRow label="Filled (card with border)" fullWidth>
         <InlineTip
           type="information"
           fill="filled"
@@ -59,9 +47,9 @@ export function InlineTipDemo() {
           linkText="Renew now"
           onLinkClick={() => alert("warning link")}
         />
-      </Section>
+      </DemoRow>
 
-      <Section title="Outline (flat / inline)">
+      <DemoRow label="Outline (flat / inline)" fullWidth>
         <InlineTip
           type="information"
           fill="outline"
@@ -90,12 +78,12 @@ export function InlineTipDemo() {
           description="Unsaved changes will be lost if you navigate away from this page."
           showLink={false}
         />
-      </Section>
+      </DemoRow>
 
-      <Section title="Title only (no description)">
+      <DemoRow label="Title only (no description)" fullWidth>
         <InlineTip type="information" fill="filled" title="Your session will expire in 10 minutes." showLink linkText="Extend session" />
         <InlineTip type="warning"     fill="filled" title="Maintenance window scheduled for 02:00 UTC." showLink={false} />
-      </Section>
-    </div>
+      </DemoRow>
+    </DemoShell>
   );
 }

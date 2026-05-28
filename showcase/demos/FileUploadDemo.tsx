@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FileUploadCard, FileListItem } from "../../src/components/molecules/FileUpload";
 import type { FileUploadStatus } from "../../src/components/molecules/FileUpload";
+import { DemoShell, DemoRow } from "../DemoShell";
 
 interface UploadedFile {
   name:   string;
@@ -9,20 +10,9 @@ interface UploadedFile {
 }
 
 function formatBytes(bytes: number): string {
-  if (bytes < 1024)       return `${bytes} B`;
+  if (bytes < 1024)        return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(2)} KB`;
   return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
-}
-
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div style={{ marginBottom: 48 }}>
-      <p style={{ fontFamily: "Inter, sans-serif", fontSize: 11, fontWeight: 600, color: "#A3A3A3", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 16 }}>
-        {title}
-      </p>
-      {children}
-    </div>
-  );
 }
 
 function LiveUpload() {
@@ -36,7 +26,6 @@ function LiveUpload() {
     }));
     setFiles(prev => [...prev, ...newEntries]);
 
-    // Simulate upload completion
     newEntries.forEach((_, i) => {
       setTimeout(() => {
         setFiles(prev => {
@@ -79,58 +68,58 @@ function LiveUpload() {
 
 export function FileUploadDemo() {
   return (
-    <div style={{ maxWidth: 640, fontFamily: "Inter, sans-serif" }}>
-      <h2 style={{ fontSize: 22, fontWeight: 700, color: "#111827", marginBottom: 8 }}>FileUpload</h2>
-      <p style={{ fontSize: 14, color: "#6B7280", marginBottom: 40 }}>
-        Upload card (4 states) + file list row (4 statuses). Supports click-to-browse and drag-and-drop.
-      </p>
-
-      <Section title="Live — click or drag a file">
+    <DemoShell
+      title="FileUpload"
+      description="Upload card (4 states) + file list row (4 statuses). Supports click-to-browse and drag-and-drop."
+      category="molecule"
+      importCode={`import { FileUploadCard, FileListItem } from 'weloop-components';`}
+    >
+      <DemoRow label="Live — click or drag a file" fullWidth>
         <LiveUpload />
-      </Section>
+      </DemoRow>
 
-      <Section title="Card states">
+      <DemoRow label="Card states">
         <div style={{ display: "flex", flexDirection: "column", gap: 16, maxWidth: 520 }}>
           <div>
-            <p style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "#9CA3AF", marginBottom: 8 }}>Normal (dashed border)</p>
+            <p style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "#9CA3AF", marginBottom: 8, marginTop: 0 }}>Normal (dashed border)</p>
             <FileUploadCard onLinkClick={() => {}} />
           </div>
           <div>
-            <p style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "#9CA3AF", marginBottom: 8 }}>Disabled</p>
+            <p style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "#9CA3AF", marginBottom: 8, marginTop: 0 }}>Disabled</p>
             <FileUploadCard disabled />
           </div>
         </div>
-      </Section>
+      </DemoRow>
 
-      <Section title="File list — all statuses">
+      <DemoRow label="File list — all statuses">
         <div style={{ background: "#FFFFFF", borderRadius: 10, border: "1px solid #E5E7EB", padding: "4px 12px", maxWidth: 520 }}>
           <FileListItem filename="12 Months Monthly business status Summary.exl" fileSize="108.69 KB" status="default"    showDivider />
           <FileListItem filename="12 Months Monthly business status Summary.exl" fileSize="108.69 KB" status="processing" showDivider />
           <FileListItem filename="12 Months Monthly business status Summary.exl" fileSize="108.69 KB" status="error"      showDivider />
           <FileListItem filename="12 Months Monthly business status Summary.exl" fileSize="108.69 KB" status="completed" />
         </div>
-      </Section>
+      </DemoRow>
 
-      <Section title="Standalone list items">
+      <DemoRow label="Standalone list items" fullWidth>
         <div style={{ display: "flex", flexDirection: "column", gap: 4, maxWidth: 520 }}>
           <div>
-            <p style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "#9CA3AF", marginBottom: 4 }}>Default — pending upload</p>
+            <p style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "#9CA3AF", marginBottom: 4, marginTop: 0 }}>Default — pending upload</p>
             <FileListItem filename="Q1_Report_Final.xlsx" fileSize="2.30 MB" status="default" />
           </div>
           <div>
-            <p style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "#9CA3AF", marginBottom: 4 }}>Processing — uploading</p>
+            <p style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "#9CA3AF", marginBottom: 4, marginTop: 0 }}>Processing — uploading</p>
             <FileListItem filename="Client_Database_Export.csv" fileSize="54.10 KB" status="processing" />
           </div>
           <div>
-            <p style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "#9CA3AF", marginBottom: 4 }}>Error — upload failed</p>
+            <p style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "#9CA3AF", marginBottom: 4, marginTop: 0 }}>Error — upload failed</p>
             <FileListItem filename="corrupted_file.xls" fileSize="1.02 MB" status="error" />
           </div>
           <div>
-            <p style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "#9CA3AF", marginBottom: 4 }}>Completed — uploaded successfully</p>
+            <p style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "#9CA3AF", marginBottom: 4, marginTop: 0 }}>Completed — uploaded successfully</p>
             <FileListItem filename="Annual_Summary_2025.xlsx" fileSize="892.00 KB" status="completed" />
           </div>
         </div>
-      </Section>
-    </div>
+      </DemoRow>
+    </DemoShell>
   );
 }
