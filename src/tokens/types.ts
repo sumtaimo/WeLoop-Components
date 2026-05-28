@@ -85,15 +85,48 @@ export interface ColorTokens {
   };
 }
 
+export interface ShadowTokens {
+  brand: {
+    default:   string;
+    hover:     string;
+    pressed:   string;
+    secondary: string;
+    sm: string;  // kept for backwards compat
+    md: string;  // kept for backwards compat
+  };
+  default: {
+    default: string;
+    hover:   string;
+    pressed: string;
+  };
+  danger: {
+    default: string;
+    hover:   string;
+    pressed: string;
+  };
+  toggle: {
+    default: string;
+    hover:   string;
+    pressed: string;
+    checked: string;
+  };
+  input: {
+    default: string;
+    brand:   string;
+    warning: string;
+    success: string;
+  };
+  disabled: string;
+  floating: {
+    default: string;
+    genCard: string;
+    float:   string;
+  };
+}
+
 export interface ThemeTokens {
   name: ThemeName;
   mode: ColorMode;
   color: ColorTokens;
-  shadow: {
-    brand: {
-      default: string;
-      sm: string;
-      md: string;
-    };
-  };
+  shadow: ShadowTokens;
 }
