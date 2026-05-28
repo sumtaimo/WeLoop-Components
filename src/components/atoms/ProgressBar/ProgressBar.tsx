@@ -27,7 +27,7 @@ export interface ProgressBarProps {
 // ─── Color map ────────────────────────────────────────────────────────────────
 
 const VARIANT_COLOR: Record<ProgressBarVariant, string> = {
-  loading:  "#1D32FF",
+  loading:  "var(--color-bg-brand-primary, #1D32FF)",
   fail:     "#EF4444",
   complete: "#16A34A",
 };

@@ -84,7 +84,7 @@ function ToggleCard({ headline, description, selected, disabled, hover, onClick 
   const btnPrimary = disabled ? {
     bg: "#e5e5e5", shadow: "0 0 0 1px #d4d4d4", textColor: "#737373",
   } : {
-    bg: "#1d32ff", shadow: "0 0 0 1px #1221c1,0 1px 1px rgba(18,33,193,0.5),0 2px 3px rgba(18,33,193,0.1)", textColor: "#fafafa",
+    bg: "var(--color-bg-brand-primary, #1d32ff)", shadow: "var(--shadow-brand-default, 0 0 0 1px #1221c1,0 1px 1px rgba(18,33,193,0.5),0 2px 3px rgba(18,33,193,0.1))", textColor: "var(--color-text-on-bg-primary, #fafafa)",
   };
 
   return (

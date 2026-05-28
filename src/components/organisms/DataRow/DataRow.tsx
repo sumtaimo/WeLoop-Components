@@ -43,7 +43,7 @@ export interface DataRowProps {
 // ─── Status badge config ──────────────────────────────────────────────────────
 
 const STATUS_CONFIG: Record<DataRowStatus, { bg: string; text: string; border: string }> = {
-  inProgress: { bg: "#EAF3FF", text: "#1D32FF", border: "#628AFF" },
+  inProgress: { bg: "var(--color-bg-brand-contrast, #EAF3FF)", text: "var(--color-text-brand, #1D32FF)", border: "var(--color-border-brand, #628AFF)" },
   done:       { bg: "#DCFCE7", text: "#15803D", border: "#22C55E" },
   pending:    { bg: "#FEF9C3", text: "#CA8A04", border: "#EAB308" },
   cancelled:  { bg: "#FFE1E3", text: "#E1232E", border: "#FC6D75" },

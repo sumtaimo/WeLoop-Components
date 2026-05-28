@@ -58,7 +58,7 @@ const CONFIG: Record<BannerType, BannerConfig> = {
   // FIX #1: solid text is pure white (Figma row 2-5 all show #FFFFFF)
   // FIX #2: solid close separator is rgba white (Figma shows white separator)
   // FIX #3: information gets a full card border matching its text/icon color
-  information:     { bg: "#D8E9FF", text: "#1D32FF", closeBorder: "#628AFF",            cardBorder: "#628AFF",  isSolid: false, isMulti: false },
+  information:     { bg: "var(--color-bg-brand-subtle, #D8E9FF)", text: "var(--color-text-brand, #1D32FF)", closeBorder: "var(--color-bg-brand-primary, #628AFF)", cardBorder: "var(--color-border-brand, #628AFF)", isSolid: false, isMulti: false },
   success:         { bg: "#22C55E", text: "#FFFFFF",  closeBorder: "rgba(255,255,255,0.5)",                      isSolid: true,  isMulti: false },
   warning:         { bg: "#F65F19", text: "#FFFFFF",  closeBorder: "rgba(255,255,255,0.5)",                      isSolid: true,  isMulti: false },
   critical:        { bg: "#E1232E", text: "#FFFFFF",  closeBorder: "rgba(255,255,255,0.5)",                      isSolid: true,  isMulti: false },

@@ -267,16 +267,16 @@ function CalendarGrid({
           if (isDisabled) {
             color = "#D1D5DB";
           } else if (isEdge || isSel) {
-            innerBg   = "#1D32FF";
+            innerBg   = "var(--color-bg-brand-primary, #1D32FF)";
             color     = "#FFFFFF";
             fontWeight = 600;
             radius    = 999;
           } else if (inRange) {
-            bg    = "#EEF1FF";
-            color = "#1D32FF";
+            bg    = "var(--color-bg-brand-contrast, #EEF1FF)";
+            color = "var(--color-text-brand, #1D32FF)";
           } else if (isToday) {
-            border = "1.5px solid #1D32FF";
-            color  = "#1D32FF";
+            border = "1.5px solid var(--color-border-brand, #1D32FF)";
+            color  = "var(--color-text-brand, #1D32FF)";
             fontWeight = 600;
             radius = 999;
           } else if (isHov) {
@@ -371,7 +371,7 @@ export function DateInput({
   let border = "1px solid #E5E7EB";
   let boxShadow: string | undefined;
   if (disabled) { border = "1px solid #E5E7EB"; }
-  else if (focused) { border = "1px solid #1D32FF"; boxShadow = "0 0 0 3px rgba(29,50,255,0.10)"; }
+  else if (focused) { border = "1px solid var(--color-border-brand, #1D32FF)"; boxShadow = "var(--shadow-input-brand, 0 0 0 3px rgba(29,50,255,0.10))"; }
   else if (hov) { border = "1px solid #D1D5DB"; }
 
   const displayVal = value ? formatDate(value) : "";
@@ -630,9 +630,9 @@ export function DateRangePicker({
               onClick={() => handlePreset(p.id)}
               style={{
                 height: 28, padding: "0 12px", borderRadius: 999,
-                border: active ? "1.5px solid #1D32FF" : "1px solid #E5E7EB",
-                background: active ? "#EEF1FF" : "#FFFFFF",
-                color: active ? "#1D32FF" : "#374151",
+                border: active ? "1.5px solid var(--color-border-brand, #1D32FF)" : "1px solid #E5E7EB",
+                background: active ? "var(--color-bg-brand-contrast, #EEF1FF)" : "#FFFFFF",
+                color: active ? "var(--color-text-brand, #1D32FF)" : "#374151",
                 fontFamily: "Inter, sans-serif", fontSize: 12, fontWeight: 500,
                 cursor: "pointer", display: "flex", alignItems: "center", gap: 4,
                 transition: "all 0.12s",
@@ -640,7 +640,7 @@ export function DateRangePicker({
             >
               {active && p.id !== "custom" && (
                 <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true">
-                  <path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="#1D32FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="var(--color-text-brand, #1D32FF)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               )}
               {p.label}
@@ -692,7 +692,7 @@ export function DateRangePicker({
               height: 32, padding: "0 14px", borderRadius: 8,
               border: "none", background: "transparent",
               fontFamily: "Inter, sans-serif", fontSize: 13, fontWeight: 500,
-              color: "#1D32FF", cursor: "pointer",
+              color: "var(--color-text-brand, #1D32FF)", cursor: "pointer",
             }}
           >
             Clear
@@ -713,7 +713,7 @@ function SaveBtn({ onClick }: { onClick: () => void }) {
       onMouseLeave={() => setHov(false)}
       style={{
         height: 32, padding: "0 18px", borderRadius: 8,
-        border: "none", background: hov ? "#1527E0" : "#1D32FF",
+        border: "none", background: hov ? "var(--color-bg-brand-subtle-press, #1527E0)" : "var(--color-bg-brand-primary, #1D32FF)",
         color: "#FFFFFF", fontFamily: "Inter, sans-serif",
         fontSize: 13, fontWeight: 500, cursor: "pointer", transition: "background 0.12s",
       }}

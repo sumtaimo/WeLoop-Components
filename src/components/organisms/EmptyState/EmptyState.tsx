@@ -203,7 +203,7 @@ function ErrorIllustration() {
       {/* Front document */}
       <rect x="36" y="14" width="76" height="92" rx="6" fill="#FFFFFF" stroke="#E5E7EB" strokeWidth="1.2" />
       {/* WeLoop logo text on front doc */}
-      <text x="52" y="36" fontFamily="Inter,sans-serif" fontSize="9" fontWeight="700" fill="#1D32FF">We</text>
+      <text x="52" y="36" fontFamily="Inter,sans-serif" fontSize="9" fontWeight="700" fill="var(--color-text-brand, #1D32FF)">We</text>
       <text x="64" y="36" fontFamily="Inter,sans-serif" fontSize="9" fontWeight="400" fill="#94A3B8">*</text>
       {/* Horizontal lines on front doc */}
       <line x1="48" y1="46" x2="102" y2="46" stroke="#E5E7EB" strokeWidth="1.2" strokeLinecap="round" />
@@ -312,7 +312,7 @@ export function ErrorPage({
             padding:      "0 18px",
             borderRadius: 8,
             border:       "none",
-            background:   primHov ? "#1527E0" : "#1D32FF",
+            background:   primHov ? "var(--color-bg-brand-subtle-press, #1527E0)" : "var(--color-bg-brand-primary, #1D32FF)",
             color:        "#FFFFFF",
             fontFamily:   "Inter, sans-serif",
             fontSize:     14,
@@ -426,7 +426,7 @@ export function ErrorPage({
                         fontFamily:     "Inter, sans-serif",
                         fontSize:       13,
                         fontWeight:     500,
-                        color:          "#1D32FF",
+                        color:          "var(--color-text-brand, #1D32FF)",
                         textDecoration: "underline",
                       }}
                     >
@@ -473,8 +473,8 @@ function RefreshIcon() {
 function QuestionIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <circle cx="10" cy="10" r="9" fill="#EEF1FF" />
-      <text x="10" y="14" fontFamily="Inter,sans-serif" fontSize="12" fontWeight="700" fill="#1D32FF" textAnchor="middle">?</text>
+      <circle cx="10" cy="10" r="9" fill="var(--color-bg-brand-contrast, #EEF1FF)" />
+      <text x="10" y="14" fontFamily="Inter,sans-serif" fontSize="12" fontWeight="700" fill="var(--color-text-brand, #1D32FF)" textAnchor="middle">?</text>
     </svg>
   );
 }

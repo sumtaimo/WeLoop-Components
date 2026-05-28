@@ -117,12 +117,12 @@ export function Radio({
     if (checked) { fillColor = "#EF4444"; borderColor = "#EF4444"; }
     if (focused) boxShadow = "0 0 0 3px rgba(239,68,68,0.18)";
   } else if (checked) {
-    fillColor   = "#1D32FF";
-    borderColor = "#1D32FF";
-    if (focused) boxShadow = "0 0 0 3px rgba(29,50,255,0.18)";
+    fillColor   = "var(--color-bg-brand-primary, #1D32FF)";
+    borderColor = "var(--color-bg-brand-primary, #1D32FF)";
+    if (focused) boxShadow = "var(--shadow-input-brand, 0 0 0 3px rgba(29,50,255,0.18))";
   } else if (focused) {
-    borderColor = "#1D32FF";
-    boxShadow   = "0 0 0 3px rgba(29,50,255,0.18)";
+    borderColor = "var(--color-border-brand, #1D32FF)";
+    boxShadow   = "var(--shadow-input-brand, 0 0 0 3px rgba(29,50,255,0.18))";
   } else if (hov && !disabled) {
     borderColor = "#9CA3AF";
   }

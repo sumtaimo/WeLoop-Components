@@ -159,7 +159,7 @@ const CancelBtn = React.forwardRef<HTMLButtonElement, { label: string; onClick?:
           fontFamily:   "Inter, sans-serif",
           fontSize:     13,
           fontWeight:   500,
-          color:        "#1D32FF",
+          color:        "var(--color-text-brand, #1D32FF)",
           transition:   "background 0.12s",
         }}
         {...rest}

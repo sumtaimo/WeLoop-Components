@@ -59,17 +59,17 @@ export interface FormFieldProps {
 
 function getBorderColor(focused: boolean, error?: boolean, success?: boolean, disabled?: boolean): string {
   if (disabled) return "#E5E7EB";
-  if (error)    return "#E1232E";
+  if (error)    return "var(--color-border-danger, #E1232E)";
   if (success)  return "#22C55E";
-  if (focused)  return "#1D32FF";
+  if (focused)  return "var(--color-border-brand, #1D32FF)";
   return "#D1D5DB";
 }
 
 function getBoxShadow(focused: boolean, error?: boolean, success?: boolean, disabled?: boolean): string | undefined {
   if (disabled) return undefined;
-  if (error)    return "0 0 0 3px rgba(225,35,46,0.10)";
+  if (error)    return "var(--shadow-input-warning, 0 0 0 3px rgba(225,35,46,0.10))";
   if (success)  return "0 0 0 3px rgba(34,197,94,0.10)";
-  if (focused)  return "0 0 0 3px rgba(29,50,255,0.10)";
+  if (focused)  return "var(--shadow-input-brand, 0 0 0 3px rgba(29,50,255,0.10))";
   return undefined;
 }
 
@@ -111,8 +111,8 @@ function ClearIcon({ color = "#9CA3AF" }: { color?: string }) {
 
 function CheckIcon() {
   return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-      <path d="M2 6l3 3 5-6" stroke="#1D32FF" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" style={{ color: "var(--color-text-brand, #1D32FF)" }}>
+      <path d="M2 6l3 3 5-6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -478,7 +478,7 @@ export function FormField({
         >
           {label}
           {required && (
-            <span style={{ fontSize: 12, fontWeight: 600, color: "#E1232E" }}>*</span>
+            <span style={{ fontSize: 12, fontWeight: 600, color: "var(--color-text-danger, #E1232E)" }}>*</span>
           )}
         </RadixLabel.Root>
       )}
@@ -596,7 +596,7 @@ export function FormField({
             fontSize:   12,
             fontWeight: 400,
             lineHeight: "16px",
-            color:      error ? "#E1232E" : success ? "#22C55E" : "#9CA3AF",
+            color:      error ? "var(--color-text-danger, #E1232E)" : success ? "#22C55E" : "#9CA3AF",
             marginTop:  2,
           }}
         >

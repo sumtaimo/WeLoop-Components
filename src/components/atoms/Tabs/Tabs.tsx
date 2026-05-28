@@ -109,12 +109,12 @@ function BoxTrigger({ tab, selected }: { tab: TabItem; selected: boolean }) {
   if (tab.disabled) {
     color = "#D1D5DB";
   } else if (selected && hov) {
-    bg    = "#EEF1FF";
-    color = "#1D32FF";
+    bg    = "var(--color-bg-brand-contrast, #EEF1FF)";
+    color = "var(--color-text-brand, #1D32FF)";
   } else if (selected) {
-    bg    = "#EEF1FF";
-    color = "#1D32FF";
-    shadow = "inset 0 -2px 0 0 #1D32FF";
+    bg    = "var(--color-bg-brand-contrast, #EEF1FF)";
+    color = "var(--color-text-brand, #1D32FF)";
+    shadow = "inset 0 -2px 0 0 var(--color-bg-brand-primary, #1D32FF)";
   } else if (hov) {
     bg    = "#F3F4F6";
     color = "#374151";
@@ -182,7 +182,7 @@ function LineTrigger({ tab, selected }: { tab: TabItem; selected: boolean }) {
   const color = tab.disabled
     ? "#D1D5DB"
     : selected
-      ? "#1D32FF"
+      ? "var(--color-text-brand, #1D32FF)"
       : hov
         ? "#374151"
         : "#6B7280";
@@ -209,7 +209,7 @@ function LineTrigger({ tab, selected }: { tab: TabItem; selected: boolean }) {
         flexShrink: 0,
         fontFamily: "Inter, sans-serif",
         // Blue underline when selected — sits below the tab on top of the border
-        boxShadow:  selected ? "inset 0 -2px 0 0 #1D32FF" : "none",
+        boxShadow:  selected ? "inset 0 -2px 0 0 var(--color-bg-brand-primary, #1D32FF)" : "none",
         transition: "color 0.15s, box-shadow 0.15s",
         marginBottom: selected ? "-1.5px" : "0",  // overlap the list border
       }}

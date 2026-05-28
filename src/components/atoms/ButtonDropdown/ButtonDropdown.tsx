@@ -50,9 +50,9 @@ const sizes: Record<ButtonDropdownSize, {
 
 const filledStyle: Record<ButtonDropdownType, React.CSSProperties> = {
   primary: {
-    background: "#1d32ff",
-    boxShadow:  "0 0 0 1px #1221c1, 0 1px 1px 0 rgba(18,33,193,0.5), 0 2px 3px 0 rgba(18,33,193,0.1)",
-    color:      "#fafafa",
+    background: "var(--color-bg-brand-primary, #1d32ff)",
+    boxShadow:  "var(--shadow-brand-default, 0 0 0 1px #1221c1, 0 1px 1px 0 rgba(18,33,193,0.5), 0 2px 3px 0 rgba(18,33,193,0.1))",
+    color:      "var(--color-text-on-bg-primary, #fafafa)",
   },
   common: {
     background: "white",

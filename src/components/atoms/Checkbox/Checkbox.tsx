@@ -95,11 +95,11 @@ export function Checkbox({
       bg     = isActive ? "#D4D4D4" : "#F5F5F5";
       border = isActive ? "none"    : "1.5px solid #E5E5E5";
     } else if (isActive) {
-      bg     = "#1D32FF";
+      bg     = "var(--color-bg-brand-primary, #1D32FF)";
       border = "none";
     } else if (isFocused) {
-      border = "1.5px solid #1D32FF";
-      shadow = "0 0 0 3px rgba(29,50,255,0.18)";
+      border = "1.5px solid var(--color-border-brand, #1D32FF)";
+      shadow = "var(--shadow-input-brand, 0 0 0 3px rgba(29,50,255,0.18))";
     } else if (isHovered) {
       border = "1.5px solid #A3A3A3";
     }

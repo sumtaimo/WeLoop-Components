@@ -159,7 +159,7 @@ function DialogFooter({
         borderRadius: 8,
         border:       "none",
         background:   cancelHov ? "#F3F4F6" : "transparent",
-        color:        "#1D32FF",
+        color:        "var(--color-text-brand, #1D32FF)",
         fontFamily:   "Inter, sans-serif",
         fontSize:     14,
         fontWeight:   500,
@@ -197,7 +197,7 @@ function DialogFooter({
           padding:      "0 20px",
           borderRadius: 8,
           border:       "none",
-          background:   actionHov ? "#1527E0" : "#1D32FF",
+          background:   actionHov ? "var(--color-bg-brand-subtle-press, #1527E0)" : "var(--color-bg-brand-primary, #1D32FF)",
           color:        "#FFFFFF",
           fontFamily:   "Inter, sans-serif",
           fontSize:     14,
@@ -279,7 +279,7 @@ function ListBody({
       <div style={{ marginTop: 20 }}>
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
           <span style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "#6B7280" }}>Progress</span>
-          <span style={{ fontFamily: "Inter, sans-serif", fontSize: 12, fontWeight: 600, color: "#1D32FF" }}>
+          <span style={{ fontFamily: "Inter, sans-serif", fontSize: 12, fontWeight: 600, color: "var(--color-text-brand, #1D32FF)" }}>
             {progressLabel ?? `${progressValue}%`}
           </span>
         </div>
@@ -287,7 +287,7 @@ function ListBody({
           <div style={{
             height: "100%",
             width: `${Math.min(100, Math.max(0, progressValue ?? 0))}%`,
-            background: "#1D32FF",
+            background: "var(--color-bg-brand-primary, #1D32FF)",
             borderRadius: 999,
             transition: "width 0.4s cubic-bezier(0.34,1.26,0.64,1)",
           }} />
@@ -465,8 +465,8 @@ function FieldControl({
     width:        "100%",
     boxSizing:    "border-box",
     borderRadius: 8,
-    border:       `1px solid ${focused ? "#1D32FF" : "#D1D5DB"}`,
-    boxShadow:    focused ? "0 0 0 3px rgba(29,50,255,0.10)" : "none",
+    border:       `1px solid ${focused ? "var(--color-border-brand, #1D32FF)" : "#D1D5DB"}`,
+    boxShadow:    focused ? "var(--shadow-input-brand, 0 0 0 3px rgba(29,50,255,0.10))" : "none",
     outline:      "none",
     fontFamily:   "Inter, sans-serif",
     fontSize:     14,

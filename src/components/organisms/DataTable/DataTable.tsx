@@ -44,7 +44,7 @@ export interface DataTableProps {
 // ─── SVG icons ────────────────────────────────────────────────────────────────
 
 function SortIcon({ active, dir }: { active: boolean; dir?: "asc" | "desc" }) {
-  const col = active ? "#1D32FF" : "#9CA3AF";
+  const col = active ? "var(--color-text-brand, #1D32FF)" : "#9CA3AF";
   return (
     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
       {/* up chevron */}
@@ -124,8 +124,8 @@ function AllCheckbox({
 }) {
   const [hovered, setHovered] = useState(false);
   const SIZE = 16;
-  const bg = checked || indeterminate ? "#1D32FF" : hovered ? "#F5F5F5" : "#FFFFFF";
-  const border = checked || indeterminate ? "#1D32FF" : hovered ? "#A3A3A3" : "#D4D4D4";
+  const bg = checked || indeterminate ? "var(--color-bg-brand-primary, #1D32FF)" : hovered ? "#F5F5F5" : "#FFFFFF";
+  const border = checked || indeterminate ? "var(--color-bg-brand-primary, #1D32FF)" : hovered ? "#A3A3A3" : "#D4D4D4";
 
   return (
     <div
@@ -257,7 +257,7 @@ export function DataTable({
           const isActive   = sortKey === col.key;
           const textAlign  = col.align ?? "flex-start";
           const jc         = textAlign; // justifyContent on the button
-          const labelColor = isActive ? "#1D32FF" : "#6B7280";
+          const labelColor = isActive ? "var(--color-text-brand, #1D32FF)" : "#6B7280";
 
           return (
             <HeaderCell

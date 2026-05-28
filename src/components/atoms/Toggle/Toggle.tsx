@@ -45,13 +45,13 @@ const SIZE_CFG = {
 // ─── Colors ───────────────────────────────────────────────────────────────────
 
 const COLORS = {
-  trackOff:         "#D1D5DB",  // gray-300
-  trackOn:          "#1D32FF",  // brand blue
-  trackDisabledOff: "#E5E7EB",  // gray-200
-  trackDisabledOn:  "#9CA3AF",  // gray-400
+  trackOff:         "#D1D5DB",
+  trackOn:          "var(--color-bg-brand-primary, #1D32FF)",
+  trackDisabledOff: "#E5E7EB",
+  trackDisabledOn:  "#9CA3AF",
   thumb:            "#FFFFFF",
-  thumbDisabled:    "#F3F4F6",  // gray-100
-  focusRing:        "0 0 0 2px #FFFFFF, 0 0 0 4px #1D32FF",
+  thumbDisabled:    "#F3F4F6",
+  focusRing:        "var(--shadow-toggle-checked, 0 0 0 2px #FFFFFF, 0 0 0 4px #1D32FF)",
 };
 
 // ─── Toggle ───────────────────────────────────────────────────────────────────

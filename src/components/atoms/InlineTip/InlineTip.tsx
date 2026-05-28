@@ -68,8 +68,8 @@ function TypeIcon({ type }: { type: InlineTipType }) {
 
 function ChevronRightSmall() {
   return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
-      <path d="M4.5 3L7.5 6L4.5 9" stroke="#1D32FF" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" style={{ flexShrink: 0, color: "var(--color-text-brand, #1D32FF)" }}>
+      <path d="M4.5 3L7.5 6L4.5 9" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -168,7 +168,7 @@ export function InlineTip({
                 fontFamily:  "Inter, sans-serif",
                 fontSize:    14,
                 fontWeight:  500,
-                color:       "#1D32FF",
+                color:       "var(--color-text-brand, #1D32FF)",
                 lineHeight:  "16px",
               }}
             >
