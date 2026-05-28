@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { DataRow, type DataRowAssignee, type DataRowStatus } from "../DataRow";
+import { IconChevron165, IconInfo16, IconCheck16 } from "../../atoms/Icon/Icon";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -41,28 +42,21 @@ export interface DataTableProps {
   style?: React.CSSProperties;
 }
 
-// ─── SVG icons ────────────────────────────────────────────────────────────────
+// ─── Icons ────────────────────────────────────────────────────────────────────
 
 function SortIcon({ active, dir }: { active: boolean; dir?: "asc" | "desc" }) {
   const col = active ? "var(--color-text-brand, #1D32FF)" : "#D1D5DB";
   const isAsc = active && dir === "asc";
   return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"
-      style={{ transform: isAsc ? "rotate(180deg)" : "none", transition: "transform 150ms" }}>
-      <path d="M3 4.5l3 3 3-3" stroke={col} strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
+    <IconChevron165
+      size={12}
+      color={col}
+      style={{ transform: isAsc ? "rotate(180deg)" : "none", transition: "transform 150ms" }}
+    />
   );
 }
 
-function InfoCircleIcon() {
-  return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-      <circle cx="6" cy="6" r="4.5" stroke="#9CA3AF" strokeWidth="1.1" />
-      <path d="M6 5.5v3" stroke="#9CA3AF" strokeWidth="1.2" strokeLinecap="round" />
-      <circle cx="6" cy="3.8" r="0.6" fill="#9CA3AF" />
-    </svg>
-  );
-}
+const InfoCircleIcon = () => <IconInfo16 size={12} color="#9CA3AF" />;
 
 // ─── Header cell ─────────────────────────────────────────────────────────────
 
@@ -132,9 +126,7 @@ function AllCheckbox({
           <div style={{ width: 8, height: 2, background: "#FFFFFF", borderRadius: 1 }} />
         )}
         {checked && !indeterminate && (
-          <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
-            <path d="M1 4l3 3L9 1" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+          <IconCheck16 size={10} color="#fff" />
         )}
       </div>
       <input

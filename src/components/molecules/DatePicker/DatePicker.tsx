@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import * as RadixPopover from "@radix-ui/react-popover";
+import { IconChevron162, IconChevron163, IconChevron165, IconDate16, IconCheck16, IconArrow163 } from "../../atoms/Icon/Icon";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -200,10 +201,7 @@ function CalendarGrid({
           >
             {MONTH_NAMES.map((n, i) => <option key={n} value={i}>{n}</option>)}
           </select>
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"
-            style={{ position: "absolute", right: 2, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}>
-            <path d="M2 3.5L5 6.5L8 3.5" stroke="#6B7280" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+          <IconChevron165 size={10} color="#6B7280" style={{ position: "absolute", right: 2, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }} />
         </div>
 
         {/* Year select */}
@@ -219,10 +217,7 @@ function CalendarGrid({
           >
             {years.map(y => <option key={y} value={y}>{y}</option>)}
           </select>
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"
-            style={{ position: "absolute", right: 2, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}>
-            <path d="M2 3.5L5 6.5L8 3.5" stroke="#6B7280" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+          <IconChevron165 size={10} color="#6B7280" style={{ position: "absolute", right: 2, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }} />
         </div>
 
         <div style={{ flex: 1 }} />
@@ -340,12 +335,10 @@ function NavArrowBtn({ onClick, dir, disabled }: { onClick: () => void; dir: "pr
         display: "flex", alignItems: "center", justifyContent: "center", padding: 0, flexShrink: 0,
       }}
     >
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-        {dir === "prev"
-          ? <path d="M10 4L6 8l4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-          : <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-        }
-      </svg>
+      {dir === "prev"
+        ? <IconChevron162 size={16} color="currentColor" />
+        : <IconChevron163 size={16} color="currentColor" />
+      }
     </button>
   );
 }
@@ -415,10 +408,7 @@ export function DateInput({
             >
               {durationOptions.map(o => <option key={o} value={o}>{o}</option>)}
             </select>
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"
-              style={{ marginLeft: -18, marginRight: 8, flexShrink: 0, pointerEvents: "none", color: "#6B7280" }}>
-              <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+            <IconChevron165 size={10} color="#6B7280" style={{ marginLeft: -18, marginRight: 8, flexShrink: 0, pointerEvents: "none" }} />
           </>
         )}
 
@@ -440,12 +430,7 @@ export function DateInput({
 
         {/* Calendar icon */}
         <div style={{ padding: "0 8px", display: "flex", alignItems: "center", flexShrink: 0 }}>
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <rect x="1" y="2" width="12" height="11" rx="2" stroke={disabled ? "#D1D5DB" : "#9CA3AF"} strokeWidth="1.2"/>
-            <line x1="1" y1="5.5" x2="13" y2="5.5" stroke={disabled ? "#D1D5DB" : "#9CA3AF"} strokeWidth="1.2"/>
-            <line x1="4" y1="1" x2="4" y2="4" stroke={disabled ? "#D1D5DB" : "#9CA3AF"} strokeWidth="1.2" strokeLinecap="round"/>
-            <line x1="10" y1="1" x2="10" y2="4" stroke={disabled ? "#D1D5DB" : "#9CA3AF"} strokeWidth="1.2" strokeLinecap="round"/>
-          </svg>
+          <IconDate16 size={14} color={disabled ? "#D1D5DB" : "#9CA3AF"} />
         </div>
       </div>
     </div>
@@ -639,9 +624,7 @@ export function DateRangePicker({
               }}
             >
               {active && p.id !== "custom" && (
-                <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true">
-                  <path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="var(--color-text-brand, #1D32FF)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <IconCheck16 size={11} color="var(--color-text-brand, #1D32FF)" />
               )}
               {p.label}
             </button>
@@ -661,9 +644,7 @@ export function DateRangePicker({
 
         {/* Arrow between */}
         <div style={{ display: "flex", alignItems: "center", paddingTop: 52, flexShrink: 0 }}>
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <path d="M4 10h12M12 6l4 4-4 4" stroke="#9CA3AF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+          <IconArrow163 size={20} color="#9CA3AF" />
         </div>
 
         <CalendarGrid

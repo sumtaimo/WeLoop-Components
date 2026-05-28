@@ -1,4 +1,5 @@
 import React from "react";
+import { IconLoading } from "../Icon/Icon";
 
 export type PaymentBadgeStatus =
   | "draft"
@@ -47,14 +48,7 @@ const STATUS_MAP: Record<PaymentBadgeStatus, StatusTokens> = {
   submitted:       { bg: "#0c87eb", border: "#0152a3", color: "#f0f7ff",  label: "Submitted" },
 };
 
-function SpinnerIcon({ size }: { size: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <circle cx="8" cy="8" r="5.5" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.25" />
-      <path d="M8 2.5a5.5 5.5 0 0 1 5.5 5.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
+const SpinnerIcon = ({ size }: { size: number }) => <IconLoading size={size} color="currentColor" />;
 
 export function PaymentBadge({
   status,

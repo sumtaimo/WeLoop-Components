@@ -1,5 +1,6 @@
 import React from "react";
 import * as RadixTooltip from "@radix-ui/react-tooltip";
+import { IconBolt } from "../Icon/Icon";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -121,23 +122,4 @@ export function Tooltip({
   );
 }
 
-// ─── Sparkle icon (✦) ────────────────────────────────────────────────────────
-
-function SparkleIcon() {
-  return (
-    <svg
-      width={12}
-      height={12}
-      viewBox="0 0 12 12"
-      fill="none"
-      aria-hidden="true"
-      style={{ flexShrink: 0 }}
-    >
-      {/* Four-pointed star / sparkle */}
-      <path
-        d="M6 0.5C6 0.5 6.4 3.1 7.5 4.5C8.6 5.9 11.5 6 11.5 6C11.5 6 8.9 6.4 7.5 7.5C6.1 8.6 6 11.5 6 11.5C6 11.5 5.6 8.9 4.5 7.5C3.4 6.1 0.5 6 0.5 6C0.5 6 3.1 5.6 4.5 4.5C5.9 3.4 6 0.5 6 0.5Z"
-        fill="#94A3B8"
-      />
-    </svg>
-  );
-}
+const SparkleIcon = () => <IconBolt size={12} color="#94A3B8" style={{ flexShrink: 0 }} />;

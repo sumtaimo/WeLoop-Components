@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useCallback, useState } from "react";
 import * as RadixToast from "@radix-ui/react-toast";
+import { IconClose16, IconCheck161, IconWarning16, IconClose161, IconInfo16 } from "../Icon/Icon";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -19,10 +20,10 @@ export interface ToastItem {
 // ─── Colors — Figma node 7218:13086 ─────────────────────────────────────────
 
 const TYPE_COLORS: Record<ToastType, { bg: string; icon: React.ReactNode }> = {
-  success:     { bg: "#22C55E", icon: <SuccessIcon /> },
-  warning:     { bg: "#F97316", icon: <WarningIcon /> },
-  critical:    { bg: "#EF4444", icon: <CriticalIcon /> },
-  information: { bg: "#1E293B", icon: <InfoIcon /> },
+  success:     { bg: "#22C55E", icon: <IconCheck161 size={14} color="white" /> },
+  warning:     { bg: "#F97316", icon: <IconWarning16 size={14} color="white" /> },
+  critical:    { bg: "#EF4444", icon: <IconClose161  size={14} color="white" /> },
+  information: { bg: "#1E293B", icon: <IconInfo16    size={14} color="white" /> },
 };
 
 // ─── Context / hook ───────────────────────────────────────────────────────────
@@ -212,51 +213,10 @@ function SingleToast({
           onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
           aria-label="Dismiss"
         >
-          <svg width={10} height={10} viewBox="0 0 10 10" fill="none" aria-hidden="true">
-            <path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
-          </svg>
+          <IconClose16 size={10} color="currentColor" />
         </button>
       </RadixToast.Close>
     </RadixToast.Root>
   );
 }
 
-// ─── Type icons ───────────────────────────────────────────────────────────────
-
-function SuccessIcon() {
-  return (
-    <svg width={14} height={14} viewBox="0 0 14 14" fill="none" aria-hidden="true">
-      <circle cx="7" cy="7" r="6" stroke="white" strokeWidth="1.4"/>
-      <path d="M4 7l2.5 2.5L10 4.5" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  );
-}
-
-function WarningIcon() {
-  return (
-    <svg width={14} height={14} viewBox="0 0 14 14" fill="none" aria-hidden="true">
-      <path d="M7 1.5L12.5 11.5H1.5L7 1.5Z" stroke="white" strokeWidth="1.4" strokeLinejoin="round"/>
-      <path d="M7 5.5v3" stroke="white" strokeWidth="1.6" strokeLinecap="round"/>
-      <circle cx="7" cy="10" r="0.75" fill="white"/>
-    </svg>
-  );
-}
-
-function CriticalIcon() {
-  return (
-    <svg width={14} height={14} viewBox="0 0 14 14" fill="none" aria-hidden="true">
-      <circle cx="7" cy="7" r="6" stroke="white" strokeWidth="1.4"/>
-      <path d="M4.5 4.5l5 5M9.5 4.5l-5 5" stroke="white" strokeWidth="1.6" strokeLinecap="round"/>
-    </svg>
-  );
-}
-
-function InfoIcon() {
-  return (
-    <svg width={14} height={14} viewBox="0 0 14 14" fill="none" aria-hidden="true">
-      <circle cx="7" cy="7" r="6" stroke="white" strokeWidth="1.4"/>
-      <path d="M7 6.5v4" stroke="white" strokeWidth="1.6" strokeLinecap="round"/>
-      <circle cx="7" cy="4" r="0.75" fill="white"/>
-    </svg>
-  );
-}

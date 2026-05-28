@@ -1,5 +1,6 @@
 import React, { useState, createContext, useContext, useCallback } from "react";
 import * as RadixToast from "@radix-ui/react-toast";
+import { IconCheck161, IconWarning16, IconClose161, IconInfo16 } from "../Icon/Icon";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -52,39 +53,10 @@ const TYPE_CONFIG: Record<SnackbarType, { bg: string; divider: string; text: str
 
 function TypeIcon({ type, color }: { type: SnackbarType; color: string }) {
   switch (type) {
-    case "success":
-      return (
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ flexShrink: 0 }}>
-          <circle cx="10" cy="10" r="8" stroke={color} strokeWidth="1.5" opacity={0.5} />
-          <path d="M6.5 10L9 12.5L13.5 8" stroke={color} strokeWidth="1.5"
-            strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      );
-    case "warning":
-      return (
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ flexShrink: 0 }}>
-          <path d="M10 3.5L17.5 16.5H2.5L10 3.5Z" stroke={color} strokeWidth="1.5"
-            strokeLinejoin="round" opacity={0.5} />
-          <line x1="10" y1="9" x2="10" y2="13" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
-          <circle cx="10" cy="15.2" r="0.8" fill={color} />
-        </svg>
-      );
-    case "critical":
-      return (
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ flexShrink: 0 }}>
-          <circle cx="10" cy="10" r="8" stroke={color} strokeWidth="1.5" opacity={0.5} />
-          <line x1="7" y1="7" x2="13" y2="13" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
-          <line x1="13" y1="7" x2="7"  y2="13" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
-        </svg>
-      );
-    case "information":
-      return (
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ flexShrink: 0 }}>
-          <circle cx="10" cy="10" r="8" stroke={color} strokeWidth="1.5" opacity={0.5} />
-          <circle cx="10" cy="7"  r="0.9" fill={color} />
-          <line x1="10" y1="10" x2="10" y2="14" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
-        </svg>
-      );
+    case "success":     return <IconCheck161  size={20} color={color} style={{ flexShrink: 0 }} />;
+    case "warning":     return <IconWarning16 size={20} color={color} style={{ flexShrink: 0 }} />;
+    case "critical":    return <IconClose161  size={20} color={color} style={{ flexShrink: 0 }} />;
+    case "information": return <IconInfo16    size={20} color={color} style={{ flexShrink: 0 }} />;
   }
 }
 

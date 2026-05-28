@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { IconChevron163 } from "../Icon/Icon";
 
 export interface LinkProps {
   label?: string;
@@ -9,20 +10,7 @@ export interface LinkProps {
   className?: string;
 }
 
-// Chevron SVG (12×12)
-function TrailChevron({ color }: { color: string }) {
-  return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-      <path
-        d="M6 4l4 4-4 4"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
+const TrailChevron = ({ color }: { color: string }) => <IconChevron163 size={12} color={color} />;
 
 export function Link({
   label = "Learn more",

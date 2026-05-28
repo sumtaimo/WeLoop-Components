@@ -1,5 +1,6 @@
 import React from "react";
 import * as RadixAvatar from "@radix-ui/react-avatar";
+import { IconUser16, IconUser161, IconBag16, IconBanking16, IconPlus16 } from "../Icon/Icon";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 export type AvatarType =
@@ -52,56 +53,13 @@ const CLR_BORDER    = "#9CA3AF";  // border-selected-onselected
 const CLR_ICON      = "#9CA3AF";  // icon stroke / fill
 const CLR_TEXT      = "#A3A3A3";  // text-default-secondary
 
-// ─── SVG Icons ───────────────────────────────────────────────────────────────
+// ─── SVG Icons (delegated to Icon library) ────────────────────────────────────
 
-function PersonIcon({ size }: { size: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <circle cx="10" cy="7.5" r="3.5" stroke={CLR_ICON} strokeWidth="1.4" />
-      <path d="M3 18c0-3.87 3.134-7 7-7s7 3.13 7 7" stroke={CLR_ICON} strokeWidth="1.4" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function PersonFilledIcon({ size }: { size: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <circle cx="10" cy="7.5" r="3.5" fill={CLR_ICON} />
-      <path d="M3 18c0-3.87 3.134-7 7-7s7 3.13 7 7" stroke={CLR_ICON} strokeWidth="1.4" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function ItemsIcon({ size }: { size: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <rect x="4" y="8" width="12" height="9" rx="1.5" stroke={CLR_ICON} strokeWidth="1.4" />
-      <path d="M7.5 8V6a2.5 2.5 0 015 0v2" stroke={CLR_ICON} strokeWidth="1.4" strokeLinecap="round" />
-      <path d="M4 11h12" stroke={CLR_ICON} strokeWidth="1.2" />
-    </svg>
-  );
-}
-
-function BankIcon({ size }: { size: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <path d="M10 2.5L2 7h16L10 2.5z" stroke={CLR_ICON} strokeWidth="1.4" strokeLinejoin="round" />
-      <rect x="2" y="7" width="16" height="1.5" fill={CLR_ICON} />
-      <rect x="4" y="9" width="2" height="6" rx="0.5" fill={CLR_ICON} />
-      <rect x="9" y="9" width="2" height="6" rx="0.5" fill={CLR_ICON} />
-      <rect x="14" y="9" width="2" height="6" rx="0.5" fill={CLR_ICON} />
-      <rect x="2" y="15.5" width="16" height="1.5" rx="0.5" fill={CLR_ICON} />
-    </svg>
-  );
-}
-
-function PlusIcon({ size }: { size: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 10 10" fill="none" aria-hidden="true">
-      <path d="M5 2v6M2 5h6" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
+const PersonIcon      = ({ size }: { size: number }) => <IconUser16  size={size} color={CLR_ICON} />;
+const PersonFilledIcon = ({ size }: { size: number }) => <IconUser161 size={size} color={CLR_ICON} />;
+const ItemsIcon        = ({ size }: { size: number }) => <IconBag16   size={size} color={CLR_ICON} />;
+const BankIcon         = ({ size }: { size: number }) => <IconBanking16 size={size} color={CLR_ICON} />;
+const PlusIcon         = ({ size }: { size: number }) => <IconPlus16  size={size} color="white" />;
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
