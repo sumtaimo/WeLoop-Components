@@ -151,7 +151,7 @@ export function Sidebar({ nav, active, onChange }: SidebarProps) {
           color: "#a3a3a3",
         }}
       >
-        12 / more coming
+        WeLoop 2.1 · 33 components
       </div>
     </aside>
   );

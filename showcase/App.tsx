@@ -37,9 +37,16 @@ import { DatePickerDemo }   from "./demos/DatePickerDemo";
 import { IconDemo }         from "./demos/IconDemo";
 import { BankLogoDemo }     from "./demos/BankLogoDemo";
 import { FlagDemo }         from "./demos/FlagDemo";
+import { TokensPage }       from "./TokensPage";
 import type { ThemeName, ColorMode } from "../src/tokens";
 
 const NAV: NavItem[] = [
+  {
+    section: "Reference",
+    items: [
+      { id: "design-tokens", label: "Design Tokens" },
+    ],
+  },
   {
     section: "Atoms",
     items: [
@@ -93,7 +100,10 @@ const NAV: NavItem[] = [
   },
 ];
 
-function DemoContent({ id }: { id: string }) {
+function DemoContent({ id, theme, mode }: { id: string; theme: ThemeName; mode: ColorMode }) {
+  if (id === "design-tokens") {
+    return <TokensPage themeName={theme} colorMode={mode} />;
+  }
   const DEMOS: Record<string, React.ReactNode> = {
     "avatar":          <AvatarDemo />,
     "chip":            <ChipDemo />,
@@ -185,17 +195,17 @@ export function App() {
           transition: "background 0.2s",
         }}
       >
-        <DemoContent id={active} />
+        <DemoContent id={active} theme={theme} mode={mode} />
       </main>
 
-      {/* Right: token inspector panel */}
-      <TokenPanel
+      {/* Right: token inspector panel (hidden on design-tokens page) */}
+      {active !== "design-tokens" && <TokenPanel
         componentId={active}
         themeName={theme}
         colorMode={mode}
         onThemeChange={setTheme}
         onModeChange={setMode}
-      />
+      />}
     </div>
   );
 }
