@@ -35,6 +35,7 @@ import { RadioDemo }        from "./demos/RadioDemo";
 import { ProgressBarDemo }  from "./demos/ProgressBarDemo";
 import { DatePickerDemo }   from "./demos/DatePickerDemo";
 import { IconDemo }         from "./demos/IconDemo";
+import { LucideIconsDemo } from "./demos/LucideIconsDemo";
 import { BankLogoDemo }     from "./demos/BankLogoDemo";
 import { FlagDemo }         from "./demos/FlagDemo";
 import { LogoDemo }         from "./demos/LogoDemo";
@@ -81,6 +82,7 @@ const NAV: NavItem[] = [
       { id: "radio",           label: "Radio",          icon: <IconCircle161 size={14} /> },
       { id: "progress-bar",    label: "ProgressBar",    icon: <IconBolt size={14} /> },
       { id: "icon",            label: "Icons",          icon: <IconStar16 size={14} /> },
+      { id: "lucide-icons",   label: "Lucide Icons",   icon: <IconStar16 size={14} /> },
       { id: "bank-logo",       label: "BankLogo",       icon: <IconBanking16 size={14} /> },
       { id: "flag",            label: "Flag",           icon: <IconFlag16 size={14} /> },
       { id: "logo",            label: "Logo",           icon: <IconStar16 size={14} /> },
@@ -155,6 +157,7 @@ function DemoContent({
     "progress-bar":    <ProgressBarDemo />,
     "date-picker":     <DatePickerDemo />,
     "icon":            <IconDemo />,
+    "lucide-icons":    <LucideIconsDemo />,
     "bank-logo":       <BankLogoDemo />,
     "flag":            <FlagDemo />,
     "logo":            <LogoDemo />,
