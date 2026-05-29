@@ -153,6 +153,9 @@ const [rows, setRows] = useState<DataTableRow[]>([
 
   // Select dropdown column
   onRowSelectClick={id => openDropdown(id)}
+
+  // Sticky header — header stays fixed while rows scroll inside this height
+  maxHeight={360}
 />`}>
         {/* Toolbar */}
         <div style={{
@@ -192,7 +195,7 @@ const [rows, setRows] = useState<DataTableRow[]>([
           </div>
         </div>
 
-        {/* Table */}
+        {/* Table — maxHeight enables sticky header + scrollable body */}
         <DataTable
           rows={rows}
           onRowCheck={toggle}
@@ -200,6 +203,7 @@ const [rows, setRows] = useState<DataTableRow[]>([
           onRowEdit={editRow}
           onRowCopy={copyRow}
           onRowDelete={deleteRow}
+          maxHeight={360}
           style={{ width: "100%" }}
         />
         {lastAction && (

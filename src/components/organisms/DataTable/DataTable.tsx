@@ -43,6 +43,8 @@ export interface DataTableProps {
   sortKey?: string;
   sortDir?: "asc" | "desc";
   onSort?: (key: string, dir: "asc" | "desc") => void;
+  /** When set, the body scrolls inside this height and the header sticks to the top */
+  maxHeight?: number | string;
   style?: React.CSSProperties;
 }
 
@@ -184,6 +186,7 @@ export function DataTable({
   sortKey: controlledSortKey,
   sortDir: controlledSortDir,
   onSort,
+  maxHeight,
   style,
 }: DataTableProps) {
   const [internalSortKey, setInternalSortKey] = useState<string>("date");
@@ -216,11 +219,19 @@ export function DataTable({
       width: "100%",
       border: "1px solid #E5E7EB",
       borderRadius: 10,
-      overflow: "hidden",
+      // "clip" visually clips children (keeps rounded corners) without creating
+      // a scroll container, so position:sticky on the header still works.
+      overflow: "clip",
       fontFamily: "Inter, sans-serif",
       background: "#FFFFFF",
       ...style,
     }}>
+      {/* Inner scroll wrapper — only scrolls when maxHeight is set */}
+      <div style={{
+        overflowY: maxHeight ? "auto" : undefined,
+        maxHeight: maxHeight,
+      }}>
+
       {/* ── Header row ── */}
       <div style={{
         display: "flex",
@@ -228,6 +239,11 @@ export function DataTable({
         height: 44,
         background: "#F9FAFB",
         borderBottom: "1px solid #E5E7EB",
+        position: "sticky",
+        top: 0,
+        zIndex: 1,
+        // Shadow helps visually separate the header from rows when scrolled
+        boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
       }}>
         {/* Checkbox cell */}
         <HeaderCell width={48} style={{ justifyContent: "center", padding: "0 14px" }}>
@@ -342,6 +358,8 @@ export function DataTable({
           />
         ))
       )}
+
+      </div> {/* end inner scroll wrapper */}
     </div>
   );
 }
