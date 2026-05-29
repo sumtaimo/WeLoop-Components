@@ -31,8 +31,12 @@ export interface DataTableProps {
   onRowCheck?: (id: string, checked: boolean) => void;
   /** Called when a row's notes change */
   onRowNotesChange?: (id: string, value: string) => void;
-  /** Called when an edit action is clicked on a row */
+  /** Called when the edit (pen) action is clicked */
   onRowEdit?: (id: string) => void;
+  /** Called when the copy action is clicked */
+  onRowCopy?: (id: string) => void;
+  /** Called when the delete action is clicked */
+  onRowDelete?: (id: string) => void;
   /** Called when a row's select dropdown is clicked */
   onRowSelectClick?: (id: string) => void;
   /** Controlled sort column */
@@ -164,7 +168,7 @@ const COLUMNS: Array<{
   { key: "amount",   label: "NUMERIC",  width: 80,  sortable: true,  align: "flex-end" },
   { key: "select",   label: "SELECT",   width: 120, hasInfo: true },
   { key: "assignee", label: "ASSIGNEE", width: 172, hasInfo: true },
-  { key: "actions",  label: "ACTIONS",  width: 88,  align: "center", cellPadding: "0 2px" },
+  { key: "actions",  label: "ACTIONS",  width: 96,  align: "center", cellPadding: "0 6px" },
   { key: "notes",    label: "NOTES",    flex: "1",  hasInfo: true },
   { key: "status",   label: "STATUS",   width: 136, hasInfo: true, align: "center" },
 ];
@@ -174,6 +178,8 @@ export function DataTable({
   onRowCheck,
   onRowNotesChange,
   onRowEdit,
+  onRowCopy,
+  onRowDelete,
   onRowSelectClick,
   sortKey: controlledSortKey,
   sortDir: controlledSortDir,
@@ -296,8 +302,8 @@ export function DataTable({
           );
         })}
 
-        {/* Trailing cell */}
-        <HeaderCell width={48} style={{ borderRight: "none" }} />
+        {/* Trailing cell — drag handle column */}
+        <HeaderCell width={44} style={{ borderRight: "none" }} />
       </div>
 
       {/* ── Data rows ── */}
@@ -329,7 +335,9 @@ export function DataTable({
             status={row.status}
             statusVariant={row.statusVariant}
             selected={row.selected}
-            onEdit={() => onRowEdit?.(row.id)}
+            onEdit={onRowEdit     ? () => onRowEdit(row.id)   : undefined}
+            onCopy={onRowCopy     ? () => onRowCopy(row.id)   : undefined}
+            onDelete={onRowDelete ? () => onRowDelete(row.id) : undefined}
             style={i === rows.length - 1 ? { borderBottom: "none" } : undefined}
           />
         ))

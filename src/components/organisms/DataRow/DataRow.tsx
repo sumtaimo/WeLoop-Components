@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Checkbox } from "../../atoms/Checkbox";
 import { Avatar } from "../../atoms/Avatar";
-import { IconRestart16, IconChevron165, IconPen16 } from "../../atoms/Icon/Icon";
+import { IconPen16, IconCopy16, IconTrash16, IconChevron165 } from "../../atoms/Icon/Icon";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -9,39 +9,40 @@ export type DataRowStatus = "inProgress" | "done" | "pending" | "cancelled";
 
 export interface DataRowAssignee {
   name: string;
-  /** Photo URL — falls back to initials or generic avatar */
+  /** Photo URL — falls back to initials avatar or generic silhouette */
   avatarSrc?: string;
   /** Two-letter initials for textProfile fallback */
   initials?: string;
 }
 
 export interface DataRowProps {
-  /** Checkbox state (left-most cell) */
   checked?: boolean;
   onCheck?: (checked: boolean) => void;
   /** Primary date value — e.g. "22 May 2024" */
   date?: string;
   /** Numeric value — e.g. "0.00" */
   amount?: string | number;
-  /** Select/dropdown value — "Choose" when empty */
+  /** Select/dropdown current value — "Choose" placeholder when empty */
   selectValue?: string;
   onSelectClick?: () => void;
   /** Assignee: avatar + name */
   assignee?: DataRowAssignee;
-  /** Freeform notes (text input cell) */
+  /** Freeform notes (inline text input) */
   notes?: string;
   onNotesChange?: (val: string) => void;
-  /** Status badge */
+  /** Status badge label */
   status?: string;
   statusVariant?: DataRowStatus;
-  /** Highlight the entire row in brand-subtle blue */
+  /** Highlight entire row with brand-subtle blue */
   selected?: boolean;
-  /** Pen icon action handlers (up to 3) */
+  /** Row action callbacks — show corresponding button only when handler is provided */
   onEdit?: () => void;
+  onCopy?: () => void;
+  onDelete?: () => void;
   style?: React.CSSProperties;
 }
 
-// ─── Status badge config ──────────────────────────────────────────────────────
+// ─── Status badge tokens ──────────────────────────────────────────────────────
 
 const STATUS_CONFIG: Record<DataRowStatus, { bg: string; text: string; border: string }> = {
   inProgress: { bg: "var(--color-bg-brand-contrast, #EAF3FF)", text: "var(--color-text-brand, #1D32FF)", border: "var(--color-border-brand, #628AFF)" },
@@ -54,20 +55,7 @@ const STATUS_CONFIG: Record<DataRowStatus, { bg: string; text: string; border: s
 
 const CELL_DIVIDER = "1px solid #F0F0F0";
 
-// ─── Mini SVG icons ───────────────────────────────────────────────────────────
-
-function CmdChip() {
-  return (
-    <span style={{
-      display: "inline-flex", alignItems: "center", justifyContent: "center",
-      width: 18, height: 18, borderRadius: 4,
-      background: "#F3F4F6", border: "1px solid #E5E7EB",
-      fontSize: 10, lineHeight: 1, color: "#9CA3AF", flexShrink: 0,
-    }}>
-      ⌘
-    </span>
-  );
-}
+// ─── Status icon (custom 13 px shapes — no library equivalent) ───────────────
 
 function StatusIcon({ variant, color }: { variant: DataRowStatus; color: string }) {
   if (variant === "done") {
@@ -100,6 +88,21 @@ function StatusIcon({ variant, color }: { variant: DataRowStatus; color: string 
       <path d="M2.5 1.5h8M2.5 11.5h8" stroke={color} strokeWidth="1.2" strokeLinecap="round" />
       <path d="M3.5 1.5v2.5l3 2.5-3 2.5v2.5M9.5 1.5v2.5L6.5 6.5l3 2.5v2.5"
         stroke={color} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+// ─── Drag handle (6-dot grip) ─────────────────────────────────────────────────
+
+function GripIcon() {
+  return (
+    <svg width="10" height="14" viewBox="0 0 10 14" fill="none" aria-hidden="true">
+      <circle cx="3" cy="2"  r="1.2" fill="#D1D5DB" />
+      <circle cx="7" cy="2"  r="1.2" fill="#D1D5DB" />
+      <circle cx="3" cy="7"  r="1.2" fill="#D1D5DB" />
+      <circle cx="7" cy="7"  r="1.2" fill="#D1D5DB" />
+      <circle cx="3" cy="12" r="1.2" fill="#D1D5DB" />
+      <circle cx="7" cy="12" r="1.2" fill="#D1D5DB" />
     </svg>
   );
 }
@@ -137,6 +140,58 @@ function Cell({
   );
 }
 
+// ─── Action icon button ───────────────────────────────────────────────────────
+
+function ActionBtn({
+  icon,
+  label,
+  onClick,
+  variant = "default",
+  visible,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  onClick?: () => void;
+  variant?: "default" | "danger";
+  visible: boolean;
+}) {
+  const [hov, setHov] = useState(false);
+
+  const bg     = hov
+    ? variant === "danger" ? "#FEF2F2" : "#EEF0FF"
+    : "transparent";
+  const border = hov
+    ? variant === "danger" ? "#FCA5A5" : "#C7CFFF"
+    : "#E5E7EB";
+  const iconColor = hov
+    ? variant === "danger" ? "#DC2626" : "#1D32FF"
+    : "#9CA3AF";
+
+  return (
+    <button
+      title={label}
+      onClick={onClick}
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
+      style={{
+        display: "flex", alignItems: "center", justifyContent: "center",
+        width: 26, height: 26, borderRadius: 6,
+        background: bg,
+        border: `1px solid ${border}`,
+        cursor: onClick ? "pointer" : "default",
+        padding: 0, flexShrink: 0,
+        opacity: visible ? 1 : 0,
+        transition: "opacity 0.15s, background 0.1s, border-color 0.1s",
+        pointerEvents: visible ? "auto" : "none",
+      }}
+    >
+      {React.isValidElement(icon)
+        ? React.cloneElement(icon as React.ReactElement<{ color?: string }>, { color: iconColor })
+        : icon}
+    </button>
+  );
+}
+
 // ─── DataRow ──────────────────────────────────────────────────────────────────
 
 export function DataRow({
@@ -153,17 +208,19 @@ export function DataRow({
   statusVariant = "inProgress",
   selected = false,
   onEdit,
+  onCopy,
+  onDelete,
   style,
 }: DataRowProps) {
-  const [hovered, setHovered] = useState(false);
+  const [hovered,      setHovered]      = useState(false);
+  const [notesFocused, setNotesFocused] = useState(false);
 
   const rowBg = (selected || checked)
     ? "var(--color-bg-brand-contrast, #EAF3FF)"
-    : hovered
-      ? "#F9FAFB"
-      : "#FFFFFF";
+    : hovered ? "#F9FAFB" : "#FFFFFF";
 
-  const statusCfg = STATUS_CONFIG[statusVariant];
+  const statusCfg      = STATUS_CONFIG[statusVariant];
+  const actionsVisible = hovered || checked || selected;
 
   const textStyle: React.CSSProperties = {
     fontFamily: "Inter, sans-serif",
@@ -174,13 +231,14 @@ export function DataRow({
     whiteSpace: "nowrap",
   };
 
-  const mutedText: React.CSSProperties = {
-    fontFamily: "Inter, sans-serif",
-    fontSize: 13,
-    fontWeight: 400,
-    lineHeight: "18px",
-    color: "#9CA3AF",
-  };
+  // Resolve assignee avatar
+  const assigneeAvatar = assignee
+    ? assignee.avatarSrc
+      ? <Avatar type="office"       size={20} src={assignee.avatarSrc} alt={assignee.name} />
+      : assignee.initials
+        ? <Avatar type="textProfile" size={20} text={assignee.initials} />
+        : <Avatar type="noProfile"   size={20} />
+    : <Avatar type="noProfile" size={20} />;
 
   return (
     <div
@@ -189,7 +247,7 @@ export function DataRow({
       style={{
         display: "flex",
         alignItems: "stretch",
-        minHeight: 64,
+        minHeight: 56,
         background: rowBg,
         borderBottom: "1px solid #F0F0F0",
         transition: "background 0.1s",
@@ -199,23 +257,15 @@ export function DataRow({
     >
       {/* ── 1. Checkbox ── */}
       <Cell width={48} style={{ justifyContent: "center", padding: "0 14px" }}>
-        <Checkbox
-          size="sm"
-          checked={checked}
-          onChange={onCheck}
-        />
+        <Checkbox size="sm" checked={checked} onChange={onCheck} />
       </Cell>
 
       {/* ── 2. Date ── */}
       <Cell width={172}>
-        <div style={{ display: "flex", alignItems: "center", gap: 6, minWidth: 0 }}>
-          <span style={textStyle}>{date}</span>
-          <IconRestart16 size={12} color="#9CA3AF" />
-          <CmdChip />
-        </div>
+        <span style={textStyle}>{date}</span>
       </Cell>
 
-      {/* ── 3. Amount ── */}
+      {/* ── 3. Amount (right-aligned, tabular nums) ── */}
       <Cell width={80} style={{ justifyContent: "flex-end" }}>
         <span style={{ ...textStyle, fontVariantNumeric: "tabular-nums" }}>{amount}</span>
       </Cell>
@@ -226,77 +276,83 @@ export function DataRow({
           onClick={onSelectClick}
           style={{
             display: "flex", alignItems: "center", gap: 6,
-            background: "transparent", border: "none", cursor: "pointer",
+            background: "transparent", border: "none",
+            cursor: onSelectClick ? "pointer" : "default",
             padding: 0, fontFamily: "Inter, sans-serif",
-            fontSize: 13, fontWeight: 400, color: selectValue ? "#171717" : "#9CA3AF",
+            fontSize: 13, fontWeight: 400,
+            color: selectValue ? "#171717" : "#9CA3AF",
           }}
         >
-          <span>{selectValue ?? "Choose"}</span>
-          <IconChevron165 size={12} color="#6B7280" />
+          <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+            {selectValue ?? "Choose"}
+          </span>
+          <IconChevron165 size={12} color="#6B7280" style={{ flexShrink: 0 }} />
         </button>
       </Cell>
 
       {/* ── 5. Assignee ── */}
       <Cell width={172}>
-        <div style={{ display: "flex", alignItems: "center", gap: 7, minWidth: 0 }}>
-          {assignee ? (
-            assignee.avatarSrc ? (
-              <Avatar type="office" size={20} src={assignee.avatarSrc} alt={assignee.name} />
-            ) : assignee.initials ? (
-              <Avatar type="textProfile" size={20} text={assignee.initials} />
-            ) : (
-              <Avatar type="noProfile" size={20} />
-            )
-          ) : (
-            <Avatar type="office" size={20} src="https://i.pravatar.cc/64?img=5" alt="Olivia Rhye" />
-          )}
-          <span style={{ ...textStyle, flex: 1, overflow: "hidden", textOverflow: "ellipsis" }}>
-            {assignee?.name ?? "Olivia Rhye"}
+        <div style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0, overflow: "hidden" }}>
+          <div style={{ flexShrink: 0 }}>{assigneeAvatar}</div>
+          <span style={{
+            fontFamily: "Inter, sans-serif", fontSize: 13, fontWeight: 400,
+            color: "#171717", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
+          }}>
+            {assignee?.name ?? "—"}
           </span>
-          <CmdChip />
         </div>
       </Cell>
 
-      {/* ── 6. Edit actions (3 pencil icons) ── */}
-      {/* padding: "0 2px" gives 84px content — exactly 3×24 + 2×6 = 84px */}
-      <Cell width={88} style={{ justifyContent: "center", gap: 6, padding: "0 2px" }}>
-        {[0, 1, 2].map(i => (
-          <button
-            key={i}
-            onClick={onEdit}
-            style={{
-              display: "flex", alignItems: "center", justifyContent: "center",
-              width: 24, height: 24, borderRadius: 6,
-              background: "transparent", border: "1px solid #E5E7EB",
-              cursor: "pointer", padding: 0, flexShrink: 0,
-            }}
-          >
-            <IconPen16 size={14} color="#9CA3AF" />
-          </button>
-        ))}
+      {/* ── 6. Actions — Edit | Copy | Delete, revealed on row hover ── */}
+      <Cell width={96} style={{ justifyContent: "center", gap: 4, padding: "0 6px" }}>
+        <ActionBtn
+          icon={<IconPen16 size={14} />}
+          label="Edit"
+          onClick={onEdit}
+          variant="default"
+          visible={actionsVisible}
+        />
+        <ActionBtn
+          icon={<IconCopy16 size={14} />}
+          label="Copy"
+          onClick={onCopy}
+          variant="default"
+          visible={actionsVisible}
+        />
+        <ActionBtn
+          icon={<IconTrash16 size={14} />}
+          label="Delete"
+          onClick={onDelete}
+          variant="danger"
+          visible={actionsVisible}
+        />
       </Cell>
 
-      {/* ── 7. Notes (text input) ── */}
-      <Cell flex="1" style={{ padding: "0 12px" }}>
+      {/* ── 7. Notes (inline text input) ── */}
+      <Cell flex="1" style={{ padding: "0 10px" }}>
         <input
           type="text"
           value={notes}
           onChange={e => onNotesChange?.(e.target.value)}
-          placeholder="Placeholder"
+          onFocus={() => setNotesFocused(true)}
+          onBlur={() => setNotesFocused(false)}
+          placeholder="Add a note…"
           style={{
             width: "100%",
-            height: 32,
-            background: "#FFFFFF",
-            border: "1px solid #E5E7EB",
+            height: 30,
+            background: notesFocused ? "#FFFFFF" : "transparent",
+            border: `1px solid ${notesFocused ? "#628AFF" : "transparent"}`,
             borderRadius: 6,
             outline: "none",
-            padding: "0 10px",
+            padding: "0 8px",
             boxSizing: "border-box",
             fontFamily: "Inter, sans-serif",
             fontSize: 13,
             fontWeight: 400,
             color: "#171717",
             lineHeight: "18px",
+            transition: "border-color 0.12s, background 0.12s",
+            boxShadow: notesFocused ? "0 0 0 2px rgba(98,138,255,0.18)" : "none",
           }}
         />
       </Cell>
@@ -312,8 +368,7 @@ export function DataRow({
         }}>
           <StatusIcon variant={statusVariant} color={statusCfg.text} />
           <span style={{
-            fontFamily: "Inter, sans-serif",
-            fontSize: 12, fontWeight: 500,
+            fontFamily: "Inter, sans-serif", fontSize: 12, fontWeight: 500,
             color: statusCfg.text, whiteSpace: "nowrap",
           }}>
             {status}
@@ -321,13 +376,14 @@ export function DataRow({
         </div>
       </Cell>
 
-      {/* ── 9. Trailing cell (drag handle / action) ── */}
-      <Cell width={48} style={{ justifyContent: "center", borderRight: "none" }}>
+      {/* ── 9. Drag handle — shown on hover ── */}
+      <Cell width={44} style={{ justifyContent: "center", borderRight: "none", cursor: "grab" }}>
         <div style={{
-          width: 28, height: 28, borderRadius: 6,
-          background: "#F3F4F6",
-          border: "1px solid #E5E7EB",
-        }} />
+          opacity: hovered ? 1 : 0,
+          transition: "opacity 0.15s",
+        }}>
+          <GripIcon />
+        </div>
       </Cell>
     </div>
   );

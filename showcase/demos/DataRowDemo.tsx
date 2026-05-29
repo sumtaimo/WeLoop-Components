@@ -75,7 +75,8 @@ const STATUS_ROWS: DataTableRow[] = [
 // ─── Main Demo ────────────────────────────────────────────────────────────────
 
 export function DataRowDemo() {
-  const [rows, setRows] = useState<DataTableRow[]>(INIT);
+  const [rows, setRows]           = useState<DataTableRow[]>(INIT);
+  const [lastAction, setLastAction] = useState<string | null>(null);
 
   function toggle(id: string, v: boolean) {
     setRows(p => p.map(r => r.id === id ? { ...r, checked: v } : r));
@@ -83,8 +84,26 @@ export function DataRowDemo() {
   function setNotes(id: string, v: string) {
     setRows(p => p.map(r => r.id === id ? { ...r, notes: v } : r));
   }
-  function selectRow(id: string) {
+  function editRow(id: string) {
+    // Toggle selection so the demo shows the selected row state
     setRows(p => p.map(r => ({ ...r, selected: r.id === id ? !r.selected : false })));
+    setLastAction(`Edit → ${id}`);
+  }
+  function copyRow(id: string) {
+    setRows(p => {
+      const src = p.find(r => r.id === id);
+      if (!src) return p;
+      const clone: DataTableRow = { ...src, id: `${id}-copy-${Date.now()}`, selected: false, checked: false };
+      const idx = p.findIndex(r => r.id === id);
+      const next = [...p];
+      next.splice(idx + 1, 0, clone);
+      return next;
+    });
+    setLastAction(`Copy → ${id}`);
+  }
+  function deleteRow(id: string) {
+    setRows(p => p.filter(r => r.id !== id));
+    setLastAction(`Delete → ${id}`);
   }
 
   const checkedCount = rows.filter(r => r.checked).length;
@@ -98,32 +117,42 @@ export function DataRowDemo() {
       {/* ── 1. Full interactive DataTable ── */}
       <DemoRow label="Full DataTable — interactive" fullWidth code={`import { DataTable, type DataTableRow } from 'weloop-components';
 
+// Row shape
 const [rows, setRows] = useState<DataTableRow[]>([
   {
     id: "r1",
-    checked: false,
     date: "18 May 2024",
     amount: "125.50",
     selectValue: "Option A",
-    assignee: { name: "Olivia Rhye", avatarSrc: "https://…/avatar.jpg" },
+    assignee: { name: "Olivia Rhye", avatarSrc: "https://…/photo.jpg" },
     notes: "Review required",
     status: "In Progress",
-    statusVariant: "inProgress",
+    statusVariant: "inProgress",  // "inProgress" | "done" | "pending" | "cancelled"
+    checked: false,
     selected: false,
   },
-  // … more rows
 ]);
 
 <DataTable
   rows={rows}
+
+  // Checkbox column
   onRowCheck={(id, checked) =>
     setRows(p => p.map(r => r.id === id ? { ...r, checked } : r))
   }
+
+  // Notes inline input
   onRowNotesChange={(id, value) =>
     setRows(p => p.map(r => r.id === id ? { ...r, notes: value } : r))
   }
+
+  // Action buttons — hover a row to reveal Edit | Copy | Delete
   onRowEdit={id => openEditPanel(id)}
-  onRowSelectClick={id => openSelectDropdown(id)}
+  onRowCopy={id => duplicateRow(id)}
+  onRowDelete={id => removeRow(id)}
+
+  // Select dropdown column
+  onRowSelectClick={id => openDropdown(id)}
 />`}>
         {/* Toolbar */}
         <div style={{
@@ -168,9 +197,19 @@ const [rows, setRows] = useState<DataTableRow[]>([
           rows={rows}
           onRowCheck={toggle}
           onRowNotesChange={setNotes}
-          onRowEdit={selectRow}
+          onRowEdit={editRow}
+          onRowCopy={copyRow}
+          onRowDelete={deleteRow}
           style={{ width: "100%" }}
         />
+        {lastAction && (
+          <p style={{
+            fontFamily: "Inter, sans-serif", fontSize: 12, color: "#6B7280",
+            marginTop: 6, marginBottom: 0,
+          }}>
+            Last action: <strong style={{ color: "#374151" }}>{lastAction}</strong>
+          </p>
+        )}
 
         {/* State legend */}
         <Legend />
@@ -204,14 +243,13 @@ const [rows, setRows] = useState<DataTableRow[]>([
 function Legend() {
   return (
     <div style={{
-      display: "flex", flexWrap: "wrap", gap: "6px 18px", marginTop: 12,
+      display: "flex", flexWrap: "wrap", gap: "6px 18px", marginTop: 10,
       fontFamily: "Inter, sans-serif", fontSize: 11, color: "#9CA3AF",
     }}>
       {[
         { bg: "#FFFFFF", bd: "#E5E7EB", label: "Default" },
-        { bg: "#F9FAFB", bd: "#E5E7EB", label: "Hover" },
-        { bg: "#EAF3FF", bd: "#C7D7F5", label: "Selected (click ✏️ icons)" },
-        { bg: "#1D32FF", bd: "#1D32FF", label: "Checkbox checked" },
+        { bg: "#F9FAFB", bd: "#E5E7EB", label: "Hover — reveals Edit / Copy / Delete + drag handle" },
+        { bg: "#EAF3FF", bd: "#C7D7F5", label: "Selected or checked — blue tint" },
       ].map(({ bg, bd, label }) => (
         <div key={label} style={{ display: "flex", alignItems: "center", gap: 5 }}>
           <div style={{
