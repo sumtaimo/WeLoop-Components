@@ -175,7 +175,7 @@ function ActionBtn({
       onMouseLeave={() => setHov(false)}
       style={{
         display: "flex", alignItems: "center", justifyContent: "center",
-        width: 26, height: 26, borderRadius: 6,
+        width: 24, height: 24, borderRadius: 5,
         background: bg,
         border: `1px solid ${border}`,
         cursor: onClick ? "pointer" : "default",
@@ -247,7 +247,7 @@ export function DataRow({
       style={{
         display: "flex",
         alignItems: "stretch",
-        minHeight: 56,
+        height: 44,
         background: rowBg,
         borderBottom: "1px solid #F0F0F0",
         transition: "background 0.1s",
@@ -339,7 +339,7 @@ export function DataRow({
           placeholder="Add a note…"
           style={{
             width: "100%",
-            height: 30,
+            height: 28,
             background: notesFocused ? "#FFFFFF" : "transparent",
             border: `1px solid ${notesFocused ? "#628AFF" : "transparent"}`,
             borderRadius: 6,
@@ -361,7 +361,7 @@ export function DataRow({
       <Cell width={136} style={{ justifyContent: "center" }}>
         <div style={{
           display: "inline-flex", alignItems: "center", gap: 5,
-          height: 28, padding: "0 10px", borderRadius: 8,
+          height: 24, padding: "0 8px", borderRadius: 6,
           background: statusCfg.bg,
           border: `1px solid ${statusCfg.border}`,
           flexShrink: 0,
