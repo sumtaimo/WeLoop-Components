@@ -104,17 +104,13 @@ function BoxTrigger({ tab, selected }: { tab: TabItem; selected: boolean }) {
 
   let bg    = "transparent";
   let color = "#6B7280";
-  let shadow: string | undefined;
 
   if (tab.disabled) {
     color = "#D1D5DB";
-  } else if (selected && hov) {
-    bg    = "var(--color-bg-brand-contrast, #EEF1FF)";
-    color = "var(--color-text-brand, #1D32FF)";
   } else if (selected) {
     bg    = "var(--color-bg-brand-contrast, #EEF1FF)";
     color = "var(--color-text-brand, #1D32FF)";
-    shadow = "inset 0 -2px 0 0 var(--color-bg-brand-primary, #1D32FF)";
+    // no underline shadow — box variant uses pill fill for selection, not a bar
   } else if (hov) {
     bg    = "#F3F4F6";
     color = "#374151";
@@ -135,7 +131,6 @@ function BoxTrigger({ tab, selected }: { tab: TabItem; selected: boolean }) {
         border:       "none",
         background:   bg,
         color:        color,
-        boxShadow:    shadow,
         cursor:       tab.disabled ? "not-allowed" : "pointer",
         outline:      "none",
         userSelect:   "none",

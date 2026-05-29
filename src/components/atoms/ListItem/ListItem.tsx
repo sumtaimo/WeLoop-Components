@@ -228,8 +228,8 @@ export function ListItem({
           <span style={labelStyle}>{label}</span>
         )}
 
-        {/* Learn more link (notifi-link) */}
-        {hasLink && (
+        {/* Learn more link — only shown when a handler is wired up */}
+        {hasLink && onLinkClick && (
           <button
             onClick={e => { e.stopPropagation(); onLinkClick?.(); }}
             style={{

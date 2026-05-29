@@ -219,9 +219,10 @@ export function DataTable({
       width: "100%",
       border: "1px solid #E5E7EB",
       borderRadius: 10,
-      // "clip" visually clips children (keeps rounded corners) without creating
-      // a scroll container, so position:sticky on the header still works.
-      overflow: "clip",
+      // overflow:hidden clips rounded corners cross-browser. The header sticks
+      // to the inner scroll container (overflowY:auto) when maxHeight is set,
+      // so hidden here does not block that sticky behaviour.
+      overflow: "hidden",
       fontFamily: "Inter, sans-serif",
       background: "#FFFFFF",
       ...style,

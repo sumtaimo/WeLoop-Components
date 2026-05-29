@@ -241,7 +241,7 @@ function TextField({
   return (
     <div style={{ display: "flex", alignItems: "center", flex: 1, gap: 6, padding: "0 10px", minWidth: 0 }}>
       {hasTags && tags!.map((t, i) => (
-        <span key={i} style={{
+        <span key={`${t}-${i}`} style={{
           display: "inline-flex", alignItems: "center",
           padding: "2px 6px", borderRadius: 4,
           background: "#F3F4F6", border: "1px solid #E5E7EB",

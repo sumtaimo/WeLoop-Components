@@ -74,7 +74,7 @@ export function InlineTip({
   title,
   description,
   fill        = "filled",
-  showLink    = true,
+  showLink    = false,
   linkText    = "Learn More",
   linkPrefix,
   onLinkClick,

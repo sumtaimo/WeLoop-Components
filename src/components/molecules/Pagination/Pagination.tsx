@@ -127,8 +127,10 @@ export function Pagination({
   style,
 }: PaginationProps) {
   const infoText = totalItems != null
-    ? `${pageSize * (page - 1) + 1}–${Math.min(pageSize * page, totalItems)} of ${totalItems}`
-    : `${page} of ${totalPages}`;
+    ? totalItems === 0
+      ? `0 of 0`
+      : `${pageSize * (page - 1) + 1}–${Math.min(pageSize * page, totalItems)} of ${totalItems}`
+    : totalPages === 0 ? `0 of 0` : `${page} of ${totalPages}`;
 
   const disableFirst = page <= 1;
   const disableLast  = page >= totalPages;

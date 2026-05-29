@@ -471,6 +471,14 @@ export function DatePicker({
   const [calMonth, setCalMonth] = useState(selected?.getMonth()    ?? now.getMonth());
   const [open, setOpen] = useState(false);
 
+  // Keep calendar viewport in sync when the controlled value changes externally
+  useEffect(() => {
+    if (value) {
+      setCalYear(value.getFullYear());
+      setCalMonth(value.getMonth());
+    }
+  }, [value]);
+
   const handleSelect = (d: Date) => {
     setInternal(d);
     onChange?.(d);
@@ -608,7 +616,8 @@ export function DateRangePicker({
   };
   const handleLeftYearChange = (y: number) => {
     setLeftYear(y);
-    setRightYear(leftMonth === 11 ? y + 1 : y);
+    // Read leftMonth from state-setter to avoid a stale closure
+    setLeftMonth(m => { setRightYear(m === 11 ? y + 1 : y); return m; });
   };
 
   return (
@@ -766,13 +775,13 @@ export function DateRangePickerField({
 
       <RadixPopover.Root open={open} onOpenChange={v => !disabled && setOpen(v)}>
         <RadixPopover.Trigger asChild>
-          <div
-            role="button"
-            tabIndex={disabled ? -1 : 0}
+          <button
+            type="button"
+            disabled={disabled}
             onMouseEnter={() => !disabled && setHov(true)}
             onMouseLeave={() => setHov(false)}
             style={{
-              display: "flex", alignItems: "center", height: 38,
+              display: "flex", alignItems: "center", width: "100%", height: 38,
               borderRadius: 8,
               border: `${borderWidth} solid ${borderColor}`,
               boxShadow: open ? "var(--shadow-input-brand, 0 0 0 3px rgba(29,50,255,0.10))" : undefined,
@@ -782,6 +791,7 @@ export function DateRangePickerField({
               transition: "border 0.12s, box-shadow 0.12s",
               outline: "none", userSelect: "none",
               overflow: "hidden",
+              fontFamily: "inherit", textAlign: "left",
             }}
           >
             <IconDate16 size={14} color={disabled ? "#D1D5DB" : open ? "var(--color-text-brand, #1D32FF)" : "#9CA3AF"} style={{ flexShrink: 0 }} />
@@ -796,7 +806,7 @@ export function DateRangePickerField({
               size={12} color="#9CA3AF"
               style={{ transform: open ? "rotate(180deg)" : "none", transition: "transform 0.15s", flexShrink: 0 }}
             />
-          </div>
+          </button>
         </RadixPopover.Trigger>
 
         <RadixPopover.Portal>
