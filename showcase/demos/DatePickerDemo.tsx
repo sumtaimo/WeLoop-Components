@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { DatePicker, DateRangePicker, DateInput } from "../../src/components/molecules/DatePicker/DatePicker";
+import { DatePicker, DateRangePicker, DateRangePickerField, DateInput } from "../../src/components/molecules/DatePicker/DatePicker";
 import type { DateRange } from "../../src/components/molecules/DatePicker/DatePicker";
 import { DemoShell, DemoRow } from "../DemoShell";
 
@@ -9,15 +9,17 @@ function fmt(d: Date | null) {
 }
 
 export function DatePickerDemo() {
-  const [single, setSingle] = useState<Date | null>(null);
-  const [range,  setRange]  = useState<DateRange>({ start: null, end: null });
+  const [single,     setSingle]     = useState<Date | null>(null);
+  const [range,      setRange]      = useState<DateRange>({ start: null, end: null });
+  const [rangeField, setRangeField] = useState<DateRange>({ start: null, end: null });
 
   return (
     <DemoShell
       title="DatePicker"
       description="Single date and date-range pickers. The field opens a calendar popover; DateRangePicker includes 14 preset chips and dual calendars."
       category="molecule"
-      importCode={`import { DatePicker, DateRangePicker, DateInput } from 'weloop-components';`}
+      importCode={`import { DatePicker, DateRangePicker, DateRangePickerField, DateInput } from 'weloop-components';
+import type { DateRange } from 'weloop-components';`}
     >
       <DemoRow label="DateInput — field only" code={`// DateInput — just the field, no calendar popover
 // variant: "date" | "due-date"
@@ -65,7 +67,40 @@ const [date, setDate] = useState<Date | null>(null);
         </div>
       </DemoRow>
 
-      <DemoRow label="DateRangePicker" code={`// DateRangePicker — dual calendar + 14 preset chips (Today, Last 7 days…)
+      <DemoRow label="DateRangePickerField — field trigger (recommended for forms)" code={`// DateRangePickerField — compact field that opens the dual-calendar in a popover.
+// Use this in forms instead of embedding DateRangePicker inline.
+const [range, setRange] = useState<DateRange>({ start: null, end: null });
+
+<DateRangePickerField
+  label="Date range"
+  required
+  placeholder="Select date range"
+  value={range}
+  onChange={setRange}
+/>
+
+// Disabled
+<DateRangePickerField label="Period" disabled />`}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 16, width: 280 }}>
+          <DateRangePickerField
+            label="Date range"
+            required
+            placeholder="Select date range"
+            value={rangeField}
+            onChange={setRangeField}
+          />
+          <DateRangePickerField
+            label="Period (disabled)"
+            disabled
+          />
+          <p style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "#9CA3AF", margin: 0 }}>
+            {fmt(rangeField.start)} → {fmt(rangeField.end)}
+          </p>
+        </div>
+      </DemoRow>
+
+      <DemoRow label="DateRangePicker — inline (embed in panels/sidebars)" code={`// DateRangePicker — always-visible dual calendar + 14 preset chips.
+// Use this when you want the calendar permanently visible (e.g. in a filter panel).
 const [range, setRange] = useState<DateRange>({ start: null, end: null });
 
 <DateRangePicker

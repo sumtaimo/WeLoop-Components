@@ -55,6 +55,18 @@ export interface DateRangePickerProps {
   style?:         React.CSSProperties;
 }
 
+export interface DateRangePickerFieldProps {
+  value?:       DateRange;
+  onChange?:    (range: DateRange) => void;
+  label?:       string;
+  required?:    boolean;
+  disabled?:    boolean;
+  placeholder?: string;
+  minDate?:     Date;
+  maxDate?:     Date;
+  style?:       React.CSSProperties;
+}
+
 // ─── Date utilities ───────────────────────────────────────────────────────────
 
 const MONTH_NAMES = ["January", "February", "March", "April", "May", "June",
@@ -382,7 +394,7 @@ export function DateInput({
 
       <div
         style={{
-          display: "inline-flex", alignItems: "center", height: 32,
+          display: "flex", alignItems: "center", height: 38,
           borderRadius: 8, border, boxShadow, background: disabled ? "#F9FAFB" : "#FFFFFF",
           transition: "border 0.12s, box-shadow 0.12s", overflow: "hidden",
         }}
@@ -701,5 +713,114 @@ function SaveBtn({ onClick }: { onClick: () => void }) {
     >
       Save
     </button>
+  );
+}
+
+// ─── DateRangePickerField ─────────────────────────────────────────────────────
+// A compact trigger field that opens DateRangePicker in a popover — same
+// pattern as DatePicker but for ranges. Preferred over embedding DateRangePicker
+// inline when you need it inside a form layout.
+
+export function DateRangePickerField({
+  value,
+  onChange,
+  label,
+  required,
+  disabled = false,
+  placeholder = "Select date range",
+  minDate,
+  maxDate,
+  style,
+}: DateRangePickerFieldProps) {
+  const [internal, setInternal] = useState<DateRange>({ start: null, end: null });
+  const range = value ?? internal;
+  const [open, setOpen] = useState(false);
+  const [hov, setHov] = useState(false);
+
+  const handleChange = (r: DateRange) => {
+    setInternal(r);
+    onChange?.(r);
+  };
+
+  const displayValue = range.start && range.end
+    ? `${formatDate(range.start)} — ${formatDate(range.end)}`
+    : range.start
+      ? `From ${formatDate(range.start)}`
+      : "";
+
+  const borderColor = open
+    ? "var(--color-border-brand, #1D32FF)"
+    : hov ? "#D1D5DB" : "#E5E7EB";
+  const borderWidth = open ? "1.5px" : "1px";
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 6, ...style }}>
+      {label && (
+        <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
+          <span style={{ fontFamily: "Inter, sans-serif", fontSize: 13, fontWeight: 500, color: disabled ? "#A3A3A3" : "#374151" }}>
+            {label}
+          </span>
+          {required && <span style={{ color: "#EF4444", fontSize: 13 }}>*</span>}
+        </div>
+      )}
+
+      <RadixPopover.Root open={open} onOpenChange={v => !disabled && setOpen(v)}>
+        <RadixPopover.Trigger asChild>
+          <div
+            role="button"
+            tabIndex={disabled ? -1 : 0}
+            onMouseEnter={() => !disabled && setHov(true)}
+            onMouseLeave={() => setHov(false)}
+            style={{
+              display: "flex", alignItems: "center", height: 38,
+              borderRadius: 8,
+              border: `${borderWidth} solid ${borderColor}`,
+              boxShadow: open ? "var(--shadow-input-brand, 0 0 0 3px rgba(29,50,255,0.10))" : undefined,
+              background: disabled ? "#F9FAFB" : "#FFFFFF",
+              cursor: disabled ? "not-allowed" : "pointer",
+              padding: "0 10px", gap: 8,
+              transition: "border 0.12s, box-shadow 0.12s",
+              outline: "none", userSelect: "none",
+              overflow: "hidden",
+            }}
+          >
+            <IconDate16 size={14} color={disabled ? "#D1D5DB" : open ? "var(--color-text-brand, #1D32FF)" : "#9CA3AF"} style={{ flexShrink: 0 }} />
+            <span style={{
+              flex: 1, fontFamily: "Inter, sans-serif", fontSize: 13, fontWeight: 400,
+              color: displayValue ? "#111827" : "#9CA3AF",
+              whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
+            }}>
+              {displayValue || placeholder}
+            </span>
+            <IconChevron165
+              size={12} color="#9CA3AF"
+              style={{ transform: open ? "rotate(180deg)" : "none", transition: "transform 0.15s", flexShrink: 0 }}
+            />
+          </div>
+        </RadixPopover.Trigger>
+
+        <RadixPopover.Portal>
+          <RadixPopover.Content
+            side="bottom" align="start" sideOffset={6}
+            style={{
+              background: "#FFFFFF", border: "1px solid #E5E7EB",
+              borderRadius: 14, padding: 0,
+              boxShadow: "0 4px 24px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06)",
+              zIndex: 9990, outline: "none",
+            }}
+          >
+            <DateRangePicker
+              value={range}
+              onChange={handleChange}
+              onSave={r => { handleChange(r); setOpen(false); }}
+              onClear={() => handleChange({ start: null, end: null })}
+              minDate={minDate}
+              maxDate={maxDate}
+            />
+            <RadixPopover.Arrow style={{ fill: "#FFFFFF" }} />
+          </RadixPopover.Content>
+        </RadixPopover.Portal>
+      </RadixPopover.Root>
+    </div>
   );
 }

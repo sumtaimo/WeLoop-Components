@@ -112,6 +112,8 @@ export function DataRowDemo() {
     <DemoShell
       title="DataTable / DataRow"
       description="Spreadsheet-style table from Figma node 215:413 — sortable column headers, row states (default · selected · checked), notes input, and status badges."
+      category="organism"
+      importCode={`import { DataTable, type DataTableRow, type DataTableProps } from 'weloop-components';`}
     >
 
       {/* ── 1. Full interactive DataTable ── */}
