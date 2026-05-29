@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { DemoShell } from "../DemoShell";
 import * as Icons from "../../src/components/atoms/Icon/Icon";
 import type { IconProps } from "../../src/components/atoms/Icon/Icon";
@@ -257,12 +257,33 @@ export function IconDemo() {
       </h1>
       <p style={{
         fontFamily: "Inter, sans-serif", fontSize: 14, lineHeight: "22px",
-        color: "var(--showcase-text-subtle, #737373)", marginBottom: 24, maxWidth: 540,
+        color: "var(--showcase-text-subtle, #737373)", marginBottom: 12, maxWidth: 540,
       }}>
         {totalUnique} tree-shakeable components across {CATEGORIES.length} categories.
         Monochrome icons follow <code style={{ fontFamily: "monospace", fontSize: 12 }}>currentColor</code>
         ; brand icons keep their fills.
       </p>
+
+      {/* Import hint */}
+      <div style={{
+        display: "inline-flex", alignItems: "center", gap: 10,
+        padding: "8px 14px", borderRadius: 8, marginBottom: 20,
+        background: "var(--showcase-shell-bg, #fff)",
+        border: "1px solid var(--showcase-shell-border, #E5E5E5)",
+      }}>
+        <code style={{
+          fontFamily: "monospace", fontSize: 12,
+          color: "var(--showcase-title, #171717)",
+        }}>
+          {"import { IconName } from 'weloop-components';"}
+        </code>
+        <span style={{
+          fontFamily: "Inter, sans-serif", fontSize: 11,
+          color: "var(--showcase-label, #A3A3A3)",
+        }}>
+          · Click any icon to copy its import
+        </span>
+      </div>
 
       {/* ─── Controls bar ────────────────────────────────── */}
       <div style={{
@@ -396,48 +417,65 @@ export function IconDemo() {
   );
 }
 
+// ─── Icon tile with click-to-copy ────────────────────────────────────────────
+
+const ICON_MAP_GLOBAL = Object.fromEntries(
+  Object.entries(Icons).filter(([k]) => k.startsWith("Icon") && k !== "IconProps")
+) as Record<string, IconComponent>;
+
+function IconTile({ name, size, color }: { name: string; size: number; color: string }) {
+  const [copied, setCopied] = useState(false);
+  const Comp = ICON_MAP_GLOBAL[name];
+  if (!Comp) return null;
+
+  const label = name.replace(/^Icon/, "").replace(/(\d+)$/, " $1").trim();
+
+  const handleCopy = useCallback(() => {
+    const text = `import { ${name} } from 'weloop-components';\n<${name} size={${size}} />`;
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1400);
+    });
+  }, [name, size]);
+
+  return (
+    <div
+      onClick={handleCopy}
+      title={`Click to copy import for ${name}`}
+      style={{
+        display: "flex", flexDirection: "column", alignItems: "center",
+        gap: 6, padding: "10px 6px 8px",
+        borderRadius: 8, cursor: "pointer",
+        background: copied ? "#EEF1FF" : "var(--showcase-shell-bg, #fff)",
+        border: `1px solid ${copied ? "#C7CFFF" : "var(--showcase-shell-border, #E5E5E5)"}`,
+        transition: "background 0.12s, border-color 0.12s",
+      }}
+    >
+      <Comp size={size} color={copied ? "#1D32FF" : color} />
+      <span style={{
+        fontFamily: "Inter, sans-serif", fontSize: 9, fontWeight: 500,
+        color: copied ? "#1D32FF" : "var(--showcase-label, #A3A3A3)",
+        textAlign: "center", lineHeight: 1.3, wordBreak: "break-word",
+        maxWidth: "100%",
+      }}>
+        {copied ? "Copied!" : label}
+      </span>
+    </div>
+  );
+}
+
 // ─── Grid sub-component ───────────────────────────────────────────────────────
 
 function IconGrid({ icons, size, color }: { icons: string[]; size: number; color: string }) {
-  const ICON_MAP = Object.fromEntries(
-    Object.entries(Icons).filter(([k]) => k.startsWith("Icon") && k !== "IconProps")
-  ) as Record<string, IconComponent>;
-
   return (
     <div style={{
       display: "grid",
       gridTemplateColumns: "repeat(auto-fill, minmax(80px, 1fr))",
       gap: 4,
     }}>
-      {icons.map(name => {
-        const Comp = ICON_MAP[name];
-        if (!Comp) return null;
-        const label = name.replace(/^Icon/, "").replace(/(\d+)$/, " $1").trim();
-        return (
-          <div
-            key={name}
-            title={name}
-            style={{
-              display: "flex", flexDirection: "column", alignItems: "center",
-              gap: 6, padding: "10px 6px 8px",
-              borderRadius: 8, cursor: "default",
-              background: "var(--showcase-shell-bg, #fff)",
-              border: "1px solid var(--showcase-shell-border, #E5E5E5)",
-              transition: "border-color 0.1s",
-            }}
-          >
-            <Comp size={size} color={color} />
-            <span style={{
-              fontFamily: "Inter, sans-serif", fontSize: 9, fontWeight: 500,
-              color: "var(--showcase-label, #A3A3A3)",
-              textAlign: "center", lineHeight: 1.3, wordBreak: "break-word",
-              maxWidth: "100%",
-            }}>
-              {label}
-            </span>
-          </div>
-        );
-      })}
+      {icons.map(name => (
+        <IconTile key={name} name={name} size={size} color={color} />
+      ))}
     </div>
   );
 }
