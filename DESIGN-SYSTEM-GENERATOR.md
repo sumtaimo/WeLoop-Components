@@ -210,3 +210,65 @@ node scripts/generate-docs.mjs
 # or
 npm run docs:generate
 ```
+
+---
+
+## Live Docs in the Dev Showcase
+
+The `showcase/` app includes a **Documentation** section in its left sidebar. It renders all foundation, token, and theming docs as styled pages — tables with swatches, code blocks with syntax colours, blockquotes, and lists — built with the `DocsViewer` component. No extra packages needed.
+
+To open it:
+
+```bash
+npm run dev         # http://localhost:5173
+# → Click "Design System Docs" in the sidebar under "Documentation"
+```
+
+---
+
+## For Teams Using `weloop-components`
+
+The `docs/` folder and `scripts/generate-docs.mjs` are included in the npm package (`files` in `package.json`). This means every team that installs the package has the full docs available locally.
+
+### Option 1 — Read the docs from node_modules
+
+After `npm install weloop-components`, the docs are at:
+
+```
+node_modules/weloop-components/docs/
+├── 00-overview.md
+├── 01-foundation/colors.md
+├── 02-tokens/color-tokens.md
+└── ...
+```
+
+Open any `.md` file in VS Code, GitHub, or any Markdown viewer to browse them offline.
+
+### Option 2 — Regenerate docs in a local workspace
+
+Teams who have cloned or extracted the package can regenerate the docs themselves:
+
+```bash
+node node_modules/weloop-components/scripts/generate-docs.mjs
+```
+
+This will write fresh docs into `docs/` relative to wherever you run it. Useful if you want to copy the docs into your own project's wiki or docs site.
+
+### Option 3 — Host on a docs site (recommended for large teams)
+
+Copy the `docs/` folder into any static site generator (Docusaurus, VitePress, Nextra, etc.) or publish directly to GitHub Pages / Vercel. The files are plain Markdown with no frontmatter dependencies.
+
+**Example with VitePress:**
+
+```bash
+# In your team's docs repo
+cp -r node_modules/weloop-components/docs/* docs/weloop/
+# Then reference in VitePress sidebar config
+```
+
+**Example with GitHub Pages (single command):**
+
+```bash
+# From this repo root
+npm run docs:generate && npx serve docs
+```
