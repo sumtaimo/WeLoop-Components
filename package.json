@@ -27,7 +27,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "docs:generate": "node scripts/generate-docs.mjs"
   },
   "keywords": [
     "weloop",
