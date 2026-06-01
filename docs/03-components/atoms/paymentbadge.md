@@ -3,7 +3,7 @@
 **Tier:** Atoms  
 **Source:** `src/components/atoms/PaymentBadge/PaymentBadge.tsx`
 
-Displays a payment method badge (Visa, Mastercard, GoPay, OVO, etc.) by payment type code.
+A status badge for payment records. Renders a colored pill with a label and optional spinner icon reflecting the current payment status (e.g. Draft, In Progress, Paid, Overdue).
 
 ## Import
 
@@ -15,9 +15,28 @@ import { PaymentBadge } from 'weloop-components/components/atoms';
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `type` | `string` | `—` | Payment method code (e.g. "VISA", "GOPAY") |
-| `size` | `number` | `32` | Badge width in pixels |
-| `style` | `React.CSSProperties` | `—` | Custom styles |
+| `status` | `PaymentBadgeStatus` | `—` | Payment status to display (required) |
+| `size` | `"M"|"S"` | `"M"` | Badge size — M=28px height, S=20px height |
+| `showIcon` | `boolean` | `true` | Show the spinner icon alongside the label |
+| `className` | `string` | `""` | Additional CSS class |
+
+### `PaymentBadgeStatus` values
+
+| Value | Label | Colors |
+|-------|-------|--------|
+| `"draft"` | Draft | Gray |
+| `"scheduled"` | Scheduled | Neutral |
+| `"inProgress"` | In Progress | Blue |
+| `"approvalPending"` | Approval Pending | Orange |
+| `"partiallyPaid"` | Partially Paid | Yellow |
+| `"paid"` | Paid | Green |
+| `"overdue"` | Overdue | Red (light) |
+| `"rejected"` | Rejected | Red (solid) |
+| `"valid"` | Valid | Brand blue (solid) |
+| `"overpaid"` | Overpaid | Green (solid) |
+| `"closed"` | Closed | Gray (solid) |
+| `"review"` | Review | Light blue |
+| `"submitted"` | Submitted | Dark blue (solid) |
 
 ## Token Usage
 
@@ -26,6 +45,8 @@ This component uses hardcoded color values and does not consume CSS variables.
 ## Code Example
 
 ```tsx
-<PaymentBadge type="VISA" size={40} />
-<PaymentBadge type="GOPAY" size={32} />
+<PaymentBadge status="paid" />
+<PaymentBadge status="overdue" size="S" />
+<PaymentBadge status="inProgress" showIcon={false} />
+<PaymentBadge status="approvalPending" size="M" />
 ```

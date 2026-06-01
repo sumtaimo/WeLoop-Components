@@ -3,7 +3,7 @@
 **Tier:** Atoms  
 **Source:** `src/components/atoms/NotifBadge/NotifBadge.tsx`
 
-A notification count badge. Shows a number with optional maximum clamp (e.g. "99+").
+A notification badge with three visual sizes. The `large` size renders a red pill with a text label; `small` and `size3` render small dot indicators.
 
 ## Import
 
@@ -15,21 +15,32 @@ import { NotifBadge } from 'weloop-components/components/atoms';
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `count` | `number` | `0` | Notification count to display |
-| `max` | `number` | `99` | Maximum before showing "max+" |
-| `variant` | `"default"|"brand"|"danger"` | `"default"` | Color variant |
+| `size` | `"large"|"small"|"size3"` | `"large"` | Badge size/style variant |
+| `label` | `string` | `"1"` | Text displayed inside the `large` pill (ignored for dot variants) |
+| `className` | `string` | `""` | Additional CSS class |
+
+### Size variants
+
+| Value | Appearance | Dimensions |
+|-------|------------|------------|
+| `large` | Red pill with label text | min-width 14px, padding 2px 4px |
+| `small` | Solid red dot | 6×6 px |
+| `size3` | Blue dot with border, centered in a 16px container | 6×6 px dot in 16×16 px frame |
 
 ## Token Usage
 
-CSS variables consumed by this component:
-
-- `--color-bg-brand-primary`
-- `--color-text-on-bg-primary`
-- `--color-bg-danger-default`
+This component uses hardcoded color values and does not consume CSS variables.
 
 ## Code Example
 
 ```tsx
-<NotifBadge count={5} variant="brand" />
-<NotifBadge count={120} max={99} variant="danger" />
+{/* Pill badge showing a count */}
+<NotifBadge size="large" label="5" />
+<NotifBadge size="large" label="99+" />
+
+{/* Small red dot indicator */}
+<NotifBadge size="small" />
+
+{/* Blue dot indicator (size3) */}
+<NotifBadge size="size3" />
 ```

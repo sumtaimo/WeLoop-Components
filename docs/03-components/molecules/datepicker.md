@@ -3,7 +3,7 @@
 **Tier:** Molecules  
 **Source:** `src/components/molecules/DatePicker/DatePicker.tsx`
 
-A calendar-based date picker with month/year navigation. Supports single date and date range modes.
+A calendar-based single-date picker. Opens a popover calendar on click, supports controlled and uncontrolled modes, and includes optional label and required-field marking. For date ranges use `DateRangePickerField` (also exported from the same file).
 
 ## Import
 
@@ -15,12 +15,16 @@ import { DatePicker } from 'weloop-components/components/molecules';
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `value` | `Date|null` | `null` | Selected date (single mode) |
-| `onChange` | `(date: Date) => void` | `—` | Called when a date is selected |
-| `placeholder` | `string` | `"Select date"` | Input placeholder |
+| `value` | `Date \| null` | `—` | Controlled selected date |
+| `defaultValue` | `Date \| null` | `null` | Uncontrolled initial date |
+| `onChange` | `(date: Date \| null) => void` | `—` | Called when a date is selected |
 | `disabled` | `boolean` | `false` | Disables the picker |
+| `required` | `boolean` | `false` | Shows a red `*` next to the label |
+| `label` | `string` | `—` | Label rendered above the input field |
+| `placeholder` | `string` | `"DD MMM YYYY"` | Placeholder text shown when no date is selected |
 | `minDate` | `Date` | `—` | Earliest selectable date |
 | `maxDate` | `Date` | `—` | Latest selectable date |
+| `style` | `React.CSSProperties` | `—` | Inline styles applied to the trigger wrapper |
 
 ## Token Usage
 
@@ -29,7 +33,9 @@ CSS variables consumed by this component:
 - `--color-bg-brand-primary`
 - `--color-text-on-bg-primary`
 - `--color-text-brand`
-- `--shadow-floating-default`
+- `--color-border-brand`
+- `--shadow-input-brand`
+- `--color-bg-brand-contrast`
 
 ## Code Example
 
@@ -37,9 +43,11 @@ CSS variables consumed by this component:
 const [date, setDate] = useState<Date | null>(null);
 
 <DatePicker
+  label="Start Date"
+  required
   value={date}
   onChange={setDate}
-  placeholder="Select a date"
   minDate={new Date()}
+  placeholder="DD MMM YYYY"
 />
 ```

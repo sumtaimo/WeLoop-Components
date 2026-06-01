@@ -3,7 +3,7 @@
 **Tier:** Atoms  
 **Source:** `src/components/atoms/ButtonSegment/ButtonSegment.tsx`
 
-A segmented control that acts as a single-select tab strip. Each segment is a button; only one can be active at a time.
+A segmented control that acts as a single-select tab strip. Each segment is a button; only one can be active at a time. The active segment is highlighted and the component tracks selection via `activeKey`.
 
 ## Import
 
@@ -15,24 +15,54 @@ import { ButtonSegment } from 'weloop-components/components/atoms';
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `items` | `Array<{ value: string; label: string }>` | `[]` | Segment items |
-| `value` | `string` | `—` | Currently selected value |
-| `onValueChange` | `(value: string) => void` | `—` | Called when selection changes |
-| `size` | `"xs"|"sm"|"md"` | `"sm"` | Segment size |
+| `segments` | `SegmentItem[]` | — | Array of segment definitions (required) |
+| `activeKey` | `string` | `—` | Key of the currently active segment |
+| `disabled` | `boolean` | `false` | Disables all segments |
+| `onChange` | `(key: string) => void` | `—` | Called with the `key` of the clicked segment |
+| `className` | `string` | `""` | Additional CSS class on the container |
+
+### SegmentItem interface
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `key` | `string` | Unique identifier used for `activeKey` and `onChange` |
+| `label` | `string` | Display text |
+| `icon` | `React.ReactNode` | Optional leading icon |
 
 ## Token Usage
 
-CSS variables consumed by this component:
-
-- `--color-bg-brand-primary`
-- `--color-text-on-bg-primary`
+This component uses hardcoded color values and does not consume CSS variables.
 
 ## Code Example
 
 ```tsx
+const [active, setActive] = React.useState('day');
+
 <ButtonSegment
-  items={[{ value: 'day', label: 'Day' }, { value: 'week', label: 'Week' }]}
-  value="day"
-  onValueChange={setValue}
+  segments={[
+    { key: 'day',   label: 'Day' },
+    { key: 'week',  label: 'Week' },
+    { key: 'month', label: 'Month' },
+  ]}
+  activeKey={active}
+  onChange={setActive}
+/>
+
+{/* With icons */}
+<ButtonSegment
+  segments={[
+    { key: 'list', label: 'List',  icon: <IconBag16 size={12} color="currentColor" /> },
+    { key: 'grid', label: 'Grid',  icon: <IconBall16 size={12} color="currentColor" /> },
+  ]}
+  activeKey="list"
+  onChange={(key) => console.log(key)}
+/>
+
+{/* Disabled */}
+<ButtonSegment
+  segments={[{ key: 'a', label: 'A' }, { key: 'b', label: 'B' }]}
+  activeKey="a"
+  disabled={true}
+  onChange={() => {}}
 />
 ```
