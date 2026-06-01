@@ -15,12 +15,16 @@
     "./components/molecules": "./src/components/molecules/index.ts",
     "./components/organisms": "./src/components/organisms/index.ts"
   },
+  "bin": {
+    "weloop-init": "./scripts/init.mjs"
+  },
   "files": [
     "src/components",
     "src/tokens",
     "src/index.ts",
     "docs",
-    "scripts/generate-docs.mjs"
+    "scripts/generate-docs.mjs",
+    "scripts/init.mjs"
   ],
   "scripts": {
     "dev": "vite",
