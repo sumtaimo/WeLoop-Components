@@ -8,7 +8,12 @@ function escHtml(s: string): string {
 
 function inline(raw: string): string {
   return raw
-    // swatch images: ![alt](url)
+    // placehold.co color swatches → CSS box (network-independent fallback)
+    .replace(
+      /!\[[^\]]*\]\(https?:\/\/placehold\.co\/\d+x\d+\/([0-9A-Fa-f]{3,8})\/[^)]+\)/g,
+      '<span style="display:inline-block;width:14px;height:14px;background:#$1;border-radius:2px;border:1px solid rgba(0,0,0,0.12);vertical-align:middle;flex-shrink:0;"></span>',
+    )
+    // all other images (including inline SVG data URIs)
     .replace(
       /!\[([^\]]*)\]\(([^)]+)\)/g,
       '<img src="$2" alt="$1" width="14" height="14" style="display:inline;vertical-align:middle;border-radius:2px;border:1px solid rgba(0,0,0,0.08);"/>',

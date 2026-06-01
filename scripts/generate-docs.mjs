@@ -253,12 +253,14 @@ function parseComponent(tsxPath) {
 }
 
 /**
- * Build a swatch badge URL for a hex color (no #)
+ * Build an inline SVG swatch — works offline, no external requests, renders on GitHub.
  */
 function swatch(hex) {
   const h = hex.replace('#', '');
-  if (h.toLowerCase().startsWith('rgba')) return '';
-  return `![#${h}](https://placehold.co/16x16/${h}/${h}.png)`;
+  if (!h || h.toLowerCase().startsWith('rgba')) return '';
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><rect width="16" height="16" fill="#${h}" rx="2"/></svg>`;
+  const encoded = encodeURIComponent(svg);
+  return `![#${h}](data:image/svg+xml,${encoded})`;
 }
 
 // ─── Generator functions ──────────────────────────────────────────────────────
