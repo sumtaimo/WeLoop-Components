@@ -42,6 +42,7 @@ import { LogoDemo }         from "./demos/LogoDemo";
 import { TokensPage }       from "./TokensPage";
 import { OverviewPage }     from "./demos/OverviewPage";
 import { DocsPage }         from "./demos/DocsPage";
+import { GettingStartedPage } from "./demos/GettingStartedPage";
 import type { ThemeName, ColorMode } from "../src/tokens";
 import {
   IconDashboard16, IconBolt, IconUser16, IconBag16, IconInfo16, IconCircle16,
@@ -63,7 +64,8 @@ const NAV: NavItem[] = [
   {
     section: "Documentation",
     items: [
-      { id: "docs",          label: "Design System Docs", icon: <IconDoc16 size={14} /> },
+      { id: "getting-started", label: "Getting Started",    icon: <IconDoc162 size={14} /> },
+      { id: "docs",            label: "Design System Docs", icon: <IconDoc16 size={14} /> },
     ],
   },
   {
@@ -137,6 +139,9 @@ function DemoContent({
   }
   if (id === "design-tokens") {
     return <TokensPage themeName={theme} colorMode={mode} />;
+  }
+  if (id === "getting-started") {
+    return <GettingStartedPage />;
   }
   if (id === "docs") {
     return <DocsPage colorMode={mode} />;
@@ -241,7 +246,7 @@ export function App() {
         <DemoContent id={active} theme={theme} mode={mode} onNavigate={setActive} />
       </main>
 
-      {active !== "design-tokens" && active !== "overview" && active !== "docs" && (
+      {active !== "design-tokens" && active !== "overview" && active !== "docs" && active !== "getting-started" && (
         <TokenPanel
           componentId={active}
           themeName={theme}
