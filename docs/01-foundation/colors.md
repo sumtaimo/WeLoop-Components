@@ -6,129 +6,129 @@ Full primitive color palette. Each family has 11 steps (50–950).
 
 | Step | Hex       | Swatch |
 |------|-----------|--------|
-| 50   | `#EAF3FF` | ![#EAF3FF](https://placehold.co/16x16/EAF3FF/EAF3FF.png) |
-| 100  | `#D8E9FF` | ![#D8E9FF](https://placehold.co/16x16/D8E9FF/D8E9FF.png) |
-| 200  | `#B9D3FF` | ![#B9D3FF](https://placehold.co/16x16/B9D3FF/B9D3FF.png) |
-| 300  | `#8EB6FF` | ![#8EB6FF](https://placehold.co/16x16/8EB6FF/8EB6FF.png) |
-| 400  | `#628AFF` | ![#628AFF](https://placehold.co/16x16/628AFF/628AFF.png) |
-| 500  | `#3E60FF` | ![#3E60FF](https://placehold.co/16x16/3E60FF/3E60FF.png) |
-| 600  | `#1D32FF` | ![#1D32FF](https://placehold.co/16x16/1D32FF/1D32FF.png) |
-| 700  | `#0F1FEA` | ![#0F1FEA](https://placehold.co/16x16/0F1FEA/0F1FEA.png) |
-| 800  | `#1221C1` | ![#1221C1](https://placehold.co/16x16/1221C1/1221C1.png) |
-| 900  | `#182697` | ![#182697](https://placehold.co/16x16/182697/182697.png) |
-| 950  | `#0F1657` | ![#0F1657](https://placehold.co/16x16/0F1657/0F1657.png) |
+| 50   | `#EAF3FF` | ![#EAF3FF](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23EAF3FF%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 100  | `#D8E9FF` | ![#D8E9FF](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23D8E9FF%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 200  | `#B9D3FF` | ![#B9D3FF](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23B9D3FF%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 300  | `#8EB6FF` | ![#8EB6FF](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%238EB6FF%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 400  | `#628AFF` | ![#628AFF](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23628AFF%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 500  | `#3E60FF` | ![#3E60FF](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%233E60FF%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 600  | `#1D32FF` | ![#1D32FF](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%231D32FF%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 700  | `#0F1FEA` | ![#0F1FEA](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%230F1FEA%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 800  | `#1221C1` | ![#1221C1](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%231221C1%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 900  | `#182697` | ![#182697](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23182697%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 950  | `#0F1657` | ![#0F1657](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%230F1657%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
 
 ## Orange
 
 | Step | Hex       | Swatch |
 |------|-----------|--------|
-| 50   | `#FFF5ED` | ![#FFF5ED](https://placehold.co/16x16/FFF5ED/FFF5ED.png) |
-| 100  | `#FEE9D6` | ![#FEE9D6](https://placehold.co/16x16/FEE9D6/FEE9D6.png) |
-| 200  | `#FDCFAB` | ![#FDCFAB](https://placehold.co/16x16/FDCFAB/FDCFAB.png) |
-| 300  | `#FBAD76` | ![#FBAD76](https://placehold.co/16x16/FBAD76/FBAD76.png) |
-| 400  | `#F87D39` | ![#F87D39](https://placehold.co/16x16/F87D39/F87D39.png) |
-| 500  | `#F65F19` | ![#F65F19](https://placehold.co/16x16/F65F19/F65F19.png) |
-| 600  | `#E7450F` | ![#E7450F](https://placehold.co/16x16/E7450F/E7450F.png) |
-| 700  | `#BF310F` | ![#BF310F](https://placehold.co/16x16/BF310F/BF310F.png) |
-| 800  | `#982914` | ![#982914](https://placehold.co/16x16/982914/982914.png) |
-| 900  | `#7A2414` | ![#7A2414](https://placehold.co/16x16/7A2414/7A2414.png) |
-| 950  | `#420F08` | ![#420F08](https://placehold.co/16x16/420F08/420F08.png) |
+| 50   | `#FFF5ED` | ![#FFF5ED](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23FFF5ED%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 100  | `#FEE9D6` | ![#FEE9D6](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23FEE9D6%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 200  | `#FDCFAB` | ![#FDCFAB](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23FDCFAB%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 300  | `#FBAD76` | ![#FBAD76](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23FBAD76%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 400  | `#F87D39` | ![#F87D39](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23F87D39%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 500  | `#F65F19` | ![#F65F19](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23F65F19%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 600  | `#E7450F` | ![#E7450F](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23E7450F%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 700  | `#BF310F` | ![#BF310F](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23BF310F%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 800  | `#982914` | ![#982914](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23982914%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 900  | `#7A2414` | ![#7A2414](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%237A2414%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 950  | `#420F08` | ![#420F08](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23420F08%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
 
 ## Gray
 
 | Step | Hex       | Swatch |
 |------|-----------|--------|
-| 50   | `#F9FAFB` | ![#F9FAFB](https://placehold.co/16x16/F9FAFB/F9FAFB.png) |
-| 100  | `#F3F4F6` | ![#F3F4F6](https://placehold.co/16x16/F3F4F6/F3F4F6.png) |
-| 200  | `#E5E7EB` | ![#E5E7EB](https://placehold.co/16x16/E5E7EB/E5E7EB.png) |
-| 300  | `#D1D5DB` | ![#D1D5DB](https://placehold.co/16x16/D1D5DB/D1D5DB.png) |
-| 400  | `#9CA3AF` | ![#9CA3AF](https://placehold.co/16x16/9CA3AF/9CA3AF.png) |
-| 500  | `#6B7280` | ![#6B7280](https://placehold.co/16x16/6B7280/6B7280.png) |
-| 600  | `#4B5563` | ![#4B5563](https://placehold.co/16x16/4B5563/4B5563.png) |
-| 700  | `#374151` | ![#374151](https://placehold.co/16x16/374151/374151.png) |
-| 800  | `#1F2937` | ![#1F2937](https://placehold.co/16x16/1F2937/1F2937.png) |
-| 900  | `#111827` | ![#111827](https://placehold.co/16x16/111827/111827.png) |
-| 950  | `#030712` | ![#030712](https://placehold.co/16x16/030712/030712.png) |
+| 50   | `#F9FAFB` | ![#F9FAFB](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23F9FAFB%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 100  | `#F3F4F6` | ![#F3F4F6](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23F3F4F6%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 200  | `#E5E7EB` | ![#E5E7EB](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23E5E7EB%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 300  | `#D1D5DB` | ![#D1D5DB](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23D1D5DB%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 400  | `#9CA3AF` | ![#9CA3AF](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%239CA3AF%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 500  | `#6B7280` | ![#6B7280](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%236B7280%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 600  | `#4B5563` | ![#4B5563](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%234B5563%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 700  | `#374151` | ![#374151](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23374151%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 800  | `#1F2937` | ![#1F2937](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%231F2937%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 900  | `#111827` | ![#111827](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23111827%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 950  | `#030712` | ![#030712](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23030712%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
 
 ## Green
 
 | Step | Hex       | Swatch |
 |------|-----------|--------|
-| 50   | `#F0FDF4` | ![#F0FDF4](https://placehold.co/16x16/F0FDF4/F0FDF4.png) |
-| 100  | `#DCFCE7` | ![#DCFCE7](https://placehold.co/16x16/DCFCE7/DCFCE7.png) |
-| 200  | `#BBF7D0` | ![#BBF7D0](https://placehold.co/16x16/BBF7D0/BBF7D0.png) |
-| 300  | `#86EFAC` | ![#86EFAC](https://placehold.co/16x16/86EFAC/86EFAC.png) |
-| 400  | `#4ADE80` | ![#4ADE80](https://placehold.co/16x16/4ADE80/4ADE80.png) |
-| 500  | `#22C55E` | ![#22C55E](https://placehold.co/16x16/22C55E/22C55E.png) |
-| 600  | `#16A34A` | ![#16A34A](https://placehold.co/16x16/16A34A/16A34A.png) |
-| 700  | `#15803D` | ![#15803D](https://placehold.co/16x16/15803D/15803D.png) |
-| 800  | `#166534` | ![#166534](https://placehold.co/16x16/166534/166534.png) |
-| 900  | `#14532D` | ![#14532D](https://placehold.co/16x16/14532D/14532D.png) |
-| 950  | `#052E16` | ![#052E16](https://placehold.co/16x16/052E16/052E16.png) |
+| 50   | `#F0FDF4` | ![#F0FDF4](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23F0FDF4%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 100  | `#DCFCE7` | ![#DCFCE7](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23DCFCE7%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 200  | `#BBF7D0` | ![#BBF7D0](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23BBF7D0%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 300  | `#86EFAC` | ![#86EFAC](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2386EFAC%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 400  | `#4ADE80` | ![#4ADE80](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%234ADE80%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 500  | `#22C55E` | ![#22C55E](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2322C55E%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 600  | `#16A34A` | ![#16A34A](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2316A34A%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 700  | `#15803D` | ![#15803D](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2315803D%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 800  | `#166534` | ![#166534](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23166534%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 900  | `#14532D` | ![#14532D](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2314532D%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 950  | `#052E16` | ![#052E16](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23052E16%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
 
 ## Red
 
 | Step | Hex       | Swatch |
 |------|-----------|--------|
-| 50   | `#FEF2F3` | ![#FEF2F3](https://placehold.co/16x16/FEF2F3/FEF2F3.png) |
-| 100  | `#FFE1E3` | ![#FFE1E3](https://placehold.co/16x16/FFE1E3/FFE1E3.png) |
-| 200  | `#FFC9CC` | ![#FFC9CC](https://placehold.co/16x16/FFC9CC/FFC9CC.png) |
-| 300  | `#FEA3A8` | ![#FEA3A8](https://placehold.co/16x16/FEA3A8/FEA3A8.png) |
-| 400  | `#FC6D75` | ![#FC6D75](https://placehold.co/16x16/FC6D75/FC6D75.png) |
-| 500  | `#F3404A` | ![#F3404A](https://placehold.co/16x16/F3404A/F3404A.png) |
-| 600  | `#E1232E` | ![#E1232E](https://placehold.co/16x16/E1232E/E1232E.png) |
-| 700  | `#BD1822` | ![#BD1822](https://placehold.co/16x16/BD1822/BD1822.png) |
-| 800  | `#9C1820` | ![#9C1820](https://placehold.co/16x16/9C1820/9C1820.png) |
-| 900  | `#821A20` | ![#821A20](https://placehold.co/16x16/821A20/821A20.png) |
-| 950  | `#47080C` | ![#47080C](https://placehold.co/16x16/47080C/47080C.png) |
+| 50   | `#FEF2F3` | ![#FEF2F3](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23FEF2F3%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 100  | `#FFE1E3` | ![#FFE1E3](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23FFE1E3%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 200  | `#FFC9CC` | ![#FFC9CC](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23FFC9CC%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 300  | `#FEA3A8` | ![#FEA3A8](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23FEA3A8%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 400  | `#FC6D75` | ![#FC6D75](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23FC6D75%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 500  | `#F3404A` | ![#F3404A](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23F3404A%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 600  | `#E1232E` | ![#E1232E](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23E1232E%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 700  | `#BD1822` | ![#BD1822](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23BD1822%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 800  | `#9C1820` | ![#9C1820](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%239C1820%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 900  | `#821A20` | ![#821A20](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23821A20%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 950  | `#47080C` | ![#47080C](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2347080C%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
 
 ## Yellow
 
 | Step | Hex       | Swatch |
 |------|-----------|--------|
-| 50   | `#FEFCE8` | ![#FEFCE8](https://placehold.co/16x16/FEFCE8/FEFCE8.png) |
-| 100  | `#FEF9C3` | ![#FEF9C3](https://placehold.co/16x16/FEF9C3/FEF9C3.png) |
-| 200  | `#FEF08A` | ![#FEF08A](https://placehold.co/16x16/FEF08A/FEF08A.png) |
-| 300  | `#FDE047` | ![#FDE047](https://placehold.co/16x16/FDE047/FDE047.png) |
-| 400  | `#FACC15` | ![#FACC15](https://placehold.co/16x16/FACC15/FACC15.png) |
-| 500  | `#EAB308` | ![#EAB308](https://placehold.co/16x16/EAB308/EAB308.png) |
-| 600  | `#CA8A04` | ![#CA8A04](https://placehold.co/16x16/CA8A04/CA8A04.png) |
-| 700  | `#A16207` | ![#A16207](https://placehold.co/16x16/A16207/A16207.png) |
-| 800  | `#854D0E` | ![#854D0E](https://placehold.co/16x16/854D0E/854D0E.png) |
-| 900  | `#713F12` | ![#713F12](https://placehold.co/16x16/713F12/713F12.png) |
-| 950  | `#422006` | ![#422006](https://placehold.co/16x16/422006/422006.png) |
+| 50   | `#FEFCE8` | ![#FEFCE8](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23FEFCE8%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 100  | `#FEF9C3` | ![#FEF9C3](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23FEF9C3%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 200  | `#FEF08A` | ![#FEF08A](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23FEF08A%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 300  | `#FDE047` | ![#FDE047](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23FDE047%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 400  | `#FACC15` | ![#FACC15](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23FACC15%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 500  | `#EAB308` | ![#EAB308](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23EAB308%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 600  | `#CA8A04` | ![#CA8A04](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23CA8A04%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 700  | `#A16207` | ![#A16207](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23A16207%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 800  | `#854D0E` | ![#854D0E](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23854D0E%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 900  | `#713F12` | ![#713F12](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23713F12%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 950  | `#422006` | ![#422006](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23422006%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
 
 ## Purple
 
 | Step | Hex       | Swatch |
 |------|-----------|--------|
-| 50   | `#F0F7FF` | ![#F0F7FF](https://placehold.co/16x16/F0F7FF/F0F7FF.png) |
-| 100  | `#E0EEFE` | ![#E0EEFE](https://placehold.co/16x16/E0EEFE/E0EEFE.png) |
-| 200  | `#B9DCFE` | ![#B9DCFE](https://placehold.co/16x16/B9DCFE/B9DCFE.png) |
-| 300  | `#7CC1FD` | ![#7CC1FD](https://placehold.co/16x16/7CC1FD/7CC1FD.png) |
-| 400  | `#36A2FA` | ![#36A2FA](https://placehold.co/16x16/36A2FA/36A2FA.png) |
-| 500  | `#0C87EB` | ![#0C87EB](https://placehold.co/16x16/0C87EB/0C87EB.png) |
-| 600  | `#0060B9` | ![#0060B9](https://placehold.co/16x16/0060B9/0060B9.png) |
-| 700  | `#0152A3` | ![#0152A3](https://placehold.co/16x16/0152A3/0152A3.png) |
-| 800  | `#064786` | ![#064786](https://placehold.co/16x16/064786/064786.png) |
-| 900  | `#0B3C6F` | ![#0B3C6F](https://placehold.co/16x16/0B3C6F/0B3C6F.png) |
-| 950  | `#07264A` | ![#07264A](https://placehold.co/16x16/07264A/07264A.png) |
+| 50   | `#F0F7FF` | ![#F0F7FF](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23F0F7FF%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 100  | `#E0EEFE` | ![#E0EEFE](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23E0EEFE%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 200  | `#B9DCFE` | ![#B9DCFE](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23B9DCFE%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 300  | `#7CC1FD` | ![#7CC1FD](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%237CC1FD%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 400  | `#36A2FA` | ![#36A2FA](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2336A2FA%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 500  | `#0C87EB` | ![#0C87EB](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%230C87EB%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 600  | `#0060B9` | ![#0060B9](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%230060B9%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 700  | `#0152A3` | ![#0152A3](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%230152A3%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 800  | `#064786` | ![#064786](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23064786%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 900  | `#0B3C6F` | ![#0B3C6F](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%230B3C6F%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 950  | `#07264A` | ![#07264A](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2307264A%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
 
 ## Neutral
 
 | Step | Hex       | Swatch |
 |------|-----------|--------|
-| 50   | `#FAFAFA` | ![#FAFAFA](https://placehold.co/16x16/FAFAFA/FAFAFA.png) |
-| 100  | `#F5F5F5` | ![#F5F5F5](https://placehold.co/16x16/F5F5F5/F5F5F5.png) |
-| 200  | `#E5E5E5` | ![#E5E5E5](https://placehold.co/16x16/E5E5E5/E5E5E5.png) |
-| 300  | `#D4D4D4` | ![#D4D4D4](https://placehold.co/16x16/D4D4D4/D4D4D4.png) |
-| 400  | `#A3A3A3` | ![#A3A3A3](https://placehold.co/16x16/A3A3A3/A3A3A3.png) |
-| 500  | `#737373` | ![#737373](https://placehold.co/16x16/737373/737373.png) |
-| 600  | `#525252` | ![#525252](https://placehold.co/16x16/525252/525252.png) |
-| 700  | `#404040` | ![#404040](https://placehold.co/16x16/404040/404040.png) |
-| 800  | `#262626` | ![#262626](https://placehold.co/16x16/262626/262626.png) |
-| 900  | `#171717` | ![#171717](https://placehold.co/16x16/171717/171717.png) |
-| 950  | `#000000` | ![#000000](https://placehold.co/16x16/000000/000000.png) |
+| 50   | `#FAFAFA` | ![#FAFAFA](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23FAFAFA%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 100  | `#F5F5F5` | ![#F5F5F5](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23F5F5F5%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 200  | `#E5E5E5` | ![#E5E5E5](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23E5E5E5%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 300  | `#D4D4D4` | ![#D4D4D4](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23D4D4D4%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 400  | `#A3A3A3` | ![#A3A3A3](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23A3A3A3%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 500  | `#737373` | ![#737373](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23737373%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 600  | `#525252` | ![#525252](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23525252%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 700  | `#404040` | ![#404040](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23404040%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 800  | `#262626` | ![#262626](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23262626%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 900  | `#171717` | ![#171717](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23171717%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
+| 950  | `#000000` | ![#000000](data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23000000%22%20rx%3D%222%22%2F%3E%3C%2Fsvg%3E) |
 
 ## White
 
