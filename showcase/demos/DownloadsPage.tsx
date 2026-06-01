@@ -28,9 +28,9 @@ const PACKAGES: Package[] = [
     subtitle: "Everything in one folder",
     description: "Complete package — components, tokens, themes, and all documentation combined into one clean folder structure.",
     size: "1.6 MB",
-    color: "#1D32FF",
-    bg: "#EAF3FF",
-    border: "#B9D3FF",
+    color: "var(--color-text-brand)",
+    bg: "var(--color-bg-brand-contrast)",
+    border: "var(--color-border-brand)",
     badge: "Recommended",
     icon: <IconAttach16 size={20} />,
     includes: [
@@ -309,9 +309,9 @@ export function DownloadsPage({ colorMode }: DownloadsPageProps) {
   const headingColor = isDark ? "#F1F5F9" : "#111827";
   const subtitleColor = isDark ? "#94A3B8" : "#6B7280";
   const dividerColor = isDark ? "rgba(255,255,255,0.08)" : "#E5E7EB";
-  const noteBg = isDark ? "rgba(29,50,255,0.12)" : "#EAF3FF";
-  const noteBorder = isDark ? "rgba(29,50,255,0.3)" : "#B9D3FF";
-  const noteText = isDark ? "#93B4FF" : "#1D32FF";
+  const noteBg = "var(--color-bg-brand-contrast)";
+  const noteBorder = "var(--color-border-brand)";
+  const noteText = "var(--color-text-brand)";
 
   return (
     <div style={{ maxWidth: 900, paddingBottom: 80 }}>
