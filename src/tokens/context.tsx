@@ -77,6 +77,24 @@ export function applyThemeToCSSVars(tokens: ThemeTokens, root: HTMLElement = doc
     '--shadow-floating-default': tokens.shadow.floating.default,
     '--shadow-floating-gen-card': tokens.shadow.floating.genCard,
     '--shadow-floating-float':   tokens.shadow.floating.float,
+    // Motion
+    '--motion-duration-fast':   tokens.motion.duration.fast,
+    '--motion-duration-normal': tokens.motion.duration.normal,
+    '--motion-duration-slow':   tokens.motion.duration.slow,
+    '--motion-duration-slower': tokens.motion.duration.slower,
+    '--motion-easing-default':  tokens.motion.easing.default,
+    '--motion-easing-spring':   tokens.motion.easing.spring,
+    '--motion-easing-enter':    tokens.motion.easing.enter,
+    '--motion-easing-exit':     tokens.motion.easing.exit,
+    // Radius
+    '--radius-none': tokens.radius.none,
+    '--radius-xs':   tokens.radius.xs,
+    '--radius-sm':   tokens.radius.sm,
+    '--radius-md':   tokens.radius.md,
+    '--radius-lg':   tokens.radius.lg,
+    '--radius-xl':   tokens.radius.xl,
+    '--radius-xxl':  tokens.radius.xxl,
+    '--radius-full': tokens.radius.full,
   };
 
   Object.entries(vars).forEach(([key, value]) => {

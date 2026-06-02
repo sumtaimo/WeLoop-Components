@@ -22,3 +22,5 @@ export * from "./ButtonSingle";
 export * from "./Link";
 export * from "./NotifBadge";
 export * from "./PaymentBadge";
+export * from "./Skeleton";
+export * from './Accordion';

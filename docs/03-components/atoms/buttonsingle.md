@@ -21,6 +21,8 @@ import { ButtonSingle } from 'weloop-components/components/atoms';
 | `leadIcon` | `React.ReactNode` | `—` | Icon rendered before the label |
 | `shortcut` | `string` | `—` | Keyboard shortcut badge inside the button |
 | `disabled` | `boolean` | `false` | Disables the button |
+| `loading` | `boolean` | `false` | Shows a spinning loader, hides label/icons, and disables the button |
+| `iconOnly` | `boolean` | `false` | When `true` and `leadIcon` is provided, renders a square icon-only button with no label or shortcut |
 | `onClick` | `React.MouseEventHandler` | `—` | Click handler |
 
 ## Token Usage

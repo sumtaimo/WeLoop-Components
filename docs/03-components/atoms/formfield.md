@@ -23,6 +23,10 @@ import { FormField } from 'weloop-components/components/atoms';
 | `selectValue` | `string` | `—` | Value for combo select part |
 | `selectOptions` | `string[]` | `["Option 1","Option 2","Option 3"]` | Options for combo dropdown |
 | `onSelectChange` | `(value: string) => void` | `—` | Called when combo select changes |
+| `prefix` | `React.ReactNode` | `—` | Content rendered inside the field on the left (icon, currency symbol, dialling code, etc.). Not applicable to `comboLeft`/`comboRight`. |
+| `suffix` | `React.ReactNode` | `—` | Content rendered inside the field on the right (icon, unit label, etc.). Not applicable to `comboLeft`/`comboRight`. |
+| `rows` | `number` | `3` | Number of visible text rows (`textarea` type only) |
+| `resize` | `"none"|"vertical"|"both"` | `"vertical"` | CSS resize behaviour (`textarea` type only) |
 | `helperText` | `string` | `—` | Helper or validation message below field |
 | `error` | `boolean` | `false` | Error state (red border + helper) |
 | `success` | `boolean` | `false` | Success state (green border) |

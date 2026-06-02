@@ -91,8 +91,8 @@ export interface ShadowTokens {
     hover:     string;
     pressed:   string;
     secondary: string;
-    sm: string;  // kept for backwards compat
-    md: string;  // kept for backwards compat
+    sm: string;
+    md: string;
   };
   default: {
     default: string;
@@ -124,9 +124,37 @@ export interface ShadowTokens {
   };
 }
 
+export interface MotionTokens {
+  duration: {
+    fast:   string; // 100ms — micro interactions
+    normal: string; // 200ms — standard transitions
+    slow:   string; // 300ms — panels, modals entering
+    slower: string; // 500ms — page-level transitions
+  };
+  easing: {
+    default: string; // standard ease-in-out
+    spring:  string; // overshoot for playful feel
+    enter:   string; // decelerate — elements entering
+    exit:    string; // accelerate — elements leaving
+  };
+}
+
+export interface RadiusTokens {
+  none: string;   // 0
+  xs:   string;   // 2px
+  sm:   string;   // 4px
+  md:   string;   // 8px
+  lg:   string;   // 12px
+  xl:   string;   // 16px
+  xxl:  string;   // 24px
+  full: string;   // 9999px
+}
+
 export interface ThemeTokens {
   name: ThemeName;
   mode: ColorMode;
   color: ColorTokens;
   shadow: ShadowTokens;
+  motion: MotionTokens;
+  radius: RadiusTokens;
 }

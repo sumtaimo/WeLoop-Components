@@ -1,4 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+// ─── Spinner keyframes (injected once into the document) ──────────────────────
+const SPIN_KEYFRAMES = `@keyframes wl-spin { to { transform: rotate(360deg); } }`;
+
+function injectSpinKeyframes() {
+  if (typeof document === "undefined") return;
+  if (document.getElementById("wl-spin-keyframes")) return;
+  const style = document.createElement("style");
+  style.id = "wl-spin-keyframes";
+  style.textContent = SPIN_KEYFRAMES;
+  document.head.appendChild(style);
+}
 
 export type ButtonSingleType    = "primary" | "danger" | "ghost";
 export type ButtonSingleVariant = "filled" | "outline" | "ghost";
@@ -14,6 +26,10 @@ export interface ButtonSingleProps
   leadIcon?: React.ReactNode;
   /** Keyboard shortcut badge displayed inside the button */
   shortcut?: string;
+  /** When true, shows a spinning loader and disables the button */
+  loading?: boolean;
+  /** When true and leadIcon is provided, shows only the icon (square button, no label) */
+  iconOnly?: boolean;
 }
 
 // ─── Size tokens ──────────────────────────────────────────────────────────────
@@ -163,6 +179,13 @@ function resolveStyle(
   return ghostStyles[buttonType];
 }
 
+// ─── Square size tokens for iconOnly ─────────────────────────────────────────
+const iconOnlySizes: Record<ButtonSingleSize, React.CSSProperties> = {
+  xs: { height: 24, width: 24, padding: 0, borderRadius: 6,  fontSize: 12, lineHeight: "16px", gap: 0 },
+  sm: { height: 32, width: 32, padding: 0, borderRadius: 8,  fontSize: 14, lineHeight: "16px", gap: 0 },
+  md: { height: 40, width: 40, padding: 0, borderRadius: 10, fontSize: 14, lineHeight: "16px", gap: 0 },
+};
+
 // ─── Component ────────────────────────────────────────────────────────────────
 export function ButtonSingle({
   buttonType = "primary",
@@ -172,6 +195,8 @@ export function ButtonSingle({
   shortcut,
   children,
   disabled,
+  loading = false,
+  iconOnly = false,
   style,
   onMouseEnter,
   onMouseLeave,
@@ -182,16 +207,20 @@ export function ButtonSingle({
   const [hovered, setHovered] = useState(false);
   const [pressed, setPressed] = useState(false);
 
-  const sizeStyle    = sizes[size];
-  const variantStyle = resolveStyle(variant, buttonType, !!disabled, hovered, pressed);
+  // Inject spinner keyframes on first render
+  useEffect(() => { injectSpinKeyframes(); }, []);
+
+  const isDisabled = !!disabled || loading;
+  const sizeStyle    = (iconOnly && leadIcon) ? iconOnlySizes[size] : sizes[size];
+  const variantStyle = resolveStyle(variant, buttonType, isDisabled, hovered, pressed);
 
   return (
     <button
       {...props}
-      disabled={disabled}
-      onMouseEnter={(e) => { if (!disabled) setHovered(true);  onMouseEnter?.(e); }}
+      disabled={isDisabled}
+      onMouseEnter={(e) => { if (!isDisabled) setHovered(true);  onMouseEnter?.(e); }}
       onMouseLeave={(e) => { setHovered(false); setPressed(false); onMouseLeave?.(e); }}
-      onMouseDown={(e)  => { if (!disabled) setPressed(true); onMouseDown?.(e); }}
+      onMouseDown={(e)  => { if (!isDisabled) setPressed(true); onMouseDown?.(e); }}
       onMouseUp={(e)    => { setPressed(false); onMouseUp?.(e); }}
       style={{
         display: "inline-flex",
@@ -202,7 +231,7 @@ export function ButtonSingle({
         letterSpacing: "-0.2px",
         whiteSpace: "nowrap",
         overflow: "hidden",
-        cursor: disabled ? "not-allowed" : "pointer",
+        cursor: isDisabled ? "not-allowed" : "pointer",
         flexShrink: 0,
         boxSizing: "border-box",
         transition: "background 0.12s, box-shadow 0.12s, border-color 0.12s",
@@ -211,34 +240,51 @@ export function ButtonSingle({
         ...style,
       }}
     >
-      {leadIcon && (
-        <span style={{ display: "inline-flex", alignItems: "center", flexShrink: 0 }}>
-          {leadIcon}
-        </span>
-      )}
-      {children && (
-        <span style={{ display: "inline-flex", flexDirection: "column", justifyContent: "center" }}>
-          {children}
-        </span>
-      )}
-      {shortcut && !disabled && (
+      {loading ? (
         <span
           style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "rgba(10,10,10,0.12)",
-            borderRadius: 5,
-            padding: "2px 4px",
-            fontSize: 10,
-            fontWeight: 600,
-            color: "rgba(255,255,255,0.8)",
-            letterSpacing: 0,
+            display: "inline-block",
+            width: 14,
+            height: 14,
+            border: "2px solid currentColor",
+            borderTopColor: "transparent",
+            borderRadius: "50%",
+            animation: "wl-spin var(--motion-duration-slow, 300ms) linear infinite",
             flexShrink: 0,
           }}
-        >
-          {shortcut}
-        </span>
+        />
+      ) : (
+        <>
+          {leadIcon && (
+            <span style={{ display: "inline-flex", alignItems: "center", flexShrink: 0 }}>
+              {leadIcon}
+            </span>
+          )}
+          {!iconOnly && children && (
+            <span style={{ display: "inline-flex", flexDirection: "column", justifyContent: "center" }}>
+              {children}
+            </span>
+          )}
+          {!iconOnly && shortcut && !isDisabled && (
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: "rgba(10,10,10,0.12)",
+                borderRadius: 5,
+                padding: "2px 4px",
+                fontSize: 10,
+                fontWeight: 600,
+                color: "rgba(255,255,255,0.8)",
+                letterSpacing: 0,
+                flexShrink: 0,
+              }}
+            >
+              {shortcut}
+            </span>
+          )}
+        </>
       )}
     </button>
   );

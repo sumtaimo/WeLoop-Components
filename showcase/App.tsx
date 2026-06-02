@@ -31,6 +31,9 @@ import { PaginationDemo } from "./demos/PaginationDemo";
 import { FileUploadDemo } from "./demos/FileUploadDemo";
 import { PopoverDemo }    from "./demos/PopoverDemo";
 import { EmptyStateDemo } from "./demos/EmptyStateDemo";
+import { SkeletonDemo }   from "./demos/SkeletonDemo";
+import { AccordionDemo }  from "./demos/AccordionDemo";
+import { DrawerDemo }     from "./demos/DrawerDemo";
 import { RadioDemo }        from "./demos/RadioDemo";
 import { ProgressBarDemo }  from "./demos/ProgressBarDemo";
 import { DatePickerDemo }   from "./demos/DatePickerDemo";
@@ -92,6 +95,8 @@ const NAV: NavItem[] = [
       { id: "inline-tip",      label: "InlineTip",      icon: <IconInfo16 size={14} /> },
       { id: "radio",           label: "Radio",          icon: <IconCircle161 size={14} /> },
       { id: "progress-bar",    label: "ProgressBar",    icon: <IconBolt size={14} /> },
+      { id: "skeleton",        label: "Skeleton",       icon: <IconCell size={14} /> },
+      { id: "accordion",       label: "Accordion",      icon: <IconList16 size={14} /> },
       { id: "icon",            label: "Icons",          icon: <IconStar16 size={14} /> },
       { id: "lucide-icons",   label: "Lucide Icons",   icon: <IconStar16 size={14} /> },
       { id: "bank-logo",       label: "BankLogo",       icon: <IconBanking16 size={14} /> },
@@ -108,6 +113,7 @@ const NAV: NavItem[] = [
       { id: "file-upload",     label: "FileUpload",     icon: <IconAttach16 size={14} /> },
       { id: "popover",         label: "Popover",        icon: <IconInfo16 size={14} /> },
       { id: "date-picker",     label: "DatePicker",     icon: <IconDate16 size={14} /> },
+      { id: "drawer",          label: "Drawer",         icon: <IconArrow16 size={14} /> },
     ],
   },
   {
@@ -175,7 +181,10 @@ function DemoContent({
     "empty-state":     <EmptyStateDemo />,
     "radio":           <RadioDemo />,
     "progress-bar":    <ProgressBarDemo />,
+    "skeleton":        <SkeletonDemo />,
+    "accordion":       <AccordionDemo />,
     "date-picker":     <DatePickerDemo />,
+    "drawer":          <DrawerDemo />,
     "icon":            <IconDemo />,
     "lucide-icons":    <LucideIconsDemo />,
     "bank-logo":       <BankLogoDemo />,

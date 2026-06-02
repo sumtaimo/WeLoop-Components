@@ -33,6 +33,12 @@ export interface FormFieldProps {
   value?: string;
   onChange?: (value: string) => void;
 
+  // ── Prefix / Suffix slots ─────────────────────────────────────────────────
+  /** Content rendered inside the input on the left (icon, text like "$", "+62") */
+  prefix?: React.ReactNode;
+  /** Content rendered inside the input on the right (icon, unit like "kg", "USD") */
+  suffix?: React.ReactNode;
+
   // ── Combo select ──────────────────────────────────────────────────────────
   selectValue?: string;
   selectPlaceholder?: string;
@@ -43,6 +49,12 @@ export interface FormFieldProps {
   tags?: string[];
   additionalTagCount?: number;
   onClear?: () => void;
+
+  // ── Textarea ──────────────────────────────────────────────────────────────
+  /** Number of visible rows (textarea only, default: 3) */
+  rows?: number;
+  /** Resize behaviour (textarea only, default: "vertical") */
+  resize?: "none" | "vertical" | "both";
 
   // ── Helper / feedback text ────────────────────────────────────────────────
   /** Rendered below the field — neutral help text or validation message */
@@ -229,17 +241,23 @@ function TextField({
   id, placeholder, value, onChange, disabled,
   tags, additionalTagCount, onClear, onFocus, onBlur,
   ariaDescribedby, ariaRequired, ariaInvalid,
+  prefixPresent, suffixPresent,
 }: {
   id?: string;
   placeholder?: string; value?: string; onChange?: (v: string) => void;
   disabled?: boolean; tags?: string[]; additionalTagCount?: number;
   onClear?: () => void; onFocus: () => void; onBlur: () => void;
   ariaDescribedby?: string; ariaRequired?: boolean; ariaInvalid?: boolean;
+  prefixPresent?: boolean; suffixPresent?: boolean;
 }) {
   const hasTags = tags && tags.length > 0;
   const showClear = (value || hasTags) && !disabled;
   return (
-    <div style={{ display: "flex", alignItems: "center", flex: 1, gap: 6, padding: "0 10px", minWidth: 0 }}>
+    <div style={{
+      display: "flex", alignItems: "center", flex: 1, gap: 6, minWidth: 0,
+      paddingLeft:  prefixPresent ? 6  : 10,
+      paddingRight: suffixPresent ? 6  : 10,
+    }}>
       {hasTags && tags!.map((t, i) => (
         <span key={`${t}-${i}`} style={{
           display: "inline-flex", alignItems: "center",
@@ -303,10 +321,12 @@ function TextField({
 
 function NumericField({
   id, placeholder = "0.00", value, onChange, disabled, onFocus, onBlur,
+  prefixPresent, suffixPresent,
 }: {
   id?: string;
   placeholder?: string; value?: string; onChange?: (v: string) => void;
   disabled?: boolean; onFocus: () => void; onBlur: () => void;
+  prefixPresent?: boolean; suffixPresent?: boolean;
 }) {
   return (
     <input
@@ -324,7 +344,8 @@ function NumericField({
         flex: 1,
         textAlign: "right",
         fontVariantNumeric: "tabular-nums",
-        padding: "0 12px",
+        paddingLeft:  prefixPresent ? 6  : 12,
+        paddingRight: suffixPresent ? 6  : 12,
         color: disabled ? "#A3A3A3" : "#171717",
         cursor: disabled ? "not-allowed" : "text",
       }}
@@ -336,11 +357,15 @@ function NumericField({
 
 function TextareaField({
   id, placeholder, value, onChange, disabled, onFocus, onBlur,
+  rows = 3, resize = "vertical",
+  paddingLeft, paddingRight,
   "aria-describedby": ariaDescribedby, "aria-required": ariaRequired, "aria-invalid": ariaInvalid,
 }: {
   id?: string;
   placeholder?: string; value?: string; onChange?: (v: string) => void;
   disabled?: boolean; onFocus: () => void; onBlur: () => void;
+  rows?: number; resize?: "none" | "vertical" | "both";
+  paddingLeft?: number; paddingRight?: number;
   "aria-describedby"?: string;
   "aria-required"?: boolean;
   "aria-invalid"?: boolean;
@@ -348,6 +373,7 @@ function TextareaField({
   return (
     <textarea
       id={id}
+      rows={rows}
       value={value ?? ""}
       placeholder={placeholder}
       disabled={disabled}
@@ -359,9 +385,11 @@ function TextareaField({
       aria-invalid={ariaInvalid}
       style={{
         ...INPUT_TEXT,
-        resize: "none",
-        minHeight: 72,
-        padding: "9px 12px",
+        resize,
+        paddingTop:    9,
+        paddingBottom: 9,
+        paddingLeft:   paddingLeft  ?? 12,
+        paddingRight:  paddingRight ?? 12,
         width: "100%",
         boxSizing: "border-box",
         color: disabled ? "#A3A3A3" : "#171717",
@@ -408,6 +436,8 @@ export function FormField({
   placeholder         = "Placeholder",
   value,
   onChange,
+  prefix,
+  suffix,
   selectValue,
   selectPlaceholder   = "Choose",
   selectOptions       = ["Option 1", "Option 2", "Option 3"],
@@ -415,6 +445,8 @@ export function FormField({
   tags,
   additionalTagCount,
   onClear,
+  rows,
+  resize,
   helperText,
   error,
   success,
@@ -460,6 +492,7 @@ export function FormField({
       {/* ── Textarea ── */}
       {isTextarea ? (
         <div style={{
+          position:     "relative",
           width:        "100%",
           borderRadius: FIELD_RADIUS,
           border:       `1.5px solid ${getBorderColor(focused, error, success, disabled)}`,
@@ -469,11 +502,51 @@ export function FormField({
           overflow:     "hidden",
           transition:   "border-color 0.15s, box-shadow 0.15s",
         }}>
+          {prefix && (
+            <span style={{
+              position:   "absolute",
+              left:       10,
+              top:        10,
+              display:    "flex",
+              alignItems: "center",
+              color:      disabled ? "#A3A3A3" : "#6B7280",
+              fontFamily: "Inter, sans-serif",
+              fontSize:   13,
+              lineHeight: "18px",
+              pointerEvents: "none",
+              userSelect: "none",
+              zIndex:     1,
+            }}>
+              {prefix}
+            </span>
+          )}
+          {suffix && (
+            <span style={{
+              position:   "absolute",
+              right:      10,
+              top:        10,
+              display:    "flex",
+              alignItems: "center",
+              color:      disabled ? "#A3A3A3" : "#6B7280",
+              fontFamily: "Inter, sans-serif",
+              fontSize:   13,
+              lineHeight: "18px",
+              pointerEvents: "none",
+              userSelect: "none",
+              zIndex:     1,
+            }}>
+              {suffix}
+            </span>
+          )}
           <TextareaField
             id={inputId}
             placeholder={placeholder} value={value}
             onChange={onChange} disabled={disabled}
             onFocus={fo} onBlur={bl}
+            rows={rows}
+            resize={resize}
+            paddingLeft={prefix  ? 32 : undefined}
+            paddingRight={suffix ? 32 : undefined}
             aria-describedby={helperText ? helperId : undefined}
             aria-required={required}
             aria-invalid={error}
@@ -481,6 +554,25 @@ export function FormField({
         </div>
       ) : (
         <FieldShell focused={focused} error={error} success={success} disabled={disabled}>
+
+          {/* Prefix slot — rendered inside the shell to the left of the input */}
+          {prefix && type !== "comboLeft" && type !== "comboRight" && (
+            <span style={{
+              display:    "flex",
+              alignItems: "center",
+              paddingLeft: 10,
+              flexShrink: 0,
+              color:      disabled ? "#A3A3A3" : "#6B7280",
+              fontFamily: "Inter, sans-serif",
+              fontSize:   13,
+              lineHeight: "18px",
+              userSelect: "none",
+              pointerEvents: "none",
+              whiteSpace: "nowrap",
+            }}>
+              {prefix}
+            </span>
+          )}
 
           {type === "text" && (
             <TextField
@@ -492,6 +584,8 @@ export function FormField({
               ariaDescribedby={helperText ? helperId : undefined}
               ariaRequired={required}
               ariaInvalid={error}
+              prefixPresent={!!prefix}
+              suffixPresent={!!suffix}
             />
           )}
 
@@ -500,7 +594,28 @@ export function FormField({
               id={inputId}
               placeholder={placeholder} value={value} onChange={onChange}
               disabled={disabled} onFocus={fo} onBlur={bl}
+              prefixPresent={!!prefix}
+              suffixPresent={!!suffix}
             />
+          )}
+
+          {/* Suffix slot — rendered inside the shell to the right of the input */}
+          {suffix && type !== "comboLeft" && type !== "comboRight" && (
+            <span style={{
+              display:    "flex",
+              alignItems: "center",
+              paddingRight: 10,
+              flexShrink: 0,
+              color:      disabled ? "#A3A3A3" : "#6B7280",
+              fontFamily: "Inter, sans-serif",
+              fontSize:   13,
+              lineHeight: "18px",
+              userSelect: "none",
+              pointerEvents: "none",
+              whiteSpace: "nowrap",
+            }}>
+              {suffix}
+            </span>
           )}
 
           {type === "comboLeft" && (
