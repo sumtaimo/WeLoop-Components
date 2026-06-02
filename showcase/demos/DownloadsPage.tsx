@@ -30,7 +30,7 @@ const PACKAGES: Package[] = [
     description: "Complete package — components, tokens, themes, and all documentation combined into one clean folder structure.",
     size: "1.6 MB",
     color: "#1D32FF",
-    buttonBg: "var(--color-bg-brand-primary)",
+    buttonBg: "var(--color-bg-brand-primary, #1D32FF)",
     bg: "var(--color-bg-brand-contrast)",
     border: "var(--color-border-brand)",
     badge: "Recommended",
@@ -270,17 +270,17 @@ function PackageCard({ pkg, mode }: { pkg: Package; mode: "light" | "dark" }) {
           padding: "11px 20px",
           borderRadius: 10,
           border: "none",
-          background: done ? "#16A34A" : downloading ? `${pkg.color}99` : pkg.buttonBg,
+          background: done ? "#16A34A" : pkg.buttonBg,
+          opacity: downloading ? 0.6 : 1,
           color: "#FFFFFF",
           fontFamily: "Inter, sans-serif",
           fontSize: 13,
           fontWeight: 600,
           cursor: downloading ? "wait" : "pointer",
-          transition: "background 0.2s, transform 0.1s",
-          transform: "scale(1)",
+          transition: "background 0.2s, opacity 0.15s",
         }}
         onMouseEnter={e => { if (!downloading) (e.currentTarget as HTMLButtonElement).style.opacity = "0.88"; }}
-        onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.opacity = "1"; }}
+        onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.opacity = downloading ? "0.6" : "1"; }}
       >
         {done ? (
           <>
