@@ -10,7 +10,8 @@ interface Package {
   subtitle: string;
   description: string;
   size: string;
-  color: string;
+  color: string;       // hex — used for opacity tricks (dots, accent bar, icon tint)
+  buttonBg: string;    // can be CSS var — used only as button background
   bg: string;
   border: string;
   icon: React.ReactNode;
@@ -28,7 +29,8 @@ const PACKAGES: Package[] = [
     subtitle: "Everything in one folder",
     description: "Complete package — components, tokens, themes, and all documentation combined into one clean folder structure.",
     size: "1.6 MB",
-    color: "var(--color-text-brand)",
+    color: "#1D32FF",
+    buttonBg: "var(--color-bg-brand-primary)",
     bg: "var(--color-bg-brand-contrast)",
     border: "var(--color-border-brand)",
     badge: "Recommended",
@@ -50,6 +52,7 @@ const PACKAGES: Package[] = [
     description: "Just the component source files. Atoms, molecules, organisms — each in its own folder with TypeScript interfaces.",
     size: "1.6 MB",
     color: "#16A34A",
+    buttonBg: "#16A34A",
     bg: "#F0FDF4",
     border: "#BBF7D0",
     icon: <IconDoc16 size={20} />,
@@ -69,6 +72,7 @@ const PACKAGES: Package[] = [
     description: "The complete token and theme system. Color primitives, semantic tokens, 6 brand themes, and the CSS variable mapper.",
     size: "18 KB",
     color: "#9333EA",
+    buttonBg: "#9333EA",
     bg: "#FAF5FF",
     border: "#E9D5FF",
     icon: <IconBolt size={20} />,
@@ -89,6 +93,7 @@ const PACKAGES: Package[] = [
     description: "All markdown docs — foundation, tokens, component APIs, theming guides. Verified against the actual source code.",
     size: "54 KB",
     color: "#D97706",
+    buttonBg: "#D97706",
     bg: "#FFFBEB",
     border: "#FDE68A",
     icon: <IconDoc16 size={20} />,
@@ -265,7 +270,7 @@ function PackageCard({ pkg, mode }: { pkg: Package; mode: "light" | "dark" }) {
           padding: "11px 20px",
           borderRadius: 10,
           border: "none",
-          background: done ? "#16A34A" : downloading ? `${pkg.color}99` : pkg.color,
+          background: done ? "#16A34A" : downloading ? `${pkg.color}99` : pkg.buttonBg,
           color: "#FFFFFF",
           fontFamily: "Inter, sans-serif",
           fontSize: 13,
